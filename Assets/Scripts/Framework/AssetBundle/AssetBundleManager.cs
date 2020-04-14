@@ -486,6 +486,7 @@ namespace AssetBundles
         {
             var creater = ResourceWebRequester.Get();
             var url = AssetBundleUtility.GetAssetBundleFileUrl(assetbundleName);
+            Debug.LogError(url);
 #if UNITY_CLIENT
             Debug.Log("RequestAssetBundleAsync：" + url);
 #endif
