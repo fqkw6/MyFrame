@@ -601,6 +601,7 @@ namespace AssetBundles
 #if UNITY_EDITOR
             if (AssetBundleConfig.IsEditorMode)
             {
+                
                 string path = AssetBundleUtility.PackagePathToAssetsPath(assetPath); 
                 UnityEngine.Object target = AssetDatabase.LoadAssetAtPath(path, assetType);
                 return new EditorAssetAsyncLoader(target);

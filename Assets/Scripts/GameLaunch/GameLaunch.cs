@@ -4,7 +4,7 @@ using AssetBundles;
 using GameChannel;
 using System;
 using XLua;
-
+using UnityEngine.SceneManagement;
 [Hotfix]
 [LuaCallCSharp]
 public class GameLaunch : MonoBehaviour
@@ -15,6 +15,14 @@ public class GameLaunch : MonoBehaviour
     GameObject noticeTipPrefab;
     AssetbundleUpdater updater;
 
+    /// <summary>
+    /// 游戏启动时调用（仅只一次）
+    /// </summary>
+    [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
+    static void OnStartGame()
+    {
+        SceneManager.LoadScene("LaunchScene");
+    }
     IEnumerator Start ()
     {
         LoggerHelper.Instance.Startup();
@@ -70,7 +78,7 @@ public class GameLaunch : MonoBehaviour
         yield return appVersionRequest;
         var streamingAppVersion = appVersionRequest.text;
         appVersionRequest.Dispose();
-
+       
         var appVersionPath = AssetBundleUtility.GetPersistentDataPath(BuildUtils.AppVersionFileName);
         var persistentAppVersion = GameUtility.SafeReadAllText(appVersionPath);
         Logger.Log(string.Format("streamingAppVersion = {0}, persistentAppVersion = {1}", streamingAppVersion, persistentAppVersion));
@@ -108,7 +116,7 @@ public class GameLaunch : MonoBehaviour
         var start = DateTime.Now;
         GameObject go = GameObject.Instantiate(prefab);
         Logger.Log(string.Format("Instantiate use {0}ms", (DateTime.Now - start).Milliseconds));
-
+        Debug.Log(go+"==============");
         var luanchLayer = GameObject.Find("UIRoot/LuanchLayer");
         go.transform.SetParent(luanchLayer.transform);
         var rectTransform = go.GetComponent<RectTransform>();

@@ -3,7 +3,7 @@
 -- 2、这里的模块在游戏逻辑跑之前开始启动，雷同Unity中的Plugin下脚本
 -- 3、这里的全局模块一般用于提供对lua语言级别的支持和扩展，和游戏框架以及逻辑无关
 
-print("Common main start...")
+print("Common main start...22222222qweqedddde555qwe2")
 
 -- 加载全局模块
 require "Common.Tools.import"
