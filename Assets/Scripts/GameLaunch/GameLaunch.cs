@@ -46,7 +46,7 @@ public class GameLaunch : MonoBehaviour
         start = DateTime.Now;
         yield return AssetBundleManager.Instance.Initialize();
         Logger.Log(string.Format("AssetBundleManager Initialize use {0}ms", (DateTime.Now - start).Milliseconds));
-
+     
         // 启动xlua热修复模块
         start = DateTime.Now;
         XLuaManager.Instance.Startup();
@@ -82,7 +82,7 @@ public class GameLaunch : MonoBehaviour
         var appVersionPath = AssetBundleUtility.GetPersistentDataPath(BuildUtils.AppVersionFileName);
         var persistentAppVersion = GameUtility.SafeReadAllText(appVersionPath);
         Logger.Log(string.Format("streamingAppVersion = {0}, persistentAppVersion = {1}", streamingAppVersion, persistentAppVersion));
-
+        
         // 如果persistent目录版本比streamingAssets目录app版本低，说明是大版本覆盖安装，清理过时的缓存
         if (!string.IsNullOrEmpty(persistentAppVersion) && BuildUtils.CheckIsNewVersion(persistentAppVersion, streamingAppVersion))
         {
@@ -126,6 +126,7 @@ public class GameLaunch : MonoBehaviour
         rectTransform.localPosition = Vector3.zero;
 
         return go;
+
     }
 
     IEnumerator InitNoticeTipPrefab()

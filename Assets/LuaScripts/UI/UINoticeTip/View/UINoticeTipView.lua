@@ -15,7 +15,7 @@ end
 
 local function OnEnable(self)
 	base.OnEnable(self)
-	
+	Logger.LogError("ddd")
 	self.model.cs_func(self.cs_obj, SafeUnpack(self.model.args))
 end
 

@@ -11,6 +11,7 @@ local function OnEnable(self)
 	base.OnEnable(self)
 	-- 进度
 	self.value = 0
+	
 end
 
 -- 关闭
@@ -21,5 +22,4 @@ end
 
 UILoadingModel.OnEnable = OnEnable
 UILoadingModel.OnDisable = OnDisable
-
 return UILoadingModel
