@@ -4,9 +4,7 @@ require "Global.Global"
 -- 定义为全局模块，整个lua程序的入口类
 GameMain = {};
 
-package.cpath = package.cpath .. ";c:/Users/Administrator.XSOOY-20190615H/.vscode/extensions/tangzx.emmylua-0.3.37/debugger/emmy/windows/x64/?.dll"
-local dbg = require("emmy_core")
-dbg.tcpListen("localhost", 9966)
+
 
 -- 全局初始化
 local function Initilize()
@@ -36,7 +34,7 @@ end
 
 --主入口函数。从这里开始lua逻辑
 local function Start()
-	print("GameMain starttttt...")
+	print("GameMain startsssssssssssssssssstttt...")
 	Logger.Log("dddddd")
 	-- 模块启动
 	UpdateManager:GetInstance():Startup()
