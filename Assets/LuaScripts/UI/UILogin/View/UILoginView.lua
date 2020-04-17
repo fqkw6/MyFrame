@@ -53,14 +53,14 @@ local function OnCreate(self)
 	self.password_input = self:AddComponent(UIInput, password_input_path)
 	self.server_select_btn = self:AddComponent(UIButton, server_select_btn_path)
 	self.login_btn = self:AddComponent(UIButton, login_btn_path)
-
+	Logger.Log("ceshishi");
 	--长按事件
 	self.press_Img=self:AddComponent(UIPointerLongPress, long_press_bg);
 	self.press_Img:SetOnClick(function()
-		print("click")
+		Logger.Log("click")
 	end);
 	self.press_Img:SetOnPress(function()
-		print("long Press")
+		Logger.Log("long Press")
 	end);
 
 	-- 设置点击回调

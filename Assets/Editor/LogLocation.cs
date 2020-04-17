@@ -20,33 +20,26 @@ public class LogLocation
             stack traceback:
 	            ScriptsFromFile.lua:22: in main chunk
 
+LUA: dddddd
+stack traceback:
+             GameMain.lua:38: in function 'GameMain.Start'
 
-     xLua exception : xlua.access, no field __Hotfix0_TestHotfix
+
+             xlua.access, no field __Hotfix0_TestHotfix
 stack traceback:
 	[C]: in field 'access'
 	[string "Init"]:101: in field 'hotfix'
 	XLua/Hotfix/HotfixTest.lua:25: in function 'XLua.Hotfix.HotfixTest.Register'
-
-
-
-LUA: dddddd
-stack traceback:
-             GameMain.lua:38: in function 'GameMain.Start'
         */
 
-        // Regex rg = new Regex("(?<=(" + "stack traceback:" + "))[.\\s\\S]*?.lua:\\d+)", RegexOptions.Multiline | RegexOptions.Singleline);
-        // UnityEngine.Debug.LogError("===============" + rg.ToString());
-        Match match1 = Regex.Match(stackTrace, "stack traceback:\n(.*?.lua:\\d+)");
-        UnityEngine.Debug.LogError("++++++++++:  " + match1.ToString().Replace("stack traceback:\n\t", ""));
-        Match match = Regex.Match(match1.ToString().Replace("stack traceback:\n\t", ""), ".*");
-        UnityEngine.Debug.LogError("===================: " + match.ToString());
-
+         //Match match = Regex.Match(stackTrace, "LuaException: (.*?.lua:\\d+)");
+        Match match = Regex.Match(stackTrace, "stack traceback:\n(.*?.lua:\\d+)");
+        // Match match = Regex.Match(match1.ToString().Replace("stack traceback:\n\t", ""), ".*");
+       // UnityEngine.Debug.LogError("===================: " +match.ToString());
         if (OpenLuaLocation(match))
         {
             return true;
         }
-
-
         match = Regex.Match(stackTrace, @"file:line:column (.+):0", RegexOptions.IgnoreCase);
         if (FindLocation(match, true))
         {
@@ -96,8 +89,15 @@ stack traceback:
                 int spliteIndex = pathLine.LastIndexOf(':');
                 string path = pathLine.Substring(0, spliteIndex);
                 int line = System.Convert.ToInt32(pathLine.Substring(spliteIndex + 1));
+                string s=path.Replace("\t","");
 
-
+                for (int i = 0; i < XLuaManager.m_path.Count; i++)
+                {
+                    if (XLuaManager.m_path[i].Contains(s))
+                    {
+                        path=XLuaManager.m_path[i];
+                    }
+                }
                 string args = string.Empty;
                 if (luaIDEType == LuaIDEType.IDEA)
                 {

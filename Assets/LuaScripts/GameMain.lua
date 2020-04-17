@@ -34,7 +34,7 @@ end
 
 --主入口函数。从这里开始lua逻辑
 local function Start()
-	print("GameMain startsssssssssssssssssstttt...")
+	Logger.Log("GameMain startsssssssssssssssssstttt...")
 	Logger.Log("dddddd")
 	-- 模块启动
 	UpdateManager:GetInstance():Startup()

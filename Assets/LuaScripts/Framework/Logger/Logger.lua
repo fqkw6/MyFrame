@@ -15,7 +15,7 @@ end
 
 local function LogError(msg)
 	if Config.Debug then
-		error(msg, 2)
+		CS.Logger.LogError(msg, 2)
 	else
 		CS.Logger.LogError(debug.traceback(msg, 2))
 	end

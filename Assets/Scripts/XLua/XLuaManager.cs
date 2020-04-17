@@ -105,7 +105,8 @@ public static List<string>  m_path=new List<string>();
             }
             catch (System.Exception ex)
             {
-                string msg = string.Format("xLua exception : {0}\n {1}", ex.Message, ex.StackTrace);
+               string msg = string.Format("xLua exception : {0}\n {1}", ex.Message, ex.StackTrace);
+                //string msg = ex.Message;
                 Logger.LogError(msg, null);
             }
         }
@@ -159,15 +160,15 @@ public static List<string>  m_path=new List<string>();
     public static byte[] CustomLoader(ref string filepath)
     {
         string scriptPath = string.Empty;
-          Logger.Log("Load lua script : " + filepath);
+//          Logger.Log("Load lua script : " + filepath);
         filepath = filepath.Replace(".", "/") + ".lua";
-       Logger.Log("Load lua script : " + filepath);
+      // Logger.Log("Load lua script : " + filepath);
 #if UNITY_EDITOR
         if (AssetBundleConfig.IsEditorMode)
         {
             scriptPath = Path.Combine(Application.dataPath, luaScriptsFolder);
             scriptPath = Path.Combine(scriptPath, filepath);
-           Logger.Log("Load lua script : " + scriptPath);
+            Logger.Log("Load lua script : " + scriptPath);
             m_path.Add(scriptPath);
             return GameUtility.SafeReadAllBytes(scriptPath);
         }
@@ -237,7 +238,8 @@ public static List<string>  m_path=new List<string>();
             catch (System.Exception ex)
             {
                 string msg = string.Format("xLua exception : {0}\n {1}", ex.Message, ex.StackTrace);
-                Logger.LogError(msg, null);
+
+                Logger.LogError(msg);
             }
         }
     }
