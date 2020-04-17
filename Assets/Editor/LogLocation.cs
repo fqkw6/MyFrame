@@ -1,4 +1,6 @@
-﻿using System.Collections;
+﻿
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
@@ -17,8 +19,28 @@ public class LogLocation
         LuaException: X:/ tolua - master / Assets / ToLua / Examples / 02_ScriptsFromFile / ScriptsFromFile.lua:22: attempt to perform arithmetic on local 'luaClass1'(a table value)
             stack traceback:
 	            ScriptsFromFile.lua:22: in main chunk
+
+
+     xLua exception : xlua.access, no field __Hotfix0_TestHotfix
+stack traceback:
+	[C]: in field 'access'
+	[string "Init"]:101: in field 'hotfix'
+	XLua/Hotfix/HotfixTest.lua:25: in function 'XLua.Hotfix.HotfixTest.Register'
+
+
+
+LUA: dddddd
+stack traceback:
+             GameMain.lua:38: in function 'GameMain.Start'
         */
-        Match match = Regex.Match(stackTrace, "LuaException: (.*?.lua:\\d+)");
+
+        // Regex rg = new Regex("(?<=(" + "stack traceback:" + "))[.\\s\\S]*?.lua:\\d+)", RegexOptions.Multiline | RegexOptions.Singleline);
+        // UnityEngine.Debug.LogError("===============" + rg.ToString());
+        Match match1 = Regex.Match(stackTrace, "stack traceback:\n(.*?.lua:\\d+)");
+        UnityEngine.Debug.LogError("++++++++++:  " + match1.ToString().Replace("stack traceback:\n\t", ""));
+        Match match = Regex.Match(match1.ToString().Replace("stack traceback:\n\t", ""), ".*");
+        UnityEngine.Debug.LogError("===================: " + match.ToString());
+
         if (OpenLuaLocation(match))
         {
             return true;

@@ -1,4 +1,5 @@
-﻿using AssetBundles;
+﻿using System.Collections.Generic;
+using AssetBundles;
 using System.IO;
 using UnityEngine;
 using XLua;
@@ -25,7 +26,7 @@ public class XLuaManager : MonoSingleton<XLuaManager>
     const string hotfixMainScriptName = "XLua.HotfixMain";
     LuaEnv luaEnv = null;
     LuaUpdater luaUpdater = null;
-
+public static List<string>  m_path=new List<string>();
     protected override void Init()
     {
         base.Init();
@@ -158,13 +159,16 @@ public class XLuaManager : MonoSingleton<XLuaManager>
     public static byte[] CustomLoader(ref string filepath)
     {
         string scriptPath = string.Empty;
+          Logger.Log("Load lua script : " + filepath);
         filepath = filepath.Replace(".", "/") + ".lua";
+       Logger.Log("Load lua script : " + filepath);
 #if UNITY_EDITOR
         if (AssetBundleConfig.IsEditorMode)
         {
             scriptPath = Path.Combine(Application.dataPath, luaScriptsFolder);
             scriptPath = Path.Combine(scriptPath, filepath);
-            //Logger.Log("Load lua script : " + scriptPath);
+           Logger.Log("Load lua script : " + scriptPath);
+            m_path.Add(scriptPath);
             return GameUtility.SafeReadAllBytes(scriptPath);
         }
 #endif
