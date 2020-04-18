@@ -14,7 +14,6 @@
 require "Framework.Common.BaseClass"
 require "Framework.Common.DataClass"
 require "Framework.Common.ConstClass"
-require "LuaDhl.KL"
 
 require "LuaDhl.Test01"
 

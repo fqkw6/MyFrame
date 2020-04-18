@@ -4,7 +4,6 @@ using UnityEngine;
 using XLua;
 public class UILogin : MonoBehaviour
 {
-    // Start is called before the first frame update
     public string panelname = "panelName";
     private void Awake()
     {
@@ -14,18 +13,11 @@ public class UILogin : MonoBehaviour
     void Start()
     {
         //初始化lua环境  
-
-
         #region   C#调用lua
 
         XLuaManager.Instance.SafeDoString("Test01 = require \"LuaDhl/Test01\"");
         var luaenv = XLuaManager.Instance.GetLuaEnv();
-        var luaTable = luaenv.Global.Get<LuaTable>("Test01");
-        luaenv.DoString("print'hello word'");
-
-        Debug.LogError(luaTable);
-
-        //Debug.Log("C# 调用lua里面定义的变量" + a);
+        var luaTable = luaenv.Global.Get<LuaTable>("Test01"); //表里有return
         //获取定义变量   可以通过luaEnv.Global.Get<>()  就可以在C#中访问XLUA里面的声明的变量
         int a = luaenv.Global.Get<int>("a");
 
