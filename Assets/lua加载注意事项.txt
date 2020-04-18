@@ -1,0 +1,4 @@
+--  please create lue file
+
+1，编码格式一定要是 UTF-8 
+2，UTF-8 with BOM 格式加载不出来

@@ -53,10 +53,8 @@ local function OnCreate(self)
 	self.password_input = self:AddComponent(UIInput, password_input_path)
 	self.server_select_btn = self:AddComponent(UIButton, server_select_btn_path)
 	self.login_btn = self:AddComponent(UIButton, login_btn_path)
-	Logger.Log("baidian");
-	Logger.LogError("hongdian");
-	Logger.LogError(self);
-	Logger.Log(self);
+	
+	
 	--长按事件
 	self.press_Img=self:AddComponent(UIPointerLongPress, long_press_bg);
 	self.press_Img:SetOnClick(function()
@@ -124,6 +122,8 @@ end
 local function OnEnable(self)
 	base.OnEnable(self)
 	self:OnRefresh()
+	Logger.Log(self.gameObject:GetComponent("UILogin").panelname);
+	--self.transform.localPosition=Vector3.New(220,11,5);
 end
 
 -- Update测试

@@ -14,6 +14,7 @@ public class GameLaunch : MonoBehaviour
     GameObject launchPrefab;
     GameObject noticeTipPrefab;
     AssetbundleUpdater updater;
+    
 
     /// <summary>
     /// 游戏启动时调用（仅只一次）
@@ -21,7 +22,7 @@ public class GameLaunch : MonoBehaviour
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     static void OnStartGame()
     {
-        SceneManager.LoadScene("LaunchScene");
+        //SceneManager.LoadScene("LaunchScene");
     }
     IEnumerator Start ()
     {

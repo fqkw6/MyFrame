@@ -34,19 +34,20 @@ end
 
 --主入口函数。从这里开始lua逻辑
 local function Start()
-	Logger.Log("GameMain startsssssssssssssssssstttt...")
+	Logger.LogError("GameMain start...")
 	Logger.Log("dddddd")
+	Logger.Log(CS.TestCS.index.."===CS>TestCS")
+	
 	-- 模块启动
 	UpdateManager:GetInstance():Startup()
 	TimerManager:GetInstance():Startup()
 	LogicUpdater:GetInstance():Startup()
 	UIManager:GetInstance():Startup()
-	
-	-- if Config.Debug then
-	-- 	-- 单元测试
-	-- 	local UnitTest = require "UnitTest.UnitTestMain"
-	-- 	UnitTest.Run()
-	-- end
+	if Config.Debug then
+		-- 单元测试()
+		-- local UnitTest = require "UnitTest.UnitTestMain"
+		-- UnitTest.Run()
+	end
 	
 	coroutine.start(function()
 		Initilize()

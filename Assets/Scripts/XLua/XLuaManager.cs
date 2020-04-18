@@ -26,7 +26,7 @@ public class XLuaManager : MonoSingleton<XLuaManager>
     const string hotfixMainScriptName = "XLua.HotfixMain";
     LuaEnv luaEnv = null;
     LuaUpdater luaUpdater = null;
-public static List<string>  m_path=new List<string>();
+    public static List<string> m_path = new List<string>();
     protected override void Init()
     {
         base.Init();
@@ -105,7 +105,7 @@ public static List<string>  m_path=new List<string>();
             }
             catch (System.Exception ex)
             {
-               string msg = string.Format("xLua exception : {0}\n {1}", ex.Message, ex.StackTrace);
+                string msg = string.Format("xLua exception : {0}\n {1}", ex.Message, ex.StackTrace);
                 //string msg = ex.Message;
                 Logger.LogError(msg, null);
             }
@@ -145,7 +145,7 @@ public static List<string>  m_path=new List<string>();
             HasGameStart = true;
         }
     }
-    
+
     public void ReloadScript(string scriptName)
     {
         SafeDoString(string.Format("package.loaded['{0}'] = nil", scriptName));
@@ -157,18 +157,23 @@ public static List<string>  m_path=new List<string>();
         SafeDoString(string.Format("require('{0}')", scriptName));
     }
 
+    public void LoadScriptNew(string scriptName)
+    {
+        scriptName=Application.dataPath +"/Scripts/DhlTest/"+scriptName;
+        SafeDoString(string.Format("require('{0}')", scriptName));
+    }
     public static byte[] CustomLoader(ref string filepath)
     {
         string scriptPath = string.Empty;
-//          Logger.Log("Load lua script : " + filepath);
+        //          Logger.Log("Load lua script : " + filepath);
         filepath = filepath.Replace(".", "/") + ".lua";
-      // Logger.Log("Load lua script : " + filepath);
+        // Logger.Log("Load lua script : " + filepath);
 #if UNITY_EDITOR
         if (AssetBundleConfig.IsEditorMode)
         {
             scriptPath = Path.Combine(Application.dataPath, luaScriptsFolder);
             scriptPath = Path.Combine(scriptPath, filepath);
-            //Logger.Log("Load lua script : " + scriptPath);
+            Logger.Log("Load lua script : " + scriptPath);
             m_path.Add(scriptPath);
             return GameUtility.SafeReadAllBytes(scriptPath);
         }
