@@ -7,17 +7,23 @@ local Logger = BaseClass("Logger")
 
 local function Log(msg)
 	if Config.Debug then
-		print(debug.traceback(msg, 2))
+		print(debug.traceback(msg, 2))--能定位
+		--CS.UnityEngine.Debug.Log(msg)
+		--CS.Logger.Log(debug.traceback(msg,2))
 	else
-		CS.Logger.Log(debug.traceback(msg, 2))
+		print(debug.traceback(msg, 2))
 	end
 end
 
 local function LogError(msg)
 	if Config.Debug then
-		CS.Logger.LogError(msg, 2)
+		--luaIdePrintWarn(debug.traceback(msg))
+		CS.Logger.LogError(debug.traceback(msg))
+		print(debug.traceback(msg, 2))
+		--CS.Logger.LogError(debug.traceback(msg,2))
 	else
-		CS.Logger.LogError(debug.traceback(msg, 2))
+		CS.Logger.LogError(debug.traceback(msg))
+		--CS.UnityEngine.Debug.LogError(msg)
 	end
 end
 

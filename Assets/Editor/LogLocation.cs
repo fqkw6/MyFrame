@@ -84,7 +84,7 @@ stack traceback:
         while (match.Success)
         {
             string pathLine = match.Groups[1].Value;
-            if (!pathLine.Contains("LogSubsystem.cs"))
+            if (!pathLine.Contains("LogSubsystem.cs"))//
             {
                 int spliteIndex = pathLine.LastIndexOf(':');
                 string path = pathLine.Substring(0, spliteIndex);

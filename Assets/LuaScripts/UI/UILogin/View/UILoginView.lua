@@ -53,7 +53,10 @@ local function OnCreate(self)
 	self.password_input = self:AddComponent(UIInput, password_input_path)
 	self.server_select_btn = self:AddComponent(UIButton, server_select_btn_path)
 	self.login_btn = self:AddComponent(UIButton, login_btn_path)
-	Logger.Log("ceshishi");
+	Logger.Log("baidian");
+	Logger.LogError("hongdian");
+	Logger.LogError(self);
+	Logger.Log(self);
 	--长按事件
 	self.press_Img=self:AddComponent(UIPointerLongPress, long_press_bg);
 	self.press_Img:SetOnClick(function()

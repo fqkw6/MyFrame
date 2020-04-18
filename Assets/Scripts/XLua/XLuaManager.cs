@@ -168,7 +168,7 @@ public static List<string>  m_path=new List<string>();
         {
             scriptPath = Path.Combine(Application.dataPath, luaScriptsFolder);
             scriptPath = Path.Combine(scriptPath, filepath);
-            Logger.Log("Load lua script : " + scriptPath);
+            //Logger.Log("Load lua script : " + scriptPath);
             m_path.Add(scriptPath);
             return GameUtility.SafeReadAllBytes(scriptPath);
         }

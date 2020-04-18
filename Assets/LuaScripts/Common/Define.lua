@@ -4,7 +4,7 @@
 -- Desc: 常用C#类别名
 --]]
 
-
+CSU=CS.UnityEngine
 GameObject=CS.UnityEngine.GameObject
 Transform=CS.UnityEngine.Transform
 Camera=CS.UnityEngine.Camera
