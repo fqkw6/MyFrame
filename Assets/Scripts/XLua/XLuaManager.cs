@@ -157,11 +157,7 @@ public class XLuaManager : MonoSingleton<XLuaManager>
         SafeDoString(string.Format("require('{0}')", scriptName));
     }
 
-    public void LoadScriptNew(string scriptName)
-    {
-        scriptName=Application.dataPath +"/Scripts/DhlTest/"+scriptName;
-        SafeDoString(string.Format("require('{0}')", scriptName));
-    }
+   
     public static byte[] CustomLoader(ref string filepath)
     {
         string scriptPath = string.Empty;
