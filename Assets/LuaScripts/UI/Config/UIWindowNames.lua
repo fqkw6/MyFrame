@@ -1,6 +1,7 @@
 --[[
 -- added by wsh @ 2017-11-30
 -- UI窗口名字定义，手动添加
+-- 枚举
 --]]
 
 local UIWindowNames = {
@@ -18,6 +19,8 @@ local UIWindowNames = {
 	-- 人物名片
 	UIBoardPlayer = "UIBoardPlayer",
 	UIBoardNPC = "UIBoardNPC",
+
+
 }
 
 return ConstClass("UIWindowNames", UIWindowNames)

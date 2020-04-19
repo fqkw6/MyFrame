@@ -84,7 +84,7 @@ stack traceback:
         while (match.Success)
         {
             string pathLine = match.Groups[1].Value;
-            if (!pathLine.Contains("LogSubsystem.cs"))//
+            if (!pathLine.Contains("LogSubsystem.cs"))//一直为true
             {
                 int spliteIndex = pathLine.LastIndexOf(':');
                 string path = pathLine.Substring(0, spliteIndex);
@@ -93,7 +93,7 @@ stack traceback:
 
                 for (int i = 0; i < XLuaManager.m_path.Count; i++)
                 {
-                    if (XLuaManager.m_path[i].Contains(s))
+                    if (XLuaManager.m_path[i].Contains(s))//xlua 里所有lua 文件地址合集
                     {
                         path=XLuaManager.m_path[i];
                     }

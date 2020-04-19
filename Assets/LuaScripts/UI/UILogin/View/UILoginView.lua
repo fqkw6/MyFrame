@@ -54,7 +54,7 @@ local function OnCreate(self)
 	self.server_select_btn = self:AddComponent(UIButton, server_select_btn_path)
 	self.login_btn = self:AddComponent(UIButton, login_btn_path)
 	
-	
+	Logger.Log("dakailogin")
 	--长按事件
 	self.press_Img=self:AddComponent(UIPointerLongPress, long_press_bg);
 	self.press_Img:SetOnClick(function()

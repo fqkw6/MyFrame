@@ -14,7 +14,7 @@ public class GameLaunch : MonoBehaviour
     GameObject launchPrefab;
     GameObject noticeTipPrefab;
     AssetbundleUpdater updater;
-    
+
 
     /// <summary>
     /// 游戏启动时调用（仅只一次）
@@ -24,14 +24,14 @@ public class GameLaunch : MonoBehaviour
     {
         //SceneManager.LoadScene("LaunchScene");
     }
-    IEnumerator Start ()
+    IEnumerator Start()
     {
         LoggerHelper.Instance.Startup();
         //注释掉IOS的推送服务
-//#if UNITY_IPHONE
-//        UnityEngine.iOS.NotificationServices.RegisterForNotifications(UnityEngine.iOS.NotificationType.Alert | UnityEngine.iOS.NotificationType.Badge | UnityEngine.iOS.NotificationType.Sound);
-//        UnityEngine.iOS.Device.SetNoBackupFlag(Application.persistentDataPath);
-//#endif
+        //#if UNITY_IPHONE
+        //        UnityEngine.iOS.NotificationServices.RegisterForNotifications(UnityEngine.iOS.NotificationType.Alert | UnityEngine.iOS.NotificationType.Badge | UnityEngine.iOS.NotificationType.Sound);
+        //        UnityEngine.iOS.Device.SetNoBackupFlag(Application.persistentDataPath);
+        //#endif
 
         // 初始化App版本
         var start = DateTime.Now;
@@ -47,7 +47,7 @@ public class GameLaunch : MonoBehaviour
         start = DateTime.Now;
         yield return AssetBundleManager.Instance.Initialize();
         Logger.Log(string.Format("AssetBundleManager Initialize use {0}ms", (DateTime.Now - start).Milliseconds));
-     
+
         // 启动xlua热修复模块
         start = DateTime.Now;
         XLuaManager.Instance.Startup();
@@ -71,7 +71,7 @@ public class GameLaunch : MonoBehaviour
             updater.StartCheckUpdate();
         }
         yield break;
-	}
+    }
 
     IEnumerator InitAppVersion()
     {
@@ -79,11 +79,11 @@ public class GameLaunch : MonoBehaviour
         yield return appVersionRequest;
         var streamingAppVersion = appVersionRequest.text;
         appVersionRequest.Dispose();
-       
+
         var appVersionPath = AssetBundleUtility.GetPersistentDataPath(BuildUtils.AppVersionFileName);
         var persistentAppVersion = GameUtility.SafeReadAllText(appVersionPath);
         Logger.Log(string.Format("streamingAppVersion = {0}, persistentAppVersion = {1}", streamingAppVersion, persistentAppVersion));
-        
+
         // 如果persistent目录版本比streamingAssets目录app版本低，说明是大版本覆盖安装，清理过时的缓存
         if (!string.IsNullOrEmpty(persistentAppVersion) && BuildUtils.CheckIsNewVersion(persistentAppVersion, streamingAppVersion))
         {
@@ -117,7 +117,7 @@ public class GameLaunch : MonoBehaviour
         var start = DateTime.Now;
         GameObject go = GameObject.Instantiate(prefab);
         Logger.Log(string.Format("Instantiate use {0}ms", (DateTime.Now - start).Milliseconds));
-        Debug.Log(go+"==============");
+        Debug.Log(go + "==============");
         var luanchLayer = GameObject.Find("UIRoot/LuanchLayer");
         go.transform.SetParent(luanchLayer.transform);
         var rectTransform = go.GetComponent<RectTransform>();
@@ -153,7 +153,7 @@ public class GameLaunch : MonoBehaviour
         var start = DateTime.Now;
         var loader = AssetBundleManager.Instance.LoadAssetAsync(launchPrefabPath, typeof(GameObject));
         yield return loader;
-        launchPrefab= loader.asset as GameObject;
+        launchPrefab = loader.asset as GameObject;
         Logger.Log(string.Format("Load launchPrefab use {0}ms", (DateTime.Now - start).Milliseconds));
         loader.Dispose();
         if (launchPrefab == null)

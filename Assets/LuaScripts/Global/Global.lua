@@ -9,7 +9,6 @@
 -- 3、Unity侧导出所有接口到CS命名空间，访问cs侧函数一律使用CS.xxx，命名空间再cs代码中给了，这里不需要处理
 -- 4、这里的全局模块是相对与游戏框架或者逻辑而言，lua语言层次的全局模块放Common.Main中导出
 --]]
-
 -- 加载全局模块
 require "Framework.Common.BaseClass"
 require "Framework.Common.DataClass"
@@ -70,7 +69,6 @@ UIPointerClick = require "Framework.UI.Component.UIPointerClick"
 UIPointerDownUp = require "Framework.UI.Component.UIPointerDownUp"
 UIPointerLongPress = require "Framework.UI.Component.UIPointerLongPress"
 UIPointerDoubleClick = require "Framework.UI.Component.UIPointerDoubleClick"
-
 
 -- ui window
 UILayers = require "Framework.UI.UILayers"
