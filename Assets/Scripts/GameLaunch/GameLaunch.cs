@@ -5,6 +5,7 @@ using GameChannel;
 using System;
 using XLua;
 using UnityEngine.SceneManagement;
+
 [Hotfix]
 [LuaCallCSharp]
 public class GameLaunch : MonoBehaviour
@@ -22,7 +23,15 @@ public class GameLaunch : MonoBehaviour
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     static void OnStartGame()
     {
-        //SceneManager.LoadScene("LaunchScene");
+#if UNITY_EDITOR
+        if (UnityEditor.EditorPrefs.GetBool(URLSetting.START_IS_GAME))
+        {
+            SceneManager.LoadScene("LaunchScene");
+            UnityEditor.EditorPrefs.SetBool(URLSetting.START_IS_GAME, false);
+        }
+#endif
+
+
     }
     IEnumerator Start()
     {

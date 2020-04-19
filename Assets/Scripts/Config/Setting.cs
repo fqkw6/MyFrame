@@ -1,6 +1,7 @@
 ﻿
 public class URLSetting
 {
+    public static string START_IS_GAME;
     public static string START_UP_URL
     {
         get
@@ -21,7 +22,7 @@ public class URLSetting
         get;
         set;
     }
-    
+
     public static string LOGIN_URL
     {
         get;
@@ -39,7 +40,7 @@ public class URLSetting
         get;
         set;
     }
-    
+
     public static string NOTICE_URL
     {
         get;
