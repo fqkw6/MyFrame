@@ -12,6 +12,7 @@ public class GameLaunch : MonoBehaviour
 {
     const string launchPrefabPath = "UI/Prefabs/View/UILaunch.prefab";
     const string noticeTipPrefabPath = "UI/Prefabs/Common/UINoticeTip.prefab";
+    const string producePrefabPath = "UI/Prefabs/View/UIProducePanel.prefab";
     GameObject launchPrefab;
     GameObject noticeTipPrefab;
     AssetbundleUpdater updater;
@@ -73,6 +74,7 @@ public class GameLaunch : MonoBehaviour
         yield return InitLaunchPrefab();
         yield return null;
         yield return InitNoticeTipPrefab();
+
 
         // 开始更新
         if (updater != null)
@@ -172,6 +174,17 @@ public class GameLaunch : MonoBehaviour
         }
         var go = InstantiateGameObject(launchPrefab);
         updater = go.AddComponent<AssetbundleUpdater>();
+        yield break;
+    }
+    IEnumerator TestLoad()
+    {
+        var loader = AssetBundleManager.Instance.LoadAssetAsync(producePrefabPath, typeof(GameObject));
+        yield return loader;
+        GameObject producePrefab = loader.asset as GameObject;
+        loader.Dispose();
+        var go = InstantiateGameObject(producePrefab);
+
+
         yield break;
     }
 }

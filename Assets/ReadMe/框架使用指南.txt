@@ -1,1 +1,7 @@
-1,
+1, AssetBundleManager.Instance.
+LoadAssetAsync("UI/Atlas/Role/ui_role_62.png", typeof(UnityEngine.Object)).asset as Texture2D
+2,异步加载 var loader = AssetBundleManager.Instance.LoadAssetAsync(producePrefabPath, typeof(GameObject));
+        yield return loader;
+        GameObject producePrefab = loader.asset as GameObject;
+        loader.Dispose();
+        var go = InstantiateGameObject(producePrefab);

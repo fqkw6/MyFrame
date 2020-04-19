@@ -28,8 +28,8 @@ local UINoticeTip = CS.UINoticeTip.Instance
 local function __init(self)
     -- 成员变量
     -- 消息中心
-    Logger.Log("chushi" .. Logger.Sign)
-    Logger.Log(self.__ctype .. Logger.Sign)
+    --  Logger.Log("chushi" .. Logger.Sign)
+    -- Logger.Log(self.__ctype .. Logger.Sign)
     self.ui_message_center = Messenger.New()
     -- 所有存活的窗体
     self.windows = {}
@@ -208,9 +208,6 @@ end
 _cname = "dwwwwww"
 -- 打开窗口：公有
 local function OpenWindow(self, ui_name, ...)
-    Logger.Log(Logger.Sign)
-    Logger.Log(ui_name)
-    print(self.__cname)
     local target = self:GetWindow(ui_name)
     if not target then
         local window = UIWindow.New()

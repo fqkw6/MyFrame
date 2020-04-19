@@ -3,24 +3,22 @@
 -- UI窗口名字定义，手动添加
 -- 枚举
 --]]
-
 local UIWindowNames = {
-	-- 登陆模块
-	UILogin = "UILogin",
-	UILoginServer = "UILoginServer",
-	-- 场景加载模块
-	UILoading = "UILoading",
-	-- Tip窗口
-	UINoticeTip = "UINoticeTip",
-	-- TestMain
-	UITestMain = "UITestMain",
-	-- BattleMain
-	UIBattleMain = "UIBattleMain",
-	-- 人物名片
-	UIBoardPlayer = "UIBoardPlayer",
-	UIBoardNPC = "UIBoardNPC",
-
-
+    -- 登陆模块
+    UILogin = "UILogin",
+    UILoginServer = "UILoginServer",
+    -- 场景加载模块
+    UILoading = "UILoading",
+    -- Tip窗口
+    UINoticeTip = "UINoticeTip",
+    -- TestMain
+    UITestMain = "UITestMain",
+    -- BattleMain
+    UIBattleMain = "UIBattleMain",
+    -- 人物名片
+    UIBoardPlayer = "UIBoardPlayer",
+    UIBoardNPC = "UIBoardNPC",
+    UIProduce = "UIProduce"
 }
 
 return ConstClass("UIWindowNames", UIWindowNames)
