@@ -1,5 +1,6 @@
 --[[
   预设体  UIProducepanel
+  ---lua 是按顺序执行的
 ]]
 local UIProduceView = BaseClass("UIProduceView", UIBaseView)
 local base = UIBaseView
@@ -11,19 +12,22 @@ local Content_path = "ContentRoot/Scroll View/Viewport/Content"
 local produnum_input_path = "ContentRoot/InputField"
 ---预设体路径
 local produce_element_path = "UI/Prefabs/Element/ProduceElement"
-
+local function ClickOnProduceBtn(self)
+    Logger.Log("开始生产")
+end
 local function OnCreate(self)
     base.OnCreate(self)
     self.title_text = self:AddComponent(UIText, title_text_path)
     self.produce_Btn = self:AddComponent(UIButton, produce_Btn_path)
     -- self.Content = self:AddComponent(UIText, Content_path)
     self.produnum_input = self:AddComponent(UIInput, produnum_input_path)
-
-    self.produce_Btn:SetOnClick(
-        function()
-            Logger.LogError("sss")
-        end
-    )
+    self.produce_Btn:SetOnClick(self, ClickOnProduceBtn)
+     --ClickOnProduceBtn必须写在上面
+    -- self.produce_Btn:SetOnClick(
+    --     function()
+    --         Logger.LogError("sss")
+    --     end
+    -- )
 end
 
 local function OnEnable(self)
@@ -38,9 +42,6 @@ local function OnRefresh(self)
     -- 各组件刷新
 end
 
-local function ClickOnProduceBtn(self)
-    Logger.Log("开始生产")
-end
 local function OnDestroy(self)
     self.title_text = nil
     -- self.produce_Btn =  nil

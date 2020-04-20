@@ -65,7 +65,7 @@ namespace EditorExtend
 
         private static void StartServer()
         {
-            string batchDirectory = Application.dataPath + "/../../product/server/bin/";
+            string batchDirectory = Application.dataPath + "/../Tools/";  //   "/../../product/server/bin/" ..表示上一级
             string batchFileName = "start.bat";
 
             if (System.IO.File.Exists(batchDirectory + batchFileName))
@@ -74,7 +74,7 @@ namespace EditorExtend
             }
             else
             {
-                UnityEngine.Debug.LogError("Start Server" + "Start Server: " + batchDirectory + batchDirectory);
+                UnityEngine.Debug.LogError("Start Server" + "Start Server: " + batchDirectory + batchFileName);
             }
         }
 
