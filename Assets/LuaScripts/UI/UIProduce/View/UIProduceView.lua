@@ -20,9 +20,14 @@ local function OnCreate(self)
     self.title_text = self:AddComponent(UIText, title_text_path)
     self.produce_Btn = self:AddComponent(UIButton, produce_Btn_path)
     -- self.Content = self:AddComponent(UIText, Content_path)
+    --Logger.Log(self.gameObject:GetComponent("UILogin").panelname)
+    --self.Content = self.transform:Find(Content_path)
+    self.Content = self:GetChildTransform(Content_path)
+    Logger.Log(self.Content.localPosition)
+    Logger.Log(self.Content.name)
     self.produnum_input = self:AddComponent(UIInput, produnum_input_path)
     self.produce_Btn:SetOnClick(self, ClickOnProduceBtn)
-     --ClickOnProduceBtn必须写在上面
+    --ClickOnProduceBtn必须写在上面
     -- self.produce_Btn:SetOnClick(
     --     function()
     --         Logger.LogError("sss")

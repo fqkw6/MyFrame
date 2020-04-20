@@ -5,3 +5,15 @@ LoadAssetAsync("UI/Atlas/Role/ui_role_62.png", typeof(UnityEngine.Object)).asset
         GameObject producePrefab = loader.asset as GameObject;
         loader.Dispose();
         var go = InstantiateGameObject(producePrefab);
+
+
+3,  --self.Content = self.transform:Find(Content_path)
+    self.Content = self:GetChildTransform(Content_path)
+
+4,  self.produce_Btn:SetOnClick(self, ClickOnProduceBtn)
+    --ClickOnProduceBtn必须写在上面
+    -- self.produce_Btn:SetOnClick(
+    --     function()
+    --         Logger.LogError("sss")
+    --     end
+    -- )
