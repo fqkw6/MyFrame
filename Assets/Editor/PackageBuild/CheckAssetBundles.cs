@@ -52,6 +52,7 @@ public static class CheckAssetBundles
         {
             count++;
             var assetPath = AssetDatabase.GUIDToAssetPath(guid);
+            Debug.LogError(assetPath + "===========ssss");
             var config = AssetDatabase.LoadAssetAtPath<AssetBundleDispatcherConfig>(assetPath);
             config.Load();
             EditorUtility.DisplayProgressBar("Run checker :", config.PackagePath, (float)count / length);

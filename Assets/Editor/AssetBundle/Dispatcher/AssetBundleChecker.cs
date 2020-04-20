@@ -21,7 +21,7 @@ namespace AssetBundles
     {
         public string RelativePath;
         public string ObjectFilter;
-        
+
         public AssetBundleCheckerFilter(string relativePath, string objectFilter)
         {
             RelativePath = relativePath;
@@ -64,7 +64,7 @@ namespace AssetBundles
             {
                 return;
             }
-
+            Debug.LogError("设置名字" + assetsPath);
             var checkerFilters = config.CheckerFilters;
             if (checkerFilters == null || checkerFilters.Count == 0)
             {
@@ -116,6 +116,7 @@ namespace AssetBundles
 
         public static void Run(AssetBundleCheckerConfig config, bool checkChannel)
         {
+
             var checker = new AssetBundleChecker(config);
             checker.CheckAssetBundleName();
             if (checkChannel)

@@ -92,9 +92,26 @@ shift + alt + f --格式化
 alt + 箭头 向上移动代码
 ctrl  +enter 向上空格
 shift _enter 向下空格
-
+shift +alt +f 在指定文件下查找文件  
 //创建cs 控制台程序
 // 在顶部菜单中选择“终端”，在下方将出现cmd命令输入框
 // 输入dotnet new -h 查看帮助信息
 // dotnet new console 创建一个控制台程序
 // 创建完成后在控制台输入dotnet run 运行程序
+
+            StringBuilder classSB = new StringBuilder();
+            classSB.AppendLine("namespace Leyoutech.Core.Loader.Config");
+            classSB.AppendLine("{");
+            classSB.AppendLine("\tpublic static class AssetAddressKey");
+            classSB.AppendLine("\t{");
+
+            fieldNameAndValues.ForEach((value) =>
+            {
+                classSB.AppendLine("\t\tpublic const string " + value);
+            });
+
+            classSB.AppendLine("\t}");
+            classSB.AppendLine("}");
+
+            string filePath = Application.dataPath + "/Scripts/Core/Loader/Config/AssetAddressKey.cs";
+            File.WriteAllText(filePath, classSB.ToString());

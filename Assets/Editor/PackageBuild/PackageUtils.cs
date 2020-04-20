@@ -148,7 +148,7 @@ public class PackageUtils
     {
         return GetPlatformName(EditorUserBuildSettings.activeBuildTarget);
     }
-    
+
     public static string GetPlatformName(BuildTarget buildTarget)
     {
         switch (buildTarget)
@@ -342,7 +342,7 @@ public class PackageUtils
 
     public static void CheckAndRunAllCheckers(bool buildForPerChannel, bool forceRun)
     {
-        // 这东西有点浪费时间，没必要的时候不跑它
+        // 这东西有点浪费时间，没必要的时候不跑它  SetName  
         if (AssetBundleDispatcherInspector.hasAnythingModified || forceRun)
         {
             AssetBundleDispatcherInspector.hasAnythingModified = false;
@@ -351,13 +351,13 @@ public class PackageUtils
             Debug.Log("Finished CheckAssetBundles.Run! use " + (DateTime.Now - start).TotalSeconds + "s");
         }
     }
-    
+
     public static void CopyAndroidSDKResources(string channelName)
     {
         string targetPath = Path.Combine(Application.dataPath, "Plugins");
         targetPath = Path.Combine(targetPath, "Android");
         GameUtility.SafeClearDir(targetPath);
-        
+
         string channelPath = Path.Combine(Environment.CurrentDirectory, "Channel");
         string resPath = Path.Combine(channelPath, "UnityCallAndroid_" + channelName);
         if (!Directory.Exists(resPath))

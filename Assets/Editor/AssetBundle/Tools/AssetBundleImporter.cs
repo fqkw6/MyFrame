@@ -20,7 +20,7 @@ namespace AssetBundles
         private bool isFile = false;
         private DirectoryInfo dirInfo = null;
         private FileInfo fileInfo = null;
-        
+
         public AssetBundleImporter(AssetImporter assetImporter)
         {
             this.assetImporter = assetImporter;
@@ -40,14 +40,13 @@ namespace AssetBundles
                 }
             }
         }
-        
+
         public static AssetBundleImporter GetAtPath(string assetPath)
         {
             if (string.IsNullOrEmpty(assetPath))
             {
                 return null;
             }
-            
             AssetImporter assetImporter = AssetImporter.GetAtPath(assetPath);
             if (assetImporter == null)
             {
@@ -58,7 +57,7 @@ namespace AssetBundles
                 return new AssetBundleImporter(assetImporter);
             }
         }
-        
+
         public bool IsValid
         {
             get
@@ -81,13 +80,13 @@ namespace AssetBundles
 
                 if (!isValid)
                 {
-                    Debug.LogError("AssetBundlesImporter is not valid!");
+                    UnityEngine.Debug.LogError("AssetBundlesImporter is not valid!");
                 }
                 return isValid;
             }
         }
-        
-        
+
+
         public bool IsFile
         {
             get
@@ -104,7 +103,7 @@ namespace AssetBundles
             }
         }
 
-        public string assetBundleName 
+        public string assetBundleName
         {
             get
             {
@@ -119,7 +118,7 @@ namespace AssetBundles
             }
         }
 
-        public string assetBundleVariant 
+        public string assetBundleVariant
         {
             get
             {
@@ -130,17 +129,18 @@ namespace AssetBundles
                 //must firstly set assetBundleName,then set assetBundleVariant
                 if (IsValid && !string.IsNullOrEmpty(assetImporter.assetBundleName))
                 {
+                    Debug.LogError(value);
                     assetImporter.assetBundleVariant = value;
                 }
             }
         }
 
         public string assetPath
-        { 
+        {
             get
             {
                 return IsValid ? assetImporter.assetPath : null;
-            } 
+            }
         }
 
         public string packagePath
@@ -151,7 +151,8 @@ namespace AssetBundles
             }
         }
 
-        public ulong assetTimeStamp { 
+        public ulong assetTimeStamp
+        {
             get
             {
                 return IsValid ? assetImporter.assetTimeStamp : 0L;
@@ -172,7 +173,7 @@ namespace AssetBundles
                 }
             }
         }
-        
+
         public void SaveAndReimport()
         {
             if (IsValid)
@@ -180,7 +181,7 @@ namespace AssetBundles
                 assetImporter.SaveAndReimport();
             }
         }
-        
+
         private string FullPathToAssetPath(string fullPath)
         {
             string retPath = GameUtility.FullPathToAssetPath(fullPath);
@@ -193,7 +194,7 @@ namespace AssetBundles
                 return retPath;
             }
         }
-        
+
         private string GetParentAssetPath()
         {
             if (!IsValid)
@@ -210,13 +211,13 @@ namespace AssetBundles
                 return FullPathToAssetPath(dirInfo.Parent.FullName);
             }
         }
-        
+
         public AssetBundleImporter GetParent()
         {
             string parentPath = GetParentAssetPath();
             return GetAtPath(parentPath);
         }
-        
+
         public List<AssetBundleImporter> GetChildren()
         {
             List<AssetBundleImporter> arr = new List<AssetBundleImporter>();
@@ -224,11 +225,11 @@ namespace AssetBundles
             {
                 return arr;
             }
-            
+
             DirectoryInfo[] dirs = dirInfo.GetDirectories();
             FileInfo[] files = dirInfo.GetFiles();
             int length = dirs.Length + files.Length;
-            if(length == 0)
+            if (length == 0)
             {
                 return arr;
             }
@@ -253,6 +254,6 @@ namespace AssetBundles
             }
             return arr;
         }
-        
+
     }
 }

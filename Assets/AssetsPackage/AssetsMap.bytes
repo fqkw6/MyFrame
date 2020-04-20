@@ -120,6 +120,7 @@ lua.assetbundle,Lua/Global/Global.lua.bytes
 lua.assetbundle,Lua/Global/LayerIndex.lua.bytes
 lua.assetbundle,Lua/Global/SortingLayerNames.lua.bytes
 lua.assetbundle,Lua/LuaDebug.lua.bytes
+lua.assetbundle,Lua/LuaDhl/Test01.lua.bytes
 lua.assetbundle,Lua/Net/Config/MsgIDDefine.lua.bytes
 lua.assetbundle,Lua/Net/Config/MsgIDMap.lua.bytes
 lua.assetbundle,Lua/Net/Connector/HallConnector.lua.bytes
@@ -159,6 +160,9 @@ lua.assetbundle,Lua/UI/UILogin/View/UILoginView.lua.bytes
 lua.assetbundle,Lua/UI/UINoticeTip/Model/UINoticeTipModel.lua.bytes
 lua.assetbundle,Lua/UI/UINoticeTip/UINoticeTipConfig.lua.bytes
 lua.assetbundle,Lua/UI/UINoticeTip/View/UINoticeTipView.lua.bytes
+lua.assetbundle,Lua/UI/UIProduce/Model/UIProduceModel.lua.bytes
+lua.assetbundle,Lua/UI/UIProduce/UIProduceConfig.lua.bytes
+lua.assetbundle,Lua/UI/UIProduce/View/UIProduceView.lua.bytes
 lua.assetbundle,Lua/UI/UITestMain/Controller/UITestMainCtrl.lua.bytes
 lua.assetbundle,Lua/UI/UITestMain/UITestMainConfig.lua.bytes
 lua.assetbundle,Lua/UI/UITestMain/View/UITestMainView.lua.bytes
@@ -375,5 +379,7 @@ ui/prefabs/view/uilaunch_prefab.assetbundle,UI/Prefabs/View/UILaunch.prefab
 ui/prefabs/view/uiloading_prefab.assetbundle,UI/Prefabs/View/UILoading.prefab
 ui/prefabs/view/uilogin_prefab.assetbundle,UI/Prefabs/View/UILogin.prefab
 ui/prefabs/view/uiloginserver_prefab.assetbundle,UI/Prefabs/View/UILoginServer.prefab
+ui/prefabs/view/uiproducepanel_prefab.assetbundle,UI/Prefabs/View/UIProducePanel.prefab
 ui/prefabs/view/uitestmain_prefab.assetbundle,UI/Prefabs/View/UITestMain.prefab
 variantsmap_bytes.assetbundle,VariantsMap.bytes
+www_prefab.assetbundle,www.prefab

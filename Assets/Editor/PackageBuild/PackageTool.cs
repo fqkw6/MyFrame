@@ -27,7 +27,8 @@ public class PackageTool : EditorWindow
     static private bool buildABSForPerChannel;
 
     [MenuItem("Tools/Package", false, 0)]
-    static void Init() {
+    static void Init()
+    {
         EditorWindow.GetWindow(typeof(PackageTool));
     }
 
@@ -226,7 +227,7 @@ public class PackageTool : EditorWindow
         GUILayout.Space(3);
         GUILayout.Label("-------------[Build AssetBundles]-------------");
         GUILayout.Space(3);
-        
+
         GUILayout.Space(3);
         GUILayout.BeginHorizontal();
         if (buildABSForPerChannel)
@@ -529,13 +530,14 @@ public class PackageTool : EditorWindow
 
     public static void BuildAssetBundlesForCurrentChannel()
     {
+        Debug.Log("打包进来了。。。。。");
         IncreaseResSubVersion();
 
         var start = DateTime.Now;
         BuildPlayer.BuildAssetBundles(buildTarget, channelType.ToString());
 
         var buildTargetName = PackageUtils.GetPlatformName(buildTarget);
-        EditorUtility.DisplayDialog("Success", string.Format("Build AssetBundles for : \n\nplatform : {0} \nchannel : {1} \n\ndone! use {2}s", 
+        EditorUtility.DisplayDialog("Success", string.Format("Build AssetBundles for : \n\nplatform : {0} \nchannel : {1} \n\ndone! use {2}s",
             buildTargetName, channelType, (DateTime.Now - start).TotalSeconds), "Confirm");
     }
 
@@ -545,7 +547,7 @@ public class PackageTool : EditorWindow
 
         var start = DateTime.Now;
         BuildPlayer.BuildAssetBundlesForAllChannels(buildTarget);
-        
+
         var buildTargetName = PackageUtils.GetPlatformName(buildTarget);
         EditorUtility.DisplayDialog("Success", string.Format("Build AssetBundles for : \n\nplatform : {0} \nchannel : all \n\ndone! use {1}s", buildTargetName, (DateTime.Now - start).TotalSeconds), "Confirm");
     }
@@ -576,6 +578,16 @@ public class PackageTool : EditorWindow
         }
         return false;
     }
+    #endregion
+
+    #region AssetBuilbSetName
+
+    public static void AssetBuildSetName()
+    {
+
+
+    }
+
     #endregion
 
     #region 打包相关操作

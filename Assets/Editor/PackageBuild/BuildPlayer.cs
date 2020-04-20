@@ -44,7 +44,7 @@ public class BuildPlayer : Editor
         string content = sb.ToString().Trim();
         GameUtility.SafeWriteAllText(Path.Combine(outputPath, BuildUtils.AssetBundlesSizeFileName), content);
     }
-    
+
     private static void InnerBuildAssetBundles(BuildTarget buildTarget, string channelName, bool writeConfig)
     {
         BuildAssetBundleOptions buildOption = BuildAssetBundleOptions.IgnoreTypeTreeChanges | BuildAssetBundleOptions.DeterministicAssetBundle;
@@ -55,6 +55,7 @@ public class BuildPlayer : Editor
             AssetsPathMappingEditor.BuildPathMapping(manifest);
             VariantMappingEditor.BuildVariantMapping(manifest);
             BuildPipeline.BuildAssetBundles(outputPath, buildOption, buildTarget);
+            Debug.LogError("输出路径" + outputPath);
         }
         WriteChannelNameFile(buildTarget, channelName);
         WriteAssetBundleSize(buildTarget, channelName);
@@ -149,7 +150,7 @@ public class BuildPlayer : Editor
         {
             LaunchAssetBundleServer.WriteAssetBundleServerURL();
         }
-        
+
         BaseChannel channel = ChannelManager.instance.CreateChannel(channelName);
         SetPlayerSetting(channel);
 
@@ -170,7 +171,7 @@ public class BuildPlayer : Editor
         GameUtility.SafeDeleteDir(outputPath);
         Debug.Log(string.Format("Build android player for : {0} done! output ：{1}", channelName, savePath));
     }
-    
+
     public static void BuildXCode(string channelName, bool isTest)
     {
         BuildTarget buildTarget = BuildTarget.iOS;
@@ -189,7 +190,7 @@ public class BuildPlayer : Editor
         GameUtility.CheckDirAndCreateWhenNeeded(buildFolder);
 
         string iconPath = "Assets/Editor/icon/ios/{0}/{1}.png";
-        string[] iconSizes = new string[] { "180", "167","152", "144", "120", "114", "76", "72", "57" };
+        string[] iconSizes = new string[] { "180", "167", "152", "144", "120", "114", "76", "72", "57" };
         List<Texture2D> iconList = new List<Texture2D>();
         for (int i = 0; i < iconSizes.Length; i++)
         {
@@ -207,11 +208,11 @@ public class BuildPlayer : Editor
         string outputPath = Path.Combine(Application.persistentDataPath, AssetBundleConfig.AssetBundlesFolderName);
         GameUtility.SafeDeleteDir(outputPath);
     }
-	
-	static string[] GetBuildScenes()
-	{
-		List<string> names = new List<string>();
-		foreach (EditorBuildSettingsScene e in EditorBuildSettings.scenes)
+
+    static string[] GetBuildScenes()
+    {
+        List<string> names = new List<string>();
+        foreach (EditorBuildSettingsScene e in EditorBuildSettings.scenes)
         {
             if (e != null && e.enabled)
             {

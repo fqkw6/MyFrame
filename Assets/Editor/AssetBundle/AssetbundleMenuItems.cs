@@ -23,6 +23,7 @@ namespace AssetBundles
         const string kEditorMode = "AssetBundles/Switch Model/Editor Mode";
         const string kToolRunAllCheckers = "AssetBundles/Run All Checkers";
         const string kToolBuildForCurrentSetting = "AssetBundles/Build For Current Setting";
+        const string kToolBuildForCurrentSetName = "AssetBundles/Build For Current SetName";
         const string kToolsCopyAssetbundles = "AssetBundles/Copy To StreamingAssets";
         const string kToolsOpenOutput = "AssetBundles/Open Current Output";
         const string kToolsOpenPerisitentData = "AssetBundles/Open PersistentData";
@@ -35,7 +36,7 @@ namespace AssetBundles
         const string kAssetDependencis = "Assets/AssetBundles/Asset Dependencis &#h";
         const string kAssetbundleAllDependencis = "Assets/AssetBundles/Assetbundle All Dependencis &#j";
         const string kAssetbundleDirectDependencis = "Assets/AssetBundles/Assetbundle Direct Dependencis &#k";
-        
+
         static AssetBundleMenuItems()
         {
             CheckSimulateModelEnv();
@@ -66,7 +67,7 @@ namespace AssetBundles
                 hasBuildAssetBundles = true;
                 BuildPlayer.BuildAssetBundlesForCurSetting();
             }
-            
+
             var streamingManifest = PackageUtils.GetCurBuildSettingStreamingManifestPath();
             if (hasBuildAssetBundles || !File.Exists(streamingManifest))
             {
@@ -86,7 +87,7 @@ namespace AssetBundles
             }
             LaunchAssetBundleServer.CheckAndDoRunning();
         }
-        
+
         [MenuItem(kEditorMode, false)]
         public static void ToggleEditorMode()
         {
@@ -141,6 +142,22 @@ namespace AssetBundles
 
         [MenuItem(kToolBuildForCurrentSetting, false, 1100)]
         static public void ToolBuildForCurrentSetting()
+        {
+            var buildTargetName = PackageUtils.GetCurPlatformName();
+            var channelName = PackageUtils.GetCurSelectedChannel().ToString();
+            bool checkCopy = EditorUtility.DisplayDialog("Build AssetBundles Warning",
+                string.Format("Build AssetBundles for : \n\nplatform : {0} \nchannel : {1} \n\nContinue ?", buildTargetName, channelName),
+                "Confirm", "Cancel");
+            if (!checkCopy)
+            {
+                return;
+            }
+
+            PackageTool.BuildAssetBundlesForCurrentChannel();
+        }
+
+        [MenuItem(kToolBuildForCurrentSetName, false, 1102)]
+        static public void ToolBuildForCurrentSetName()
         {
             var buildTargetName = PackageUtils.GetCurPlatformName();
             var channelName = PackageUtils.GetCurSelectedChannel().ToString();
@@ -255,9 +272,9 @@ namespace AssetBundles
                 removeList.AddRange(AssetBundleEditorHelper.RemoveAssetbundleInChildren(selObjs));
                 string removeStr = string.Empty;
                 int i = 0;
-                foreach(string str in removeList)
+                foreach (string str in removeList)
                 {
-                    removeStr += string.Format("[{0}]{1}\n",++i,str);
+                    removeStr += string.Format("[{0}]{1}\n", ++i, str);
                 }
                 if (removeList.Count > 0)
                 {
@@ -269,7 +286,7 @@ namespace AssetBundles
                 }
             }
         }
-        
+
         [MenuItem(kCreateAssetbundleForChildren)]
         static public void CreateAssetbundleForChildren()
         {
@@ -316,28 +333,28 @@ namespace AssetBundles
                 {
                     selStr += string.Format("[{0}]{1};", ++i, AssetDatabase.GetAssetPath(obj));
                 }
-                Debug.Log(string.Format("Selection({0}) depends on the following assets:" + 
-                    "\n-------------------------------------------\n" + 
-                    "{1}" + 
+                Debug.Log(string.Format("Selection({0}) depends on the following assets:" +
+                    "\n-------------------------------------------\n" +
+                    "{1}" +
                     "\n-------------------------------------------\n",
                     selStr,
                     depsStr));
-                AssetBundleEditorHelper.SelectDependency(selObjs,false);
+                AssetBundleEditorHelper.SelectDependency(selObjs, false);
             }
         }
-        
+
         [MenuItem(kAssetbundleAllDependencis)]
         static public void ListAssetbundleAllDependencis()
         {
             ListAssetbundleDependencis(true);
         }
-        
+
         [MenuItem(kAssetbundleDirectDependencis)]
         static public void ListAssetbundleDirectDependencis()
         {
             ListAssetbundleDependencis(false);
         }
-        
+
         static public void ListAssetbundleDependencis(bool isAll)
         {
             if (AssetBundleEditorHelper.HasValidSelection())

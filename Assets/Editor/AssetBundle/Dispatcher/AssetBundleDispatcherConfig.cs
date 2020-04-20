@@ -11,6 +11,7 @@ using System.Collections.Generic;
 
 namespace AssetBundles
 {
+    [CreateAssetMenu(fileName = "AssetBundleDispatcherConfig", menuName = "MyAsset/AssetBundleDispatcherConfig")]//添加这个特性就能在资源窗口右键创建资源
     public class AssetBundleDispatcherConfig : ScriptableObject
     {
         public string PackagePath = string.Empty;

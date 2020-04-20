@@ -30,6 +30,7 @@ namespace AssetBundles
         void OnEnable()
         {
             Initialize();
+
         }
 
         void Initialize()
@@ -79,7 +80,7 @@ namespace AssetBundles
 
         void DrawFilterItem(AssetBundleCheckerFilter checkerFilter)
         {
-            GUILayout.BeginVertical(); 
+            GUILayout.BeginVertical();
             var relativePath = GUILayoutUtils.DrawInputField("RelativePath:", checkerFilter.RelativePath, 300f, 80f);
             var objectFilter = GUILayoutUtils.DrawInputField("ObjectFilter:", checkerFilter.ObjectFilter, 300f, 80f);
             if (relativePath != checkerFilter.RelativePath)
@@ -223,8 +224,18 @@ namespace AssetBundles
         public override void OnInspectorGUI()
         {
             base.OnInspectorGUI();
+
+            string path = AssetDatabase.GetAssetPath(target);
+            GUILayout.Button("我是场景");
+            if (path.EndsWith(""))
+            {
+
+
+            }
+
             if (!AssetBundleInspectorUtils.CheckMaybeAssetBundleAsset(targetAssetPath))
             {
+
                 return;
             }
             GUI.enabled = true;
@@ -238,7 +249,7 @@ namespace AssetBundles
                 DrawAssetBundleDispatcherInspector();
             }
         }
-        
+
         void OnDisable()
         {
             if (configChanged)
@@ -250,7 +261,7 @@ namespace AssetBundles
                 {
                     Apply();
                 }
-                else if(isNewCreate)
+                else if (isNewCreate)
                 {
                     Remove();
                 }
