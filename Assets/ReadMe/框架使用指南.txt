@@ -17,3 +17,18 @@ LoadAssetAsync("UI/Atlas/Role/ui_role_62.png", typeof(UnityEngine.Object)).asset
     --         Logger.LogError("sss")
     --     end
     -- )
+
+4 BaseClass UIBaseContainer
+BaseClass 里面有个New(...)方法可以实例化，里面的ceate 有__init 方法（...） ...参数传进来
+
+uiview 继承 UIBaseView 继承 UIBaseContainer
+
+UIBaseContainer AddComponent（self, component_target, var_arg, ...）的方法 self 可以不传： 出来得传自己
+component_target 类  var_arg 地址 可以是类也可以是其他的是，会当成参数传到New(...)里面，
+...会传到component_target 类 里的create里面
+
+ __init 调 Oncreate >onEnable 
+ OnRefresh自己写的（没必要写成统一的） 写Onenable后面调用
+UIManager
+打开窗口的时候调用了Oncreate  UIBaseComponent SetActive调用了 onEnable
+

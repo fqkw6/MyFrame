@@ -55,7 +55,7 @@ public class BuildPlayer : Editor
             AssetsPathMappingEditor.BuildPathMapping(manifest);
             VariantMappingEditor.BuildVariantMapping(manifest);
             BuildPipeline.BuildAssetBundles(outputPath, buildOption, buildTarget);
-            Debug.LogError("输出路径" + outputPath);
+            Debug.Log("输出路径" + outputPath);
         }
         WriteChannelNameFile(buildTarget, channelName);
         WriteAssetBundleSize(buildTarget, channelName);

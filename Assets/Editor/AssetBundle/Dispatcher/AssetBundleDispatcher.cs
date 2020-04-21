@@ -33,7 +33,8 @@ namespace AssetBundles
             importer = AssetBundleImporter.GetAtPath(assetsPath);
             if (importer == null)
             {
-                Debug.LogError("Asset path err : " + assetsPath);
+                Debug.LogError("Asset path err : " + assetsPath + "------: " + config.PackagePath);
+                EditorUtility.ClearProgressBar();
             }
         }
 

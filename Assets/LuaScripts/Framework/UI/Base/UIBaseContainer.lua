@@ -80,7 +80,7 @@ end
 --    A）inst:AddComponent(ComponentTypeClass, relative_path)
 --    B）inst:AddComponent(ComponentTypeClass, child_index)
 --    C）inst:AddComponent(ComponentTypeClass, unity_gameObject)
-local function AddComponent(self, component_target, var_arg, ...)
+local function AddComponent(self, component_target, var_arg, ...) ---var_arg地址, ... 作为参数new
     assert(component_target.__ctype == ClassType.class)
     local component_inst = nil
     local component_class = nil

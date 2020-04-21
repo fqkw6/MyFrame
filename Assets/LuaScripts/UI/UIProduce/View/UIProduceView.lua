@@ -10,11 +10,20 @@ local title_text_path = "ContentRoot/Bg/Text"
 local produce_Btn_path = "ContentRoot/ProduceBtn"
 local Content_path = "ContentRoot/Scroll View/Viewport/Content"
 local produnum_input_path = "ContentRoot/InputField"
+local icon_image_path = "ContentRoot/Icon"
+local close_Btn_path = "ContentRoot/CloseBtn"
 ---预设体路径
 local produce_element_path = "UI/Prefabs/Element/ProduceElement"
+
 local function ClickOnProduceBtn(self)
     Logger.Log("开始生产")
 end
+
+local function ClickOnCloseBtn(self)
+    Logger.Log("Close")
+    UIManager:GetInstance():CloseWindow(UIWindowNames.UIProduce)
+end
+
 local function OnCreate(self)
     base.OnCreate(self)
     self.title_text = self:AddComponent(UIText, title_text_path)
@@ -26,7 +35,11 @@ local function OnCreate(self)
     Logger.Log(self.Content.localPosition)
     Logger.Log(self.Content.name)
     self.produnum_input = self:AddComponent(UIInput, produnum_input_path)
+    self.icon_image = self:AddComponent(UIImage, icon_image_path, AtlasConfig.Comm, "ui_equip_07")
+    self.close_Btn = self:AddComponent(UIButton, close_Btn_path)
+    self.icon_image:SetSpriteName("ui_equip_07")
     self.produce_Btn:SetOnClick(self, ClickOnProduceBtn)
+    self.close_Btn:SetOnClick(self, ClickOnCloseBtn)
     --ClickOnProduceBtn必须写在上面
     -- self.produce_Btn:SetOnClick(
     --     function()

@@ -49,7 +49,7 @@ namespace AssetBundles
         // ab缓存包：所有目前已经加载的ab包，包括临时ab包与公共ab包
         Dictionary<string, AssetBundle> assetbundlesCaching = new Dictionary<string, AssetBundle>();
         // ab缓存包引用计数：卸载ab包时只有引用计数为0时才会真正执行卸载
-        Dictionary<string, int> assetbundleRefCount = new Dictionary<string, int>(); 
+        Dictionary<string, int> assetbundleRefCount = new Dictionary<string, int>();
         // asset缓存：给非公共ab包的asset提供逻辑层的复用
         Dictionary<string, UnityEngine.Object> assetsCaching = new Dictionary<string, UnityEngine.Object>();
         // 加载数据请求：正在prosessing或者等待prosessing的资源请求
@@ -72,7 +72,7 @@ namespace AssetBundles
                 return BuildUtils.ManifestBundleName;
             }
         }
-        
+
         // Hotfix测试---用于侧测试资源模块的热修复
         public void TestHotfix()
         {
@@ -217,7 +217,7 @@ namespace AssetBundles
             {
                 assetbundleResident.Add(assetbundleName);
             }
-            else if(!resident && exist)
+            else if (!resident && exist)
             {
                 assetbundleResident.Remove(assetbundleName);
             }
@@ -298,7 +298,7 @@ namespace AssetBundles
                 var assetPath = AssetBundleUtility.PackagePathToAssetsPath(assetName);
                 var asset = curAssetbundle == null ? null : curAssetbundle.LoadAsset(assetPath);
                 AddAssetCache(assetName, asset);
-                
+
 #if UNITY_EDITOR
                 // 说明：在Editor模拟时，Shader要重新指定
                 var go = asset as GameObject;
@@ -324,12 +324,12 @@ namespace AssetBundles
 #endif
             }
         }
-        
+
         public void ClearAssetsCache()
         {
             assetsCaching.Clear();
         }
-        
+
         public ResourceWebRequester GetAssetBundleAsyncCreater(string assetbundleName)
         {
             ResourceWebRequester creater = null;
@@ -495,7 +495,7 @@ namespace AssetBundles
             webRequesterQueue.Enqueue(creater);
             return creater;
         }
-        
+
         protected bool UnloadAssetBundle(string assetbundleName, bool unloadResident = false, bool unloadAllLoadedObjects = false, bool unloadDependencies = true)
         {
             int count = GetReferenceCount(assetbundleName);
@@ -513,7 +513,7 @@ namespace AssetBundles
                 {
                     assetbundle.Unload(unloadAllLoadedObjects);
                 }
-                
+
                 RemoveAssetBundleCache(assetbundleName);
                 if (unloadDependencies && manifest != null)
                 {
@@ -601,10 +601,11 @@ namespace AssetBundles
 #if UNITY_EDITOR
             if (AssetBundleConfig.IsEditorMode)
             {
-                
-                string path = AssetBundleUtility.PackagePathToAssetsPath(assetPath); 
+
+                string path = AssetBundleUtility.PackagePathToAssetsPath(assetPath);
                 UnityEngine.Object target = AssetDatabase.LoadAssetAtPath(path, assetType);
                 return new EditorAssetAsyncLoader(target);
+
             }
 #endif
 
@@ -631,7 +632,7 @@ namespace AssetBundles
                 return loader;
             }
         }
-        
+
         void Update()
         {
             OnProsessingWebRequester();
@@ -681,7 +682,7 @@ namespace AssetBundles
                 slotCount++;
             }
         }
-        
+
         void OnProsessingAssetBundleAsyncLoader()
         {
             for (int i = prosessingAssetBundleAsyncLoader.Count - 1; i >= 0; i--)
@@ -774,7 +775,7 @@ namespace AssetBundles
         {
             var assetbundleDic = new Dictionary<string, List<string>>();
             List<string> assetNameList = null;
-            
+
             var iter = assetsCaching.GetEnumerator();
             while (iter.MoveNext())
             {

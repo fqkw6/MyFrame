@@ -120,6 +120,7 @@ namespace AssetBundles
         
         public static string PackagePathToAssetsPath(string assetPath)
         {
+            
             return "Assets/" + AssetBundleConfig.AssetsFolderName + "/" + assetPath;
         }
 

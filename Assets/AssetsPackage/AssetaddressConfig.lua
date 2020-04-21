@@ -1,4 +1,3 @@
-AssetsMap.bytes
 Effect/Common/Materials/models_fx_R.mat
 Effect/Common/Materials/models_fx_RGB.mat
 Effect/Common/Texture/Matcap_Encode2.png
@@ -327,6 +326,7 @@ UI/Atlas/Hyper/ui_hyper_money_02.png
 UI/Atlas/Hyper/ui_hyper_money_03.png
 UI/Atlas/Hyper/ui_hyper_note.png
 UI/Atlas/Hyper/ui_hyper_petexp.png
+UI/Atlas/Login/dd.spriteatlas
 UI/Atlas/Login/login2_01.png
 UI/Atlas/Login/login2_05.png
 UI/Atlas/Login/login2_06.png
@@ -381,5 +381,3 @@ UI/Prefabs/View/UILogin.prefab
 UI/Prefabs/View/UILoginServer.prefab
 UI/Prefabs/View/UIProducePanel.prefab
 UI/Prefabs/View/UITestMain.prefab
-VariantsMap.bytes
-www.prefab

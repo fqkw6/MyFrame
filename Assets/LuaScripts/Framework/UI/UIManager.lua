@@ -205,7 +205,7 @@ local function InnerCloseWindow(self, target)
         target.Active = false
     end
 end
-_cname = "dwwwwww"
+
 -- 打开窗口：公有
 local function OpenWindow(self, ui_name, ...)
     local target = self:GetWindow(ui_name)
