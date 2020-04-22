@@ -1,4 +1,4 @@
-local AssetaddressConfig = {}
+AssetaddressConfig = {}
 AssetaddressConfig.ef_ui_pet_rank_yellow_test  =  "Effect/Prefab/UI/ef_ui_pet_rank_yellow_test.prefab"
 AssetaddressConfig.ef_ui_TaskFinish  =  "Effect/Prefab/UI/ef_ui_TaskFinish.prefab"
 AssetaddressConfig.UINoticeTip  =  "UI/Prefabs/Common/UINoticeTip.prefab"
@@ -17,4 +17,4 @@ AssetaddressConfig.Group  =  "UI/SpriteAtlas/Group.spriteatlas"
 AssetaddressConfig.Hyper  =  "UI/SpriteAtlas/Hyper.spriteatlas"
 AssetaddressConfig.Login  =  "UI/SpriteAtlas/Login.spriteatlas"
 AssetaddressConfig.Role  =  "UI/SpriteAtlas/Role.spriteatlas"
-return ConstClass("AssetaddressConfig", AssetaddressConfig)
+return AssetaddressConfig

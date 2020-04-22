@@ -1,14 +1,13 @@
-﻿using System.Runtime.CompilerServices;
-using System.Linq;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using System.Text;
-using AssetBundles;
 using UnityEditor;
-using System.IO;
 public class AddressCofing2Lua : Singleton<AddressCofing2Lua>
 {
+    /// <summary>
+    /// 单利类
+    /// </summary>
+
     public override void Dispose() { }
     public List<string> addressList = new List<string>();
     private string AssetsaddressConfig = "Assets/LuaScripts/AssetaddressConfig.lua";
@@ -23,7 +22,7 @@ public class AddressCofing2Lua : Singleton<AddressCofing2Lua>
         StringBuilder classSB = new StringBuilder();
         addressList.Sort();
 
-        classSB.AppendLine("local AssetaddressConfig = {}");
+        classSB.AppendLine("AssetaddressConfig = {}");
 
         addressList.ForEach((value) =>
         {
@@ -36,7 +35,7 @@ public class AddressCofing2Lua : Singleton<AddressCofing2Lua>
             }
         });
 
-        classSB.AppendLine("return ConstClass(" + "\"" + "AssetaddressConfig" + "\"" + ", " + "AssetaddressConfig)");
+        classSB.AppendLine("return " + "AssetaddressConfig");
         string assetsaddress = AssetsaddressConfig;
 
         GameUtility.SafeWriteAllText(assetsaddress, classSB.ToString());

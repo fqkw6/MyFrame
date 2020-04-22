@@ -40,6 +40,7 @@ local function OnCreate(self)
     self.icon_image:SetSpriteNameBySpriteAtlas("UI/SpriteAtlas/Role.spriteatlas", "ui_role_02")
     self.produce_Btn:SetOnClick(self, ClickOnProduceBtn)
     self.close_Btn:SetOnClick(self, ClickOnCloseBtn)
+
     --ClickOnProduceBtn必须写在上面
     -- self.produce_Btn:SetOnClick(
     --     function()
@@ -47,7 +48,6 @@ local function OnCreate(self)
     --     end
     -- )
 end
-
 local function OnEnable(self)
     base.OnEnable(self)
     self:OnRefresh()

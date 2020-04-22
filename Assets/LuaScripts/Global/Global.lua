@@ -38,7 +38,7 @@ LangUtil = require "Config.LangUtil"
 -- ui base
 UIUtil = require "Framework.UI.Util.UIUtil"
 -- ui Config
-AssetaddressConfig = require "AssetaddressConfig"
+require "AssetaddressConfig"
 
 UIBaseModel = require "Framework.UI.Base.UIBaseModel"
 UIBaseCtrl = require "Framework.UI.Base.UIBaseCtrl"

@@ -160,7 +160,7 @@ namespace AssetBundles
         [MenuItem(kToolBuildForCurrentSetName, false, 1102)]
         static public void ToolBuildForCurrentSetName()
         {
-            AddressCofing2Lua.instance.WriteAssetsAddress();
+            //AddressCofing2Lua.instance.WriteAssetsAddress();
         }
 
         [MenuItem(kToolsCopyAssetbundles, false, 1101)]
