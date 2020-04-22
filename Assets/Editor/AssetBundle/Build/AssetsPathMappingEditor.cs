@@ -103,7 +103,6 @@ namespace AssetBundles
                 Debug.Log("BuildPathMapping success...");
             }
             AssetDatabase.Refresh();
-            WriteAssetsAddress();
         }
 
         /// <summary>

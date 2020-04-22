@@ -300,7 +300,6 @@ namespace AssetBundles
                 Debug.LogError("importer null or not valid!");
                 return;
             }
-            Debug.LogError(importer.assetPath);
             // TODO：处理variant
             importer.assetBundleName = importer.assetPath;
             //importer.assetBundleVariant = null;

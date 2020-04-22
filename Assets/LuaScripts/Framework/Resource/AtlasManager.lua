@@ -6,29 +6,48 @@
 -- 2、图集管理器不做资源缓存
 -- 3、图片名称带后缀
 --]]
-
 local AtlasManager = BaseClass("AtlasManager", Singleton)
 local sprite_type = typeof(CS.UnityEngine.Sprite)
-
+local atlas_type = typeof(CS.UnityEngine.U2D.SpriteAtlas)
 -- 从图集异步加载图片：回调方式
 local function LoadImageAsync(self, atlas_config, image_name, callback, ...)
-	local atlas_path = atlas_config.AtlasPath
-	local image_path = atlas_path.."/"..image_name
-	
-	ResourcesManager:GetInstance():LoadAsync(image_path, sprite_type, function(sprite, ...)
-		if callback then
-			callback(not IsNull(sprite) and sprite or nil, ...)
-		end
-	end, ...)
+    local atlas_path = atlas_config.AtlasPath
+    local image_path = atlas_path .. "/" .. image_name
+
+    ResourcesManager:GetInstance():LoadAsync(
+        image_path,
+        sprite_type,
+        function(sprite, ...)
+            if callback then
+                callback(not IsNull(sprite) and sprite or nil, ...)
+            end
+        end,
+        ...
+    )
+end
+
+local function LoadImageAsyncByAtlas(self, atlas_path, callback, ...)
+    local atlas_path = atlas_path
+    ResourcesManager:GetInstance():LoadAsync(
+        atlas_path,
+        atlas_type,
+        function(atlas)
+            if callback and (not IsNull(atlas)) then
+                callback(atlas)
+            -- callback(not IsNull(atlas) and atlas or nil, ...)
+            end
+        end,
+        ...
+    )
 end
 
 -- 从图集异步加载图片：协程方式
 local function CoLoadImageAsync(self, atlas_config, image_name, progress_callback)
-	local sprite = ResourcesManager:GetInstance():CoLoadAsync(path, sprite_type, progress_callback)
-	return not IsNull(sprite) and sprite or nil
+    local sprite = ResourcesManager:GetInstance():CoLoadAsync(path, sprite_type, progress_callback)
+    return not IsNull(sprite) and sprite or nil
 end
 
 AtlasManager.LoadImageAsync = LoadImageAsync
 AtlasManager.CoLoadImageAsync = CoLoadImageAsync
-
+AtlasManager.LoadImageAsyncByAtlas = LoadImageAsyncByAtlas
 return AtlasManager

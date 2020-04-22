@@ -3,8 +3,8 @@ require "Global.Global"
 package.cpath =
     package.cpath ..
     ";c:/Users/Administrator.XSOOY-20190615H/.vscode/extensions/tangzx.emmylua-0.3.37/debugger/emmy/windows/x64/?.dll"
--- local dbg = require("emmy_core")
--- dbg.tcpListen("localhost", 9966)
+local dbg = require("emmy_core")
+dbg.tcpListen("localhost", 9966)
 -- 定义为全局模块，整个lua程序的入口类
 GameMain = {}
 

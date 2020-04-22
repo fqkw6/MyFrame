@@ -99,19 +99,4 @@ shift +alt +f 在指定文件下查找文件
 // dotnet new console 创建一个控制台程序
 // 创建完成后在控制台输入dotnet run 运行程序
 
-            StringBuilder classSB = new StringBuilder();
-            classSB.AppendLine("namespace Leyoutech.Core.Loader.Config");
-            classSB.AppendLine("{");
-            classSB.AppendLine("\tpublic static class AssetAddressKey");
-            classSB.AppendLine("\t{");
-
-            fieldNameAndValues.ForEach((value) =>
-            {
-                classSB.AppendLine("\t\tpublic const string " + value);
-            });
-
-            classSB.AppendLine("\t}");
-            classSB.AppendLine("}");
-
-            string filePath = Application.dataPath + "/Scripts/Core/Loader/Config/AssetAddressKey.cs";
-            File.WriteAllText(filePath, classSB.ToString());
+      

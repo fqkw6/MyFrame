@@ -12,7 +12,7 @@ public class GameLaunch : MonoBehaviour
 {
     const string launchPrefabPath = "UI/Prefabs/View/UILaunch.prefab";
     const string noticeTipPrefabPath = "UI/Prefabs/Common/UINoticeTip.prefab";
-    const string producePrefabPath = "UI/Prefabs/View/UIProducePanel.prefab";
+
     GameObject launchPrefab;
     GameObject noticeTipPrefab;
     AssetbundleUpdater updater;
@@ -69,13 +69,14 @@ public class GameLaunch : MonoBehaviour
         XLuaManager.Instance.OnInit();
         XLuaManager.Instance.StartHotfix();
         Logger.Log(string.Format("XLuaManager StartHotfix use {0}ms", (DateTime.Now - start).Milliseconds));
+        AtlasLoader.Instance.Inint();
 
         // 初始化UI界面
         yield return InitLaunchPrefab();
         yield return null;
         yield return InitNoticeTipPrefab();
 
-
+        yield return TestLoad();
         // 开始更新
         if (updater != null)
         {
@@ -176,15 +177,17 @@ public class GameLaunch : MonoBehaviour
         updater = go.AddComponent<AssetbundleUpdater>();
         yield break;
     }
+    const string producePrefabPath = "UI/SpriteAtlas/Role.spriteatlas";
     IEnumerator TestLoad()
     {
-        var loader = AssetBundleManager.Instance.LoadAssetAsync(producePrefabPath, typeof(GameObject));
+        var loader = AssetBundleManager.Instance.LoadAssetAsync(producePrefabPath, typeof(UnityEngine.U2D.SpriteAtlas));
         yield return loader;
-        GameObject producePrefab = loader.asset as GameObject;
+        UnityEngine.U2D.SpriteAtlas producePrefab = loader.asset as UnityEngine.U2D.SpriteAtlas;
+
         loader.Dispose();
-        var go = InstantiateGameObject(producePrefab);
-
-
+        //producePrefab.GetSprite(spriteName);
         yield break;
     }
+
+
 }

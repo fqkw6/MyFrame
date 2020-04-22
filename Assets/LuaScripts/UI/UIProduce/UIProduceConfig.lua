@@ -9,7 +9,7 @@ local UIProduce = {
     -- Model = require "UI.UILoading.Model.UILoadingModel",
     Ctrl = nil,
     View = require "UI.UIProduce.View.UIProduceView",
-    PrefabPath = "UI/Prefabs/View/UIProducePanel.prefab"
+    PrefabPath = AssetaddressConfig.UIProducePanel
 }
 
 return {

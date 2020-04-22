@@ -23,7 +23,7 @@ namespace AssetBundles
         const string kEditorMode = "AssetBundles/Switch Model/Editor Mode";
         const string kToolRunAllCheckers = "AssetBundles/Run All Checkers";
         const string kToolBuildForCurrentSetting = "AssetBundles/Build For Current Setting";
-        const string kToolBuildForCurrentSetName = "AssetBundles/Build For Current SetName";
+        const string kToolBuildForCurrentSetName = "AssetBundles/Address To LuaConfig";
         const string kToolsCopyAssetbundles = "AssetBundles/Copy To StreamingAssets";
         const string kToolsOpenOutput = "AssetBundles/Open Current Output";
         const string kToolsOpenPerisitentData = "AssetBundles/Open PersistentData";
@@ -138,6 +138,7 @@ namespace AssetBundles
 
             bool checkChannel = PackageUtils.BuildAssetBundlesForPerChannel(EditorUserBuildSettings.activeBuildTarget);
             PackageUtils.CheckAndRunAllCheckers(checkChannel, true);
+            AddressCofing2Lua.instance.WriteAssetsAddress();
         }
 
         [MenuItem(kToolBuildForCurrentSetting, false, 1100)]
@@ -159,17 +160,7 @@ namespace AssetBundles
         [MenuItem(kToolBuildForCurrentSetName, false, 1102)]
         static public void ToolBuildForCurrentSetName()
         {
-            var buildTargetName = PackageUtils.GetCurPlatformName();
-            var channelName = PackageUtils.GetCurSelectedChannel().ToString();
-            bool checkCopy = EditorUtility.DisplayDialog("Build AssetBundles Warning",
-                string.Format("Build AssetBundles for : \n\nplatform : {0} \nchannel : {1} \n\nContinue ?", buildTargetName, channelName),
-                "Confirm", "Cancel");
-            if (!checkCopy)
-            {
-                return;
-            }
-
-            PackageTool.BuildAssetBundlesForCurrentChannel();
+            AddressCofing2Lua.instance.WriteAssetsAddress();
         }
 
         [MenuItem(kToolsCopyAssetbundles, false, 1101)]

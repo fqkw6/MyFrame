@@ -2,7 +2,7 @@
 using System.IO;
 using UnityEditor;
 using System.Collections.Generic;
-
+using System.Text;
 /// <summary>
 /// added by wsh @ 2018.01.03
 /// 说明：Assetbundle检测器，由于Unity中的AssetBundle名字标签很不好管理，这里做一层检测以防漏
@@ -64,11 +64,15 @@ namespace AssetBundles
             {
                 return;
             }
-            Debug.LogError("设置名字" + assetsPath);
+            if (!AddressCofing2Lua.instance.addressList.Contains(assetsPath))
+            {
+                AddressCofing2Lua.instance.addressList.Add(assetsPath);
+            }
             var checkerFilters = config.CheckerFilters;
             if (checkerFilters == null || checkerFilters.Count == 0)
             {
                 importer.assetBundleName = assetsPath;
+
             }
             else
             {
@@ -87,6 +91,7 @@ namespace AssetBundles
                     if (imp.IsFile)
                     {
                         importer.assetBundleName = assetsPath;
+
                         continue;
                     }
                     string[] objGuids = AssetDatabase.FindAssets(checkerFilter.ObjectFilter, new string[] { relativePath });
@@ -95,9 +100,11 @@ namespace AssetBundles
                         var path = AssetDatabase.GUIDToAssetPath(guid);
                         imp = AssetBundleImporter.GetAtPath(path);
                         imp.assetBundleName = assetsPath;
+
                     }
                 }
             }
+
         }
 
         public void CheckChannelName()
@@ -125,5 +132,9 @@ namespace AssetBundles
             }
             AssetDatabase.Refresh();
         }
+
+
     }
+
+
 }

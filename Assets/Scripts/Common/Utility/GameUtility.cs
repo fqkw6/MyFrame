@@ -269,7 +269,6 @@ public class GameUtility
                 File.SetAttributes(outFile, FileAttributes.Normal);
             }
             File.WriteAllLines(outFile, outLines);
-            Debug.LogError("他写进来了");
             return true;
         }
         catch (System.Exception ex)

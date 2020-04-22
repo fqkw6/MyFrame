@@ -33,4 +33,6 @@ UIManager
 打开窗口的时候调用了Oncreate  UIBaseComponent SetActive调用了 onEnable
 
 lua 加载 CustomLoader XLuaManager
+
+执行 AssetBundles/Run All Checkers 会自动把预设体路径写到 AssetsaddressConfig
  
