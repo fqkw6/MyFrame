@@ -32,3 +32,5 @@ component_target 类  var_arg 地址 可以是类也可以是其他的是，会�
 UIManager
 打开窗口的时候调用了Oncreate  UIBaseComponent SetActive调用了 onEnable
 
+lua 加载 CustomLoader XLuaManager
+ 
