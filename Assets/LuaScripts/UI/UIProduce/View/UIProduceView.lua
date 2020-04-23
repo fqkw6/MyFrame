@@ -52,6 +52,25 @@ local function OnEnable(self)
     base.OnEnable(self)
     self:OnRefresh()
     Logger.Log("OnEnable")
+    for i = 1, 30 do
+        GameObjectPool:GetInstance():GetGameObjectAsync(
+            AssetaddressConfig.ProduceElement,
+            function(go)
+                local trans = go.transform
+                trans:SetParent(self.Content)
+                trans.localScale = Vector3.New(1, 1, 1)
+                trans.localPosition = Vector3.New(0, 0, 0)
+                go:SetActive(true)
+
+                if IsNull(go) then
+                    return
+                end
+
+                --Logger.LogError()
+            end
+        )
+    end
+
     --self.transform.localPosition=Vector3.New(220,11,5);
 end
 

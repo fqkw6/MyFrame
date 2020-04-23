@@ -121,6 +121,7 @@ lua.assetbundle,Lua/Global/LayerIndex.lua.bytes
 lua.assetbundle,Lua/Global/SortingLayerNames.lua.bytes
 lua.assetbundle,Lua/LuaDebug.lua.bytes
 lua.assetbundle,Lua/LuaDhl/Test01.lua.bytes
+lua.assetbundle,Lua/LuaDhl/Yu.lua.bytes
 lua.assetbundle,Lua/Net/Config/MsgIDDefine.lua.bytes
 lua.assetbundle,Lua/Net/Config/MsgIDMap.lua.bytes
 lua.assetbundle,Lua/Net/Connector/HallConnector.lua.bytes
@@ -198,6 +199,8 @@ ui/ani.assetbundle,UI/Ani/ui_ani_TaskFinish.controller
 ui/fonts/system_art_ttf.assetbundle,UI/Fonts/system_art.TTF
 ui/fonts/system_ttf.assetbundle,UI/Fonts/system.TTF
 ui/prefabs/common/uinoticetip_prefab.assetbundle,UI/Prefabs/Common/UINoticeTip.prefab
+ui/prefabs/element/produceelement_prefab.assetbundle,UI/Prefabs/Element/ProduceElement.prefab
+ui/prefabs/view/ssss_prefab.assetbundle,UI/Prefabs/View/ssss.prefab
 ui/prefabs/view/uibattlemain_prefab.assetbundle,UI/Prefabs/View/UIBattleMain.prefab
 ui/prefabs/view/uiboardnpc_prefab.assetbundle,UI/Prefabs/View/UIBoardNPC.prefab
 ui/prefabs/view/uiboardplayer_prefab.assetbundle,UI/Prefabs/View/UIBoardPlayer.prefab
@@ -207,7 +210,6 @@ ui/prefabs/view/uilogin_prefab.assetbundle,UI/Prefabs/View/UILogin.prefab
 ui/prefabs/view/uiloginserver_prefab.assetbundle,UI/Prefabs/View/UILoginServer.prefab
 ui/prefabs/view/uiproducepanel_prefab.assetbundle,UI/Prefabs/View/UIProducePanel.prefab
 ui/prefabs/view/uitestmain_prefab.assetbundle,UI/Prefabs/View/UITestMain.prefab
-ui/prefabs/view/xxx_prefab.assetbundle,UI/Prefabs/View/xxx.prefab
 ui/spriteatlas/comm_spriteatlas.assetbundle,UI/SpriteAtlas/Comm.spriteatlas
 ui/spriteatlas/group_spriteatlas.assetbundle,UI/SpriteAtlas/Group.spriteatlas
 ui/spriteatlas/hyper_spriteatlas.assetbundle,UI/SpriteAtlas/Hyper.spriteatlas

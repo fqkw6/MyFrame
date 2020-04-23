@@ -2,6 +2,7 @@ AssetaddressConfig = {}
 AssetaddressConfig.ef_ui_pet_rank_yellow_test  =  "Effect/Prefab/UI/ef_ui_pet_rank_yellow_test.prefab"
 AssetaddressConfig.ef_ui_TaskFinish  =  "Effect/Prefab/UI/ef_ui_TaskFinish.prefab"
 AssetaddressConfig.UINoticeTip  =  "UI/Prefabs/Common/UINoticeTip.prefab"
+AssetaddressConfig.ProduceElement  =  "UI/Prefabs/Element/ProduceElement.prefab"
 AssetaddressConfig.ssss  =  "UI/Prefabs/View/ssss.prefab"
 AssetaddressConfig.UIBattleMain  =  "UI/Prefabs/View/UIBattleMain.prefab"
 AssetaddressConfig.UIBoardNPC  =  "UI/Prefabs/View/UIBoardNPC.prefab"
