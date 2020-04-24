@@ -25,7 +25,7 @@ local function OnCreate(self)
     self.server_name_text = self:AddComponent(UIText, "SvrName")
     self.server_choose_cmp = self:AddComponent(UIBaseComponent, "SvrChoose")
     self.server_state_img = self:AddComponent(UIImage, "SvrState", AtlasConfig.Login, GetServerStateSpriteName())
-    self.server_state_img:SetSpriteName(GetServerStateSpriteName(3))
+    self.server_state_img:SetSpriteNameBySpriteAtlas(AssetaddressConfig.Login, GetServerStateSpriteName(3))
 end
 
 -- 组件被复用时回调该函数，执行组件的刷新
@@ -33,7 +33,7 @@ local function OnRefresh(self, real_index, check)
     local server = self.view.server_list[real_index + 1]
     self.server_name_text:SetText(LangUtil.GetServerName(server.server_id))
     self.server_choose_cmp:SetActive(check)
-    self.server_state_img:SetSpriteName(GetServerStateSpriteName(server.state))
+    self.server_state_img:SetSpriteNameBySpriteAtlas(AssetaddressConfig.Login, GetServerStateSpriteName(server.state))
 end
 
 -- 组件添加了按钮组，则按钮被点击时回调该函数

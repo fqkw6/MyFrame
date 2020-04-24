@@ -71,8 +71,8 @@ local function OnCreate(self)
     -- 使用方式一：闭包绑定
     self.server_select_btn:SetOnClick(
         function()
-            -- UIManager:GetInstance():OpenWindow(UIWindowNames.UILoginServer)
-            UIManager:GetInstance():OpenWindow(UIWindowNames.UIProduce)
+            UIManager:GetInstance():OpenWindow(UIWindowNames.UILoginServer)
+            -- UIManager:GetInstance():OpenWindow(UIWindowNames.UIProduce)
             --self.ctrl:ChooseServer()
         end
     )
