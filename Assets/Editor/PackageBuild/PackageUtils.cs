@@ -89,7 +89,9 @@ public class PackageUtils
         {
             ip = EditorPrefs.GetString(LocalServerIPPrefsKey, "127.0.0.1");
         }
+        ip = "10.0.100.106";
         return ip;
+
     }
 
     public static void SaveLocalServerIP(string ip)

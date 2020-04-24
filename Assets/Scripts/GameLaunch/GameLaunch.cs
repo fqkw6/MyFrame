@@ -5,7 +5,15 @@ using GameChannel;
 using System;
 using XLua;
 using UnityEngine.SceneManagement;
-
+using UnityEditor;
+using System.IO;
+using GameChannel;
+using System;
+using AssetBundles;
+using UnityEngine;
+using System.Collections.Generic;
+using System.Net;
+using System.Net.Sockets;
 [Hotfix]
 [LuaCallCSharp]
 public class GameLaunch : MonoBehaviour
@@ -183,11 +191,44 @@ public class GameLaunch : MonoBehaviour
         var loader = AssetBundleManager.Instance.LoadAssetAsync(producePrefabPath, typeof(UnityEngine.U2D.SpriteAtlas));
         yield return loader;
         UnityEngine.U2D.SpriteAtlas producePrefab = loader.asset as UnityEngine.U2D.SpriteAtlas;
-
+        string ip = GetCurrentMachineLocalIP();
+        string downloadURL = "http://" + ip + ":7888/";
+        Debug.LogError(downloadURL + "======");
         loader.Dispose();
         //producePrefab.GetSprite(spriteName);
         yield break;
     }
 
 
+    public static string GetCurrentMachineLocalIP()
+    {
+        try
+        {
+            // 注意：这里获取所有内网地址后选择一个最小的，因为可能存在虚拟机网卡
+            var ips = new List<string>();
+            var host = Dns.GetHostEntry(Dns.GetHostName());
+            foreach (IPAddress ip in host.AddressList)
+            {
+                if (ip.AddressFamily == AddressFamily.InterNetwork)
+                {
+                    ips.Add(ip.ToString());
+                }
+            }
+            ips.Sort();
+            if (ips.Count <= 0)
+            {
+                Logger.LogError("Get inter network ip failed!");
+            }
+            else
+            {
+                return ips[0];
+            }
+        }
+        catch (System.Exception ex)
+        {
+            Logger.LogError("Get inter network ip failed with err : " + ex.Message);
+            Logger.LogError("Go Tools/Package to specify any machine as local server!!!");
+        }
+        return string.Empty;
+    }
 }
