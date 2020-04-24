@@ -5,12 +5,6 @@ using GameChannel;
 using System;
 using XLua;
 using UnityEngine.SceneManagement;
-using UnityEditor;
-using System.IO;
-using GameChannel;
-using System;
-using AssetBundles;
-using UnityEngine;
 using System.Collections.Generic;
 using System.Net;
 using System.Net.Sockets;
@@ -195,6 +189,7 @@ public class GameLaunch : MonoBehaviour
         string downloadURL = "http://" + ip + ":7888/";
         Debug.LogError(downloadURL + "======");
         loader.Dispose();
+        //  SceneManager.LoadScene(1);
         //producePrefab.GetSprite(spriteName);
         yield break;
     }
