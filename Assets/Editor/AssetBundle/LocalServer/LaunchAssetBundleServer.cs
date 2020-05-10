@@ -6,7 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Collections.Generic;
 using System.Net.Sockets;
-
+using GameChannel;
 namespace AssetBundles
 {
     internal class LaunchAssetBundleServer : ScriptableSingleton<LaunchAssetBundleServer>
@@ -136,8 +136,11 @@ namespace AssetBundles
         public static string GetAssetBundleServerURL()
         {
             string ip = PackageUtils.GetLocalServerIP();
-            // string downloadURL = "http://" + ip + ":7889/";
-            string downloadURL = "https://abserver.oss-cn-beijing.aliyuncs.com/";
+            string downloadURL;
+            if (!ChannelManager.instance.IsInternalVersion())
+                downloadURL = "http://" + ip + ":7889/";//iis 配置，防火墙关掉
+            else
+                downloadURL = "https://abserver.oss-cn-beijing.aliyuncs.com/";//外网阿里云
             downloadURL = downloadURL + PackageUtils.GetCurPlatformChannelRelativePath() + "/";
             return downloadURL;
         }

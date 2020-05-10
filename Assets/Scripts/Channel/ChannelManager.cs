@@ -20,7 +20,7 @@ namespace GameChannel
             get;
             protected set;
         }
-        
+
         public string noticeVersion
         {
             get;
@@ -52,7 +52,7 @@ namespace GameChannel
 
             AndroidSDKListener.Instance.Startup();
         }
-        
+
         public BaseChannel CreateChannel(string channelName)
         {
             ChannelType platName = (ChannelType)Enum.Parse(typeof(ChannelType), channelName);
