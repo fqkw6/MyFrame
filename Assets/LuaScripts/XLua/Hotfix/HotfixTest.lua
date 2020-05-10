@@ -13,25 +13,25 @@ xlua.private_accessible(AssetbundleUpdater)
 xlua.private_accessible(AssetBundleManager)
 
 local function AssetbundleUpdaterTestHotfix(self)
-	print("********** AssetbundleUpdater : Call TestHotfix in lua...<<<")
+    print("********** AssetbundleUpdater : Call TestHotfix in lua...<<<")
 end
 
 local function AssetBundleManagerTestHotfix(self)
-	print("********** AssetBundleManager : Call TestHotfix in lua...<<<")
-	AssetBundleManager.Instance:TestHotfix()
+    print("********** AssetBundleManager : Call TestHotfix in lua...<<<")
+    -- AssetBundleManager.Instance:TestHotfix()
 end
 
 local function Register()
-	xlua.hotfix(AssetbundleUpdater, "TestHotfix", AssetbundleUpdaterTestHotfix)
-	util.hotfix_ex(AssetBundleManager, "TestHotfix", AssetBundleManagerTestHotfix)
+    -- xlua.hotfix(AssetbundleUpdater, "TestHotfix", AssetbundleUpdaterTestHotfix)
+    -- util.hotfix_ex(AssetBundleManager, "TestHotfix", AssetBundleManagerTestHotfix)
 end
 
 local function Unregister()
-	xlua.hotfix(AssetbundleUpdater, "TestHotfix", nil)
-	xlua.hotfix(AssetBundleManager, "TestHotfix", nil)
+    -- xlua.hotfix(AssetbundleUpdater, "TestHotfix", nil)
+    -- xlua.hotfix(AssetBundleManager, "TestHotfix", nil)
 end
 
 return {
-	Register = Register,
-	Unregister = Unregister,
+    Register = Register,
+    Unregister = Unregister
 }

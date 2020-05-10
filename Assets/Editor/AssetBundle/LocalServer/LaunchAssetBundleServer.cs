@@ -9,12 +9,13 @@ using System.Net.Sockets;
 
 namespace AssetBundles
 {
-	internal class LaunchAssetBundleServer : ScriptableSingleton<LaunchAssetBundleServer>
-	{
+    internal class LaunchAssetBundleServer : ScriptableSingleton<LaunchAssetBundleServer>
+    {
 
-		[SerializeField]
-		int mServerPID = 0;
-        
+        [SerializeField]
+        int mServerPID = 0;
+
+
         public static void CheckAndDoRunning()
         {
             WriteAssetBundleServerURL();
@@ -30,9 +31,9 @@ namespace AssetBundles
                 }
             }
         }
-        
-		static bool IsRunning ()
-		{
+
+        static bool IsRunning()
+        {
             if (instance.mServerPID == 0)
             {
                 return false;
@@ -52,39 +53,39 @@ namespace AssetBundles
             {
                 return false;
             }
-		}
-        
-		static void KillRunningAssetBundleServer ()
-		{
-			try
-			{
-				if (instance.mServerPID == 0)
-					return;
+        }
 
-				var lastProcess = Process.GetProcessById (instance.mServerPID);
-				lastProcess.Kill();
-				instance.mServerPID = 0;
+        static void KillRunningAssetBundleServer()
+        {
+            try
+            {
+                if (instance.mServerPID == 0)
+                    return;
+
+                var lastProcess = Process.GetProcessById(instance.mServerPID);
+                lastProcess.Kill();
+                instance.mServerPID = 0;
                 UnityEngine.Debug.Log("Local assetbundle server stop!");
             }
-			catch
-			{
-			}
-		}
+            catch
+            {
+            }
+        }
 
-		static void Run ()
-		{
-			string args = string.Format("\"{0}\" {1}", AssetBundleConfig.LocalSvrAppWorkPath, Process.GetCurrentProcess().Id);
+        static void Run()
+        {
+            string args = string.Format("\"{0}\" {1}", AssetBundleConfig.LocalSvrAppWorkPath, Process.GetCurrentProcess().Id);
             ProcessStartInfo startInfo = ExecuteInternalMono.GetProfileStartInfoForMono(MonoInstallationFinder.GetMonoInstallation("MonoBleedingEdge"), GetMonoProfileVersion(), AssetBundleConfig.LocalSvrAppPath, args, true);
             startInfo.WorkingDirectory = AssetBundleConfig.LocalSvrAppWorkPath;
-			startInfo.UseShellExecute = false;
-			Process launchProcess = Process.Start(startInfo);
-			if (launchProcess == null || launchProcess.HasExited == true || launchProcess.Id == 0)
-			{
-                UnityEngine.Debug.LogError ("Unable Start AssetBundleServer process!");
-			}
-			else
-			{
-				instance.mServerPID = launchProcess.Id;
+            startInfo.UseShellExecute = false;
+            Process launchProcess = Process.Start(startInfo);
+            if (launchProcess == null || launchProcess.HasExited == true || launchProcess.Id == 0)
+            {
+                UnityEngine.Debug.LogError("Unable Start AssetBundleServer process!");
+            }
+            else
+            {
+                instance.mServerPID = launchProcess.Id;
                 UnityEngine.Debug.Log("Local assetbundle server run!");
             }
         }
@@ -101,7 +102,7 @@ namespace AssetBundles
             {
                 foldersWithApi[i] = foldersWithApi[i].Split(Path.DirectorySeparatorChar).Last();
                 foldersWithApi[i] = foldersWithApi[i].Split('-').First();
-                
+
                 if (string.Compare(foldersWithApi[i], profileVersion) > 0)
                 {
                     profileVersion = foldersWithApi[i];
@@ -135,7 +136,8 @@ namespace AssetBundles
         public static string GetAssetBundleServerURL()
         {
             string ip = PackageUtils.GetLocalServerIP();
-            string downloadURL = "http://" + ip + ":7888/";
+            // string downloadURL = "http://" + ip + ":7889/";
+            string downloadURL = "https://abserver.oss-cn-beijing.aliyuncs.com/";
             downloadURL = downloadURL + PackageUtils.GetCurPlatformChannelRelativePath() + "/";
             return downloadURL;
         }

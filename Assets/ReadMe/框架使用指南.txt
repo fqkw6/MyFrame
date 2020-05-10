@@ -35,4 +35,10 @@ UIManager
 lua 加载 CustomLoader XLuaManager
 
 执行 AssetBundles/Run All Checkers 会自动把预设体路径写到 AssetsaddressConfig
- 
+
+重要事情
+1，python 升级3.7
+2，iis本地服务器必须把防火墙关了
+3，hotfix 可能出现问题在手机上
+4,emmycode.lua 手机上找不到，gamemain 里注释掉相关内容
+5，真机测试可以通过

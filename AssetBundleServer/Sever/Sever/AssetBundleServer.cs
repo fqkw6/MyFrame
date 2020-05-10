@@ -54,7 +54,7 @@ namespace AssetBundleServer
             }
 
             bool detailedLogging = false;
-            int port = 7889;
+            int port = 7888;
 
             Console.WriteLine("Starting up asset bundle server.", port);
             Console.WriteLine("Port: {0}", port);

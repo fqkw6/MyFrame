@@ -1,8 +1,7 @@
 fileFormatVersion: 2
 guid: 1a166af4fec19c64499ed098f23ebd0c
-timeCreated: 1561372965
-licenseType: Pro
 TrueTypeFontImporter:
+  externalObjects: {}
   serializedVersion: 4
   fontSize: 16
   forceTextureCase: -2
@@ -17,6 +16,7 @@ TrueTypeFontImporter:
   fontRenderingMode: 0
   ascentCalculationMode: 1
   useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
   userData: 
-  assetBundleName: ui/fonts/msyh_ttf.assetbundle
+  assetBundleName: 
   assetBundleVariant: 

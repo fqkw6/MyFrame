@@ -7,7 +7,8 @@ public class URLSetting
         get
         {
             // TODO：外网启动地址，这个地址在发布线上游戏时自行部署和设置
-            return "https://chivas.framework.com/startup";
+            //https://abserver.oss-cn-beijing.aliyuncs.com/Android/Android/AssetBundles/app_version.bytes
+            return "https://abserver.oss-cn-beijing.aliyuncs.com";
         }
     }
 

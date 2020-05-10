@@ -186,8 +186,7 @@ public class GameLaunch : MonoBehaviour
         yield return loader;
         UnityEngine.U2D.SpriteAtlas producePrefab = loader.asset as UnityEngine.U2D.SpriteAtlas;
         string ip = GetCurrentMachineLocalIP();
-        string downloadURL = "http://" + ip + ":7888/";
-        Debug.LogError(downloadURL + "======");
+
         loader.Dispose();
         //  SceneManager.LoadScene(1);
         //producePrefab.GetSprite(spriteName);
