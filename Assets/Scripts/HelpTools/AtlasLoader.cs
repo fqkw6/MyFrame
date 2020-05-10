@@ -1,49 +1,115 @@
-﻿
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using AssetBundles;
 using UnityEngine;
 using UnityEngine.U2D;
-using System.Collections;
-using AssetBundles;
 public class AtlasLoader : MonoSingleton<AtlasLoader>
 {
 
-    private void OnEnable()
+    private Dictionary<string, Action<SpriteAtlas>> spriteAtlasFlagDict = null;
+    private Dictionary<string, SpriteAtlas> spriteAtlasDict = null;
+    private bool IsResetting { get; set; }
+
+    private int resttingCount;
+
+    void Start()
     {
-        SpriteAtlasManager.atlasRequested += RequestAtlas;
+        spriteAtlasDict = new Dictionary<string, SpriteAtlas>();
+        spriteAtlasFlagDict = new Dictionary<string, Action<SpriteAtlas>>();
     }
 
-
-    void OnDisable()
+    protected override void Init()
     {
-        SpriteAtlasManager.atlasRequested -= RequestAtlas;
+        UnityEngine.U2D.SpriteAtlasManager.atlasRegistered += OnAtlasRegistered;
+        UnityEngine.U2D.SpriteAtlasManager.atlasRequested += OnAtlasRequested;
+        Logger.LogColor(Color.magenta, "<<>><SpriteAtlasManager Init");
     }
 
-    void RequestAtlas(string tag, System.Action<SpriteAtlas> callback)
+    private void OnAtlasRegistered(SpriteAtlas spriteAtlas)
     {
-        StartCoroutine(LoadAtlas(tag, callback));
+        Logger.LogColor(Color.magenta, "<<>><OnAtlasRegistered spriteAtlas {0} ", spriteAtlas.name);
+
+        if (!spriteAtlasDict.ContainsKey(spriteAtlas.name))
+            spriteAtlasDict[spriteAtlas.name] = spriteAtlas;
+
+        if (IsResetting)
+        {
+            resttingCount -= 1;
+            Logger.LogColor(Color.magenta, "<<>><OnAtlasRegistered spriteAtlas {0} _resttingCount {1}", spriteAtlas.name, resttingCount);
+        }
     }
 
-    /// <summary>
-    /// 为了跨场景不销毁
-    /// </summary>
-    public void Inint()
+    private void OnAtlasRequested(string tag, Action<SpriteAtlas> action)
     {
-
+        if (!spriteAtlasDict.ContainsKey(tag))
+        {
+            Logger.LogColor(Color.magenta, "<<>><SpriteAtlasManager OnAtlasRequested {0}", tag);
+            StartCoroutine(DoLoadAsset(action, tag));
+            spriteAtlasFlagDict[tag] = action;
+        }
     }
 
-    /// <summary>
-    /// 加载图集依赖，用到多次不会重复加载
-    /// </summary>
-    /// <param name="tag"></param>
-    /// <param name="callback"></param>
-    /// <returns></returns>
-    IEnumerator LoadAtlas(string tag, System.Action<SpriteAtlas> callback)
+    private IEnumerator DoLoadAsset(Action<SpriteAtlas> action, string atlasName)
     {
-        Debug.Log("加载图集==========");
-        var loader = AssetBundleManager.Instance.LoadAssetAsync("UI/SpriteAtlas/" + tag + ".spriteatlas", typeof(UnityEngine.U2D.SpriteAtlas));
+        var start = DateTime.Now;
+        string path = $"{AssetBundleConfig.AtlasRoot}{atlasName}.spriteatlas";
+
+#if UNITY_EDITOR
+        if (AssetBundleConfig.IsSimulateMode)
+            yield return new WaitUntil(() => AssetBundleManager.Instance.IsInitialized);
+#else
+            yield return new WaitUntil(() => AssetBundleManager.Instance.IsInitialized);
+#endif
+
+        var loader = AssetBundleManager.Instance.LoadAssetAsync(path, typeof(SpriteAtlas));
         yield return loader;
-        UnityEngine.U2D.SpriteAtlas atlas = loader.asset as UnityEngine.U2D.SpriteAtlas;
-        callback(atlas);
-        loader.Dispose();
+
+        if (loader != null)
+        {
+            var spriteAtlas = loader.asset as SpriteAtlas;
+            loader.Dispose();
+            if (spriteAtlas == null)
+            {
+                Logger.LogError("SpriteAtlasManager LoadAssetAsync spriteAtlas err : {0}", atlasName);
+                yield break;
+            }
+            action(spriteAtlas);
+            Logger.LogColor(Color.yellow, "SpriteAtlasManager Load SpriteAtlas : {0} use {1}ms", path, (DateTime.Now - start).Milliseconds);
+        }
+    }
+
+    public IEnumerator Reset()
+    {
+        IsResetting = true;
+        Logger.LogColor(Color.red, ">>>>SpriteAtlasManager Reset<<<<<  cache count {0} ", AssetBundleManager.Instance.assetbundlesCaching.Count);
+
+        foreach (var spriteAtlasItem in spriteAtlasFlagDict)
+        {
+            if (!spriteAtlasDict.ContainsKey(spriteAtlasItem.Key))
+            {
+                resttingCount += 1;
+                Logger.LogColor(Color.magenta, "<<>><SpriteAtlasManager Reset {0}", spriteAtlasItem.Key);
+                StartCoroutine(DoLoadAsset(spriteAtlasItem.Value, spriteAtlasItem.Key));
+            }
+
+        }
+
+        //在更新前如果请求了图集但因找不到 assetbundle 没填充完成，这里等待填充计数全部请求填充完成， 
+        //未填充前
+        yield return new WaitUntil(() => resttingCount <= 0);
+        IsResetting = false;
+        Logger.LogColor(Color.red, ">>>>SpriteAtlasManager Reset<<<<< finish");
+        Dispose();
+        Init();
         yield break;
+    }
+
+    public override void Dispose()
+    {
+        resttingCount = 0;
+        UnityEngine.U2D.SpriteAtlasManager.atlasRequested -= OnAtlasRequested;
+        UnityEngine.U2D.SpriteAtlasManager.atlasRegistered -= OnAtlasRegistered;
+        spriteAtlasFlagDict.Clear();
     }
 }

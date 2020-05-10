@@ -677,7 +677,8 @@ public class AssetbundleUpdater : MonoBehaviour
         // 重启资源管理器
         yield return AssetBundleManager.Instance.Cleanup();
         yield return AssetBundleManager.Instance.Initialize();
-
+        //i重启图集管理
+        yield return AtlasLoader.Instance.Reset();
         // 重启Lua虚拟机
         string luaAssetbundleName = XLuaManager.Instance.AssetbundleName;
         AssetBundleManager.Instance.SetAssetBundleResident(luaAssetbundleName, true);

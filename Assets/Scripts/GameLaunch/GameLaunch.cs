@@ -36,6 +36,14 @@ public class GameLaunch : MonoBehaviour
 
 
     }
+
+    private void OnEnable()
+    {
+        // 启动ugui图集管理器
+        var start = DateTime.Now;
+        AtlasLoader.Instance.Startup();
+        Debug.Log(string.Format("SpriteAtlasManager Init use {0}ms", (DateTime.Now - start).Milliseconds));
+    }
     IEnumerator Start()
     {
         LoggerHelper.Instance.Startup();
@@ -71,7 +79,6 @@ public class GameLaunch : MonoBehaviour
         XLuaManager.Instance.OnInit();
         XLuaManager.Instance.StartHotfix();
         Logger.Log(string.Format("XLuaManager StartHotfix use {0}ms", (DateTime.Now - start).Milliseconds));
-        AtlasLoader.Instance.Inint();
 
         // 初始化UI界面
         yield return InitLaunchPrefab();

@@ -58,6 +58,24 @@ public class Logger
         LogError("Assert failed! Message:\n" + s, p);
     }
 
+    [Conditional("UNITY_EDITOR")]
+    [Conditional("LOGGER_ON")]
+    static public void LogColor(Color color, string s, params object[] p)
+    {
+        color = Color.black;
+        sb.Clear();
+        sb = sb.AppendFormat(@"<color=#{0}>", ColorUtility.ToHtmlStringRGB(color));
+        sb.Append(">");
+        sb.Append(DateTime.Now);
+        sb.Append("--");
+        if (p != null && p.Length > 0)
+            sb.AppendFormat(s, p);
+        else
+            sb.Append(s);
+        sb.Append("</color>");
+        Debug.Log(sb.ToString());
+    }
+
     static public void LogError(string s, params object[] p)
     {
 #if UNITY_EDITOR || LOGGER_ON

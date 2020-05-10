@@ -25,7 +25,7 @@ namespace AssetBundles
         public const string VariantMapParttren = "Variant";
         public const string CommonMapPattren = ",";
         public const string AssetsaddressConfig = "AssetaddressConfig.lua";
-
+        public const string AtlasRoot = "UI/SpriteAtlas/";
 #if UNITY_EDITOR
         public static string AssetBundlesBuildOutputPath
         {

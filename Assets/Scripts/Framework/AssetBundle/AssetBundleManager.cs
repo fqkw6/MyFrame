@@ -47,7 +47,7 @@ namespace AssetBundles
         // 常驻ab包：需要手动添加公共ab包进来，常驻包不会自动卸载（即使引用计数为0），引用计数为0时可以手动卸载
         HashSet<string> assetbundleResident = new HashSet<string>();
         // ab缓存包：所有目前已经加载的ab包，包括临时ab包与公共ab包
-        Dictionary<string, AssetBundle> assetbundlesCaching = new Dictionary<string, AssetBundle>();
+        public Dictionary<string, AssetBundle> assetbundlesCaching = new Dictionary<string, AssetBundle>();
         // ab缓存包引用计数：卸载ab包时只有引用计数为0时才会真正执行卸载
         Dictionary<string, int> assetbundleRefCount = new Dictionary<string, int>();
         // asset缓存：给非公共ab包的asset提供逻辑层的复用
@@ -64,7 +64,7 @@ namespace AssetBundles
         List<AssetAsyncLoader> prosessingAssetAsyncLoader = new List<AssetAsyncLoader>();
         // 为了消除GC
         List<string> tmpStringList = new List<string>(8);
-
+        public bool IsInitialized { get; set; }
         public static string ManifestBundleName
         {
             get
@@ -152,6 +152,7 @@ namespace AssetBundles
                 }
             }
             Logger.Log(string.Format("AssetBundleResident Initialize use {0}ms", (DateTime.Now - start).Milliseconds));
+            IsInitialized = true;
             yield break;
         }
 
