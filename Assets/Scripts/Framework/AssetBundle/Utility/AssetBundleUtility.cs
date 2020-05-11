@@ -29,7 +29,7 @@ namespace AssetBundles
                     return null;
             }
         }
-       
+
         public static string GetStreamingAssetsFilePath(string assetPath = null)
         {
 #if UNITY_EDITOR
@@ -72,11 +72,13 @@ namespace AssetBundles
             {
                 outputPath = Path.Combine(outputPath, assetPath);
             }
-#if UNITY_STANDALONE_WIN
-            return GameUtility.FormatToSysFilePath(outputPath);
-#else
+            // #if UNITY_STANDALONE_WIN
+            //             return GameUtility.FormatToSysFilePath(outputPath);
+            // #else
+            //             return outputPath;
+            // #endif
+
             return outputPath;
-#endif
         }
 
         public static bool CheckPersistentFileExsits(string filePath)
@@ -97,7 +99,7 @@ namespace AssetBundles
                 return GetStreamingAssetsFilePath(filePath);
             }
         }
-        
+
         public static string AssetBundlePathToAssetBundleName(string assetPath)
         {
             if (!string.IsNullOrEmpty(assetPath))
@@ -117,10 +119,10 @@ namespace AssetBundles
             }
             return null;
         }
-        
+
         public static string PackagePathToAssetsPath(string assetPath)
         {
-            
+
             return "Assets/" + AssetBundleConfig.AssetsFolderName + "/" + assetPath;
         }
 
@@ -129,7 +131,7 @@ namespace AssetBundles
             string path = "Assets/" + AssetBundleConfig.AssetsFolderName + "/";
             return assetPath.StartsWith(path);
         }
-        
+
         public static string AssetsPathToPackagePath(string assetPath)
         {
             string path = "Assets/" + AssetBundleConfig.AssetsFolderName + "/";

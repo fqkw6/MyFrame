@@ -6,7 +6,7 @@ using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
-
+using UnityEngine.Networking;
 [System.Serializable]
 public class Images
 {
@@ -2100,16 +2100,16 @@ public class Reporter : MonoBehaviour
         url = url.Replace("\\", "/");
         // float startTime = Time.realtimeSinceStartup;
 
-        WWW www = new WWW(url);
-        yield return www;
+        UnityWebRequest request = UnityWebRequest.Get(url);
+        yield return request.SendWebRequest();
 
-        if (!string.IsNullOrEmpty(www.error))
+        if (request.isHttpError || request.isNetworkError)
         {
-            Debug.LogError(www.error);
+            Debug.LogError(request.error);
         }
         else
         {
-            buildDate = www.text;
+            buildDate = request.downloadHandler.text;
         }
 
         yield break;

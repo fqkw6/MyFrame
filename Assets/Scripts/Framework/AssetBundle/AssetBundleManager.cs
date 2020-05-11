@@ -379,7 +379,7 @@ namespace AssetBundles
 
             var creater = ResourceWebRequester.Get();
             var url = AssetBundleUtility.GetAssetBundleFileUrl(assetbundleName);
-            creater.Init(assetbundleName, url);
+            creater.Init(assetbundleName, url, true);
             webRequesting.Add(assetbundleName, creater);
             webRequesterQueue.Enqueue(creater);
             // 创建器持有的引用：创建器对每个ab来说是全局唯一的
@@ -435,7 +435,7 @@ namespace AssetBundles
         }
 
         // 从资源服务器下载非Assetbundle资源，非AB（不计引用计数、不缓存），Creater使用后记得回收
-        public ResourceWebRequester DownloadAssetFileAsync(string filePath)
+        public ResourceWebRequester DownloadAssetFileAsync(string filePath, bool isLoadBundle = false)
         {
             if (string.IsNullOrEmpty(DownloadUrl))
             {
@@ -449,7 +449,7 @@ namespace AssetBundles
 #if UNITY_CLIENT
             Debug.Log("DownloadAssetFileAsync:" + url);
 #endif
-            creater.Init(filePath, url, true);
+            creater.Init(filePath, url, true, isLoadBundle);
             webRequesting.Add(filePath, creater);
             webRequesterQueue.Enqueue(creater);
             return creater;
@@ -460,7 +460,7 @@ namespace AssetBundles
         {
             // 如果ResourceWebRequester升级到使用UnityWebRequester，那么下载AB和下载普通资源需要两个不同的DownLoadHandler
             // 兼容升级的可能性，这里也做一下区分
-            return DownloadAssetFileAsync(filePath);
+            return DownloadAssetFileAsync(filePath, true);
         }
 
         // 本地异步请求非Assetbundle资源，非AB（不计引用计数、不缓存），Creater使用后记得回收
@@ -491,7 +491,7 @@ namespace AssetBundles
 #if UNITY_CLIENT
             Debug.Log("RequestAssetBundleAsync：" + url);
 #endif
-            creater.Init(assetbundleName, url, true);
+            creater.Init(assetbundleName, url, true, true);
             webRequesting.Add(assetbundleName, creater);
             webRequesterQueue.Enqueue(creater);
             return creater;
