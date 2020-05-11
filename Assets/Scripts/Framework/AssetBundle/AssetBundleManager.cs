@@ -379,7 +379,8 @@ namespace AssetBundles
 
             var creater = ResourceWebRequester.Get();
             var url = AssetBundleUtility.GetAssetBundleFileUrl(assetbundleName);
-            creater.Init(assetbundleName, url, true);
+            creater.Init(assetbundleName, url, false, true);
+
             webRequesting.Add(assetbundleName, creater);
             webRequesterQueue.Enqueue(creater);
             // 创建器持有的引用：创建器对每个ab来说是全局唯一的
@@ -446,9 +447,9 @@ namespace AssetBundles
             var creater = ResourceWebRequester.Get();
             var url = DownloadUrl + filePath;
 
-#if UNITY_CLIENT
+
             Debug.Log("DownloadAssetFileAsync:" + url);
-#endif
+
             creater.Init(filePath, url, true, isLoadBundle);
             webRequesting.Add(filePath, creater);
             webRequesterQueue.Enqueue(creater);
