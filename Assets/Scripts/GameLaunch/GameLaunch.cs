@@ -154,7 +154,7 @@ public class GameLaunch : MonoBehaviour
     IEnumerator InitNoticeTipPrefab()
     {
         var start = DateTime.Now;
-        var loader = AssetBundleManager.Instance.LoadAssetAsync(noticeTipPrefabPath, typeof(GameObject));
+        var loader = AssetBundleManager.Instance.LoadAssetAsync(noticeTipPrefabPath, typeof(GameObject), (obj) => { });
         yield return loader;
         noticeTipPrefab = loader.asset as GameObject;
         Logger.Log(string.Format("Load noticeTipPrefab use {0}ms", (DateTime.Now - start).Milliseconds));
@@ -172,7 +172,7 @@ public class GameLaunch : MonoBehaviour
     IEnumerator InitLaunchPrefab()
     {
         var start = DateTime.Now;
-        var loader = AssetBundleManager.Instance.LoadAssetAsync(launchPrefabPath, typeof(GameObject));
+        var loader = AssetBundleManager.Instance.LoadAssetAsync(launchPrefabPath, typeof(GameObject), (obj) => { });
         yield return loader;
         launchPrefab = loader.asset as GameObject;
         Logger.Log(string.Format("Load launchPrefab use {0}ms", (DateTime.Now - start).Milliseconds));
@@ -189,12 +189,26 @@ public class GameLaunch : MonoBehaviour
     const string producePrefabPath = "UI/SpriteAtlas/Role.spriteatlas";
     IEnumerator TestLoad()
     {
-        var loader = AssetBundleManager.Instance.LoadAssetAsync(producePrefabPath, typeof(UnityEngine.U2D.SpriteAtlas));
+        var loader = AssetBundleManager.Instance.LoadAssetAsync(producePrefabPath, typeof(UnityEngine.U2D.SpriteAtlas), (objd) =>
+        {
+            UnityEngine.U2D.SpriteAtlas producePrefab1 = objd as UnityEngine.U2D.SpriteAtlas;
+            Debug.LogError(producePrefab1);
+        });
+
+        var loader1 = AssetBundleManager.Instance.LoadAssetAsync("UI/Prefabs/View/ssss.prefab", typeof(UnityEngine.GameObject), (objd) =>
+        {
+            UnityEngine.GameObject producePrefab1 = objd as UnityEngine.GameObject;
+            Debug.LogError(producePrefab1);
+        });
+        Debug.LogError(Time.time);
         yield return loader;
+        yield return loader1;
+        Debug.LogError(Time.time);
         UnityEngine.U2D.SpriteAtlas producePrefab = loader.asset as UnityEngine.U2D.SpriteAtlas;
         string ip = GetCurrentMachineLocalIP();
-
+        Debug.LogError(producePrefab);
         loader.Dispose();
+        loader1.Dispose();
         //  SceneManager.LoadScene(1);
         //producePrefab.GetSprite(spriteName);
         yield break;

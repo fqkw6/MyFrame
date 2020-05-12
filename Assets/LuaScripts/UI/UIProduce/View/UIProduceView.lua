@@ -37,6 +37,7 @@ local function OnCreate(self)
     self.produnum_input = self:AddComponent(UIInput, produnum_input_path)
     self.icon_image = self:AddComponent(UIImage, icon_image_path)
     self.close_Btn = self:AddComponent(UIButton, close_Btn_path)
+
     self.icon_image:SetSpriteNameBySpriteAtlas("UI/SpriteAtlas/Role.spriteatlas", "ui_role_02")
     self.produce_Btn:SetOnClick(self, ClickOnProduceBtn)
     self.close_Btn:SetOnClick(self, ClickOnCloseBtn)

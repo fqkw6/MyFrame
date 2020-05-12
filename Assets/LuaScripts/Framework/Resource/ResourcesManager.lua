@@ -77,6 +77,24 @@ local function CoLoadAsync(self, path, res_type, progress_callback)
     return asset
 end
 
+-- 异步加载Asset：协程形式
+local function NewLoadAsync(self, path, res_type, progress_callback)
+    assert(path ~= nil and type(path) == "string" and #path > 0, "path err : " .. path)
+    local loader = AssetBundleManager:LoadAssetAsync(path, res_type, progress_callback)
+
+    -- local asset = loader.asset
+
+    -- loader:Dispose()
+    -- if IsNull(asset) then
+    --     Logger.LogError("Asset load err : " .. path, res_type)
+    -- end
+    return asset
+end
+
+local function NewLoadAsync2(progress_callback)
+    AssetBundleManager:LoadAssetAsync2(progress_callback)
+end
+
 -- 清理资源：切换场景时调用
 local function Cleanup(self)
     AssetBundleManager:ClearAssetsCache()
@@ -94,5 +112,6 @@ ResourcesManager.CoLoadAssetBundleAsync = CoLoadAssetBundleAsync
 ResourcesManager.LoadAsync = LoadAsync
 ResourcesManager.CoLoadAsync = CoLoadAsync
 ResourcesManager.Cleanup = Cleanup
-
+ResourcesManager.NewLoadAsync = NewLoadAsync
+ResourcesManager.NewLoadAsync2 = NewLoadAsync2
 return ResourcesManager

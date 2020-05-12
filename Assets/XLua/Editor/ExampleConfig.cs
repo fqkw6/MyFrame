@@ -148,100 +148,126 @@ public static class ExampleConfig
     //    }
     //}
     //--------------begin 热补丁自动化配置-------------------------
-    //static bool hasGenericParameter(Type type)
-    //{
-    //    if (type.IsGenericTypeDefinition) return true;
-    //    if (type.IsGenericParameter) return true;
-    //    if (type.IsByRef || type.IsArray)
-    //    {
-    //        return hasGenericParameter(type.GetElementType());
-    //    }
-    //    if (type.IsGenericType)
-    //    {
-    //        foreach (var typeArg in type.GetGenericArguments())
-    //        {
-    //            if (hasGenericParameter(typeArg))
-    //            {
-    //                return true;
-    //            }
-    //        }
-    //    }
-    //    return false;
-    //}
+    // static bool hasGenericParameter(Type type)
+    // {
+    //     if (type.IsGenericTypeDefinition) return true;
+    //     if (type.IsGenericParameter) return true;
+    //     if (type.IsByRef || type.IsArray)
+    //     {
+    //         return hasGenericParameter(type.GetElementType());
+    //     }
+    //     if (type.IsGenericType)
+    //     {
+    //         foreach (var typeArg in type.GetGenericArguments())
+    //         {
+    //             if (hasGenericParameter(typeArg))
+    //             {
+    //                 return true;
+    //             }
+    //         }
+    //     }
+    //     return false;
+    // }
 
-    //static bool typeHasEditorRef(Type type)
-    //{
-    //    if (type.Namespace != null && (type.Namespace == "UnityEditor" || type.Namespace.StartsWith("UnityEditor.")))
-    //    {
-    //        return true;
-    //    }
-    //    if (type.IsNested)
-    //    {
-    //        return typeHasEditorRef(type.DeclaringType);
-    //    }
-    //    if (type.IsByRef || type.IsArray)
-    //    {
-    //        return typeHasEditorRef(type.GetElementType());
-    //    }
-    //    if (type.IsGenericType)
-    //    {
-    //        foreach (var typeArg in type.GetGenericArguments())
-    //        {
-    //            if (typeHasEditorRef(typeArg))
-    //            {
-    //                return true;
-    //            }
-    //        }
-    //    }
-    //    return false;
-    //}
+    // static bool typeHasEditorRef(Type type)
+    // {
+    //     if (type.Namespace != null && (type.Namespace == "UnityEditor" || type.Namespace.StartsWith("UnityEditor.")))
+    //     {
+    //         return true;
+    //     }
+    //     if (type.IsNested)
+    //     {
+    //         return typeHasEditorRef(type.DeclaringType);
+    //     }
+    //     if (type.IsByRef || type.IsArray)
+    //     {
+    //         return typeHasEditorRef(type.GetElementType());
+    //     }
+    //     if (type.IsGenericType)
+    //     {
+    //         foreach (var typeArg in type.GetGenericArguments())
+    //         {
+    //             if (typeHasEditorRef(typeArg))
+    //             {
+    //                 return true;
+    //             }
+    //         }
+    //     }
+    //     return false;
+    // }
 
-    //static bool delegateHasEditorRef(Type delegateType)
-    //{
-    //    if (typeHasEditorRef(delegateType)) return true;
-    //    var method = delegateType.GetMethod("Invoke");
-    //    if (method == null)
-    //    {
-    //        return false;
-    //    }
-    //    if (typeHasEditorRef(method.ReturnType)) return true;
-    //    return method.GetParameters().Any(pinfo => typeHasEditorRef(pinfo.ParameterType));
-    //}
+    // static bool delegateHasEditorRef(Type delegateType)
+    // {
+    //     if (typeHasEditorRef(delegateType)) return true;
+    //     var method = delegateType.GetMethod("Invoke");
+    //     if (method == null)
+    //     {
+    //         return false;
+    //     }
+    //     if (typeHasEditorRef(method.ReturnType)) return true;
+    //     return method.GetParameters().Any(pinfo => typeHasEditorRef(pinfo.ParameterType));
+    // }
 
     // 配置某Assembly下所有涉及到的delegate到CSharpCallLua下，Hotfix下拿不准那些delegate需要适配到lua function可以这么配置
-    //[CSharpCallLua]
-    //static IEnumerable<Type> AllDelegate
-    //{
-    //    get
-    //    {
-    //        BindingFlags flag = BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public;
-    //        List<Type> allTypes = new List<Type>();
-    //        var allAssemblys = new Assembly[]
-    //        {
+    // [CSharpCallLua]
+    // static IEnumerable<Type> AllDelegate
+    // {
+    //     get
+    //     {
+    //         BindingFlags flag = BindingFlags.DeclaredOnly | BindingFlags.Instance | BindingFlags.Static | BindingFlags.Public;
+    //         List<Type> allTypes = new List<Type>();
+
+    //         allTypes.Add(typeof(Action));
+
+    //         var allAssemblys = new Assembly[]
+    //         {
     //            Assembly.Load("Assembly-CSharp")
-    //        };
-    //        foreach (var t in (from assembly in allAssemblys from type in assembly.GetTypes() select type))
-    //        {
-    //            var p = t;
-    //            while (p != null)
-    //            {
-    //                allTypes.Add(p);
-    //                p = p.BaseType;
-    //            }
-    //        }
-    //        allTypes = allTypes.Distinct().ToList();
-    //        var allMethods = from type in allTypes
-    //                         from method in type.GetMethods(flag)
-    //                         select method;
-    //        var returnTypes = from method in allMethods
-    //                          select method.ReturnType;
-    //        var paramTypes = allMethods.SelectMany(m => m.GetParameters()).Select(pinfo => pinfo.ParameterType.IsByRef ? pinfo.ParameterType.GetElementType() : pinfo.ParameterType);
-    //        var fieldTypes = from type in allTypes
-    //                         from field in type.GetFields(flag)
-    //                         select field.FieldType;
-    //        return (returnTypes.Concat(paramTypes).Concat(fieldTypes)).Where(t => t.BaseType == typeof(MulticastDelegate) && !hasGenericParameter(t) && !delegateHasEditorRef(t)).Distinct();
-    //    }
-    //}
+    //         };
+    //         foreach (var t in (from assembly in allAssemblys from type in assembly.GetTypes() select type))
+    //         {
+    //             var p = t;
+    //             while (p != null)
+    //             {
+    //                 allTypes.Add(p);
+    //                 p = p.BaseType;
+    //             }
+    //         }
+    //         allTypes = allTypes.Distinct().ToList();
+    //         var allMethods = from type in allTypes
+    //                          from method in type.GetMethods(flag)
+    //                          select method;
+    //         var returnTypes = from method in allMethods
+    //                           select method.ReturnType;
+    //         var paramTypes = allMethods.SelectMany(m => m.GetParameters()).Select(pinfo => pinfo.ParameterType.IsByRef ? pinfo.ParameterType.GetElementType() : pinfo.ParameterType);
+    //         var fieldTypes = from type in allTypes
+    //                          from field in type.GetFields(flag)
+    //                          select field.FieldType;
+    //         return (returnTypes.Concat(paramTypes).Concat(fieldTypes)).Where(t => t.BaseType == typeof(MulticastDelegate) && !hasGenericParameter(t) && !delegateHasEditorRef(t)).Distinct();
+    //     }
+    // }
+
+    [LuaCallCSharp]
+    public static List<Type> LuaCallCSharp = new List<Type>() {
+                typeof(Action),
+                typeof(Func<double, double, double>),
+                typeof(Action<string>),
+                typeof(Action<double>),
+                typeof(Action<UnityEngine.GameObject>),
+                typeof(UnityEngine.Events.UnityAction),
+                typeof(System.Collections.IEnumerator),
+             //   typeof(System.Action<LitJson.JsonData>),
+    };
+    [CSharpCallLua]
+    public static List<Type> CSharpCallLua = new List<Type>() {
+                typeof(Action),
+                typeof(Func<double, double, double>),
+                typeof(Action<string>),
+                typeof(Action<double>),
+                typeof(Action<UnityEngine.GameObject>),
+                typeof(UnityEngine.Events.UnityAction),
+                typeof(System.Collections.IEnumerator),
+             //   typeof(System.Action<LitJson.JsonData>),
+    };
     //--------------end 热补丁自动化配置-------------------------
 
     //黑名单

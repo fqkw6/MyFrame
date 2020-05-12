@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using XLua;
-
+using System;
 /// <summary>
 /// added by wsh @ 2017.12.22
 /// 功能：Asset异步加载器，自动追踪依赖的ab加载进度
@@ -17,7 +17,7 @@ namespace AssetBundles
         static int sequence = 0;
         protected bool isOver = false;
         protected BaseAssetBundleAsyncLoader assetbundleLoader = null;
-
+        private Action<UnityEngine.Object> callBack;
         public static AssetAsyncLoader Get()
         {
             if (pool.Count > 0)
@@ -40,12 +40,14 @@ namespace AssetBundles
             Sequence = sequence;
         }
 
-        public void Init(string assetName, UnityEngine.Object asset)
+        public void Init(string assetName, UnityEngine.Object asset, Action<UnityEngine.Object> callBack)
         {
             AssetName = assetName;
             this.asset = asset;
             assetbundleLoader = null;
             isOver = true;
+            this.callBack = callBack;
+            UnityEngine.Debug.LogError((callBack != null) + "=====unload");
         }
 
         public int Sequence
@@ -54,12 +56,14 @@ namespace AssetBundles
             protected set;
         }
 
-        public void Init(string assetName, BaseAssetBundleAsyncLoader loader)
+        public void Init(string assetName, BaseAssetBundleAsyncLoader loader, Action<UnityEngine.Object> callBack)
         {
             AssetName = assetName;
             this.asset = null;
             isOver = false;
             assetbundleLoader = loader;
+            this.callBack = callBack;
+            UnityEngine.Debug.LogError((callBack != null) + "=====load");
         }
 
         public string AssetName
@@ -67,7 +71,7 @@ namespace AssetBundles
             get;
             protected set;
         }
-        
+
         public override bool IsDone()
         {
             return isOver;
@@ -87,6 +91,8 @@ namespace AssetBundles
         {
             if (isDone)
             {
+                // UnityEngine.Debug.LogError("sssscallBack==" + (callBack != null) + "==sddsds" + AssetName);
+
                 return;
             }
 
@@ -97,6 +103,11 @@ namespace AssetBundles
             }
 
             asset = AssetBundleManager.Instance.GetAssetCache(AssetName);
+            if (callBack != null)
+            {
+                UnityEngine.Debug.LogError("sssscallBack");
+                callBack(asset);
+            }
             assetbundleLoader.Dispose();
         }
 

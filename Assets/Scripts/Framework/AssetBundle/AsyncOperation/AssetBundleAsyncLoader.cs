@@ -22,6 +22,7 @@ namespace AssetBundles
         protected List<string> waitingList = new List<string>();
         protected int waitingCount = 0;
         protected bool isOver = false;
+        private Action<AssetBundle> callBack;
 
         public static AssetBundleAsyncLoader Get()
         {
@@ -45,10 +46,11 @@ namespace AssetBundles
             Sequence = sequence;
         }
 
-        public void Init(string name, string[] dependances)
+        public void Init(string name, string[] dependances, Action<AssetBundle> callBack = null)
         {
             assetbundleName = name;
             isOver = false;
+            this.callBack = callBack;
             waitingList.Clear();
             // 说明：只添加没有被加载过的
             assetbundle = AssetBundleManager.Instance.GetAssetBundleCache(assetbundleName);
@@ -98,11 +100,12 @@ namespace AssetBundles
             }
             return progressSlice;
         }
-        
+
         public override void Update()
         {
             if (isDone)
             {
+
                 return;
             }
 
@@ -152,6 +155,11 @@ namespace AssetBundles
             isOver = waitingList.Count == 0;
             if (isOver)
             {
+                if (callBack != null)
+                {
+                    callBack(assetbundle);
+
+                }
                 AssetBundleManager.Instance.AddAssetbundleAssetsCache(assetbundleName);
             }
         }

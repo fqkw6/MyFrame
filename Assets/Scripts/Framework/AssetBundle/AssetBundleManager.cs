@@ -389,7 +389,7 @@ namespace AssetBundles
         }
 
         // 异步请求Assetbundle资源，AB是否缓存取决于是否设置为常驻包，Assets一律缓存，处理依赖
-        public BaseAssetBundleAsyncLoader LoadAssetBundleAsync(string assetbundleName)
+        public BaseAssetBundleAsyncLoader LoadAssetBundleAsync(string assetbundleName, Action<UnityEngine.Object> callBack = null)
         {
 #if UNITY_EDITOR
             if (AssetBundleConfig.IsEditorMode)
@@ -413,11 +413,11 @@ namespace AssetBundles
                         IncreaseReferenceCount(dependance);
                     }
                 }
-                loader.Init(assetbundleName, dependancies);
+                loader.Init(assetbundleName, dependancies, callBack);
             }
             else
             {
-                loader.Init(assetbundleName, null);
+                loader.Init(assetbundleName, null, callBack);
             }
             CreateAssetBundleAsync(assetbundleName);
             // 加载器持有的引用：同一个ab能同时存在多个加载器，等待ab创建器完成
@@ -598,7 +598,7 @@ namespace AssetBundles
             return assetsPathMapping.MapAssetPath(assetPath, out assetbundleName, out assetName);
         }
 
-        public BaseAssetAsyncLoader LoadAssetAsync(string assetPath, System.Type assetType)
+        public BaseAssetAsyncLoader LoadAssetAsync(string assetPath, System.Type assetType, Action<UnityEngine.Object> callBack = null)
         {
 #if UNITY_EDITOR
             if (AssetBundleConfig.IsEditorMode)
@@ -619,22 +619,26 @@ namespace AssetBundles
                 Logger.LogError("No assetbundle at asset path :" + assetPath);
                 return null;
             }
-
+            Debug.LogError(assetPath + "==assetPath==" + (callBack != null));
             var loader = AssetAsyncLoader.Get();
             prosessingAssetAsyncLoader.Add(loader);
             if (IsAssetLoaded(assetName))
             {
-                loader.Init(assetName, GetAssetCache(assetName));
+                loader.Init(assetName, GetAssetCache(assetName), callBack);
                 return loader;
             }
             else
             {
                 var assetbundleLoader = LoadAssetBundleAsync(assetbundleName);
-                loader.Init(assetName, assetbundleLoader);
+                loader.Init(assetName, assetbundleLoader, callBack);
                 return loader;
             }
         }
-
+        public void LoadAssetAsync2(Action<UnityEngine.Object> callBack)
+        {
+            Debug.LogError("sdsds===" + (callBack != null));
+            if (callBack != null) callBack(null);
+        }
         void Update()
         {
             OnProsessingWebRequester();

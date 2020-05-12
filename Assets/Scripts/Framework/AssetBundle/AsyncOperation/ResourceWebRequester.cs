@@ -30,6 +30,7 @@ namespace AssetBundles
         protected bool isOver = false;
         protected bool isLoadBundle = false;
         protected AssetBundle bundle;
+
         public static ResourceWebRequester Get()
         {
             if (pool.Count > 0)
@@ -99,6 +100,7 @@ namespace AssetBundles
                         bundle = AssetBundle.LoadFromMemory(www.downloadHandler.data);
                     else
                         bundle = (www.downloadHandler as DownloadHandlerAssetBundle).assetBundle;
+
                 }
                 //return isLoadBundle ? bundle : null;
                 return bundle;
@@ -155,6 +157,7 @@ namespace AssetBundles
         {
             if (isDone)
             {
+
                 return;
             }
 
