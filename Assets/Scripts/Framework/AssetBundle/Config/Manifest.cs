@@ -20,7 +20,7 @@ namespace AssetBundles
         AssetBundleManifest manifest = null;
         byte[] manifestBytes = null;
         string[] emptyStringArray = new string[] { };
-        
+
         public Manifest()
         {
             AssetbundleName = AssetBundleManager.ManifestBundleName;
@@ -29,7 +29,7 @@ namespace AssetBundles
                 Logger.LogError("You should set ManifestBundleName first!");
             }
         }
-        
+
         public AssetBundleManifest assetbundleManifest
         {
             get
@@ -43,7 +43,7 @@ namespace AssetBundles
             get;
             protected set;
         }
-        
+
         public int Length
         {
             get
@@ -56,7 +56,7 @@ namespace AssetBundles
         {
             if (assetbundle == null)
             {
-                Logger.LogError("Manifest LoadFromAssetbundle assetbundle null!");
+                Debug.LogError("Manifest LoadFromAssetbundle assetbundle null!");
                 return;
             }
             manifest = assetbundle.LoadAsset<AssetBundleManifest>(assetName);
@@ -80,27 +80,27 @@ namespace AssetBundles
         {
             return manifest == null ? default(Hash128) : manifest.GetAssetBundleHash(name);
         }
-        
+
         public string[] GetAllAssetBundleNames()
         {
             return manifest == null ? emptyStringArray : manifest.GetAllAssetBundles();
         }
-        
+
         public string[] GetAllAssetBundlesWithVariant()
         {
             return manifest == null ? emptyStringArray : manifest.GetAllAssetBundlesWithVariant();
         }
-        
+
         public string[] GetAllDependencies(string assetbundleName)
         {
             return manifest == null ? emptyStringArray : manifest.GetAllDependencies(assetbundleName);
         }
-        
+
         public string[] GetDirectDependencies(string assetbundleName)
         {
             return manifest == null ? emptyStringArray : manifest.GetDirectDependencies(assetbundleName);
         }
-        
+
         public List<string> CompareTo(Manifest otherManifest)
         {
             List<string> ret_list = new List<string>();
@@ -109,7 +109,7 @@ namespace AssetBundles
                 return ret_list;
             }
 
-            if (otherManifest == null )
+            if (otherManifest == null)
             {
                 ret_list.AddRange(otherManifest.GetAllAssetBundleNames());
                 return ret_list;
