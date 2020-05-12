@@ -14,12 +14,12 @@ public class ResUnityWebRequest : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        downloadUrl = "https://abserver.oss-cn-beijing.aliyuncs.com/test10.apk"; ;//下载链接
+        downloadUrl = "http://10.53.2.86:9090/MyFrame/test11.apk"; ;//下载链接
         savePath = Application.streamingAssetsPath + "/";
         downloadFileName = "test11.apk";
         savePath = savePath + downloadFileName;
-        // StartCoroutine(Down(downloadUrl));
-        StartCoroutine(HttpDownLoad.Instance.OnStart(downloadUrl, savePath, () => { Debug.LogError("finsh"); }));
+        StartCoroutine(Down(downloadUrl));
+        // StartCoroutine(HttpDownLoad.Instance.OnStart(downloadUrl, savePath, () => { Debug.LogError("finsh"); }));
     }
 
     // Update is called once per frame

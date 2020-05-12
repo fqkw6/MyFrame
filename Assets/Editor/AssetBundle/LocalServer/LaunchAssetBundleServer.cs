@@ -137,10 +137,10 @@ namespace AssetBundles
         {
             string ip = PackageUtils.GetLocalServerIP();
             string downloadURL;
-            if (!ChannelManager.instance.IsInternalVersion())
-                downloadURL = "http://" + ip + ":7889/";//iis 配置，防火墙关掉
-            else
-                downloadURL = "https://abserver.oss-cn-beijing.aliyuncs.com/";//外网阿里云
+            // if (!ChannelManager.instance.IsInternalVersion())
+            downloadURL = "http://" + ip + ":9090/MyFrame/";//iis 配置，防火墙关掉http://10.53.2.86:9090/MyFrame/
+            // else
+            // downloadURL = "https://abserver.oss-cn-beijing.aliyuncs.com/";//外网阿里云
             downloadURL = downloadURL + PackageUtils.GetCurPlatformChannelRelativePath() + "/";
             return downloadURL;
         }
