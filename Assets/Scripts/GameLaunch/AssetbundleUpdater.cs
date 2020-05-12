@@ -569,7 +569,7 @@ public class AssetbundleUpdater : MonoBehaviour
 
     IEnumerator DownloadHostManifest(string downloadManifestUrl, bool isInternal)
     {
-        var request = AssetBundleManager.Instance.DownloadAssetBundleAsync(downloadManifestUrl);
+        var request = AssetBundleManager.Instance.DownloadAssetFileAsync(downloadManifestUrl);
         yield return request;
         if (!string.IsNullOrEmpty(request.error))
         {
@@ -586,6 +586,7 @@ public class AssetbundleUpdater : MonoBehaviour
         }
 
         var assetbundle = request.assetbundle;
+        // UnityEngine.Debug.LogError(request);
         hostManifest.LoadFromAssetbundle(assetbundle);
         hostManifest.SaveBytes(request.bytes);
         assetbundle.Unload(false);

@@ -429,7 +429,7 @@ namespace AssetBundles
         public ResourceWebRequester DownloadWebResourceAsync(string url)
         {
             var creater = ResourceWebRequester.Get();
-            creater.Init(url, url, true);
+            creater.Init(url, url, true, false);
             webRequesting.Add(url, creater);
             webRequesterQueue.Enqueue(creater);
             return creater;
@@ -450,7 +450,7 @@ namespace AssetBundles
 
             Debug.Log("DownloadAssetFileAsync:" + url);
 
-            creater.Init(filePath, url, true, isLoadBundle);
+            creater.Init(filePath, url, true, isLoadBundle);//isLoadBundle  一直为false
             webRequesting.Add(filePath, creater);
             webRequesterQueue.Enqueue(creater);
             return creater;
@@ -461,7 +461,7 @@ namespace AssetBundles
         {
             // 如果ResourceWebRequester升级到使用UnityWebRequester，那么下载AB和下载普通资源需要两个不同的DownLoadHandler
             // 兼容升级的可能性，这里也做一下区分
-            return DownloadAssetFileAsync(filePath, true);
+            return DownloadAssetFileAsync(filePath, false);
         }
 
         // 本地异步请求非Assetbundle资源，非AB（不计引用计数、不缓存），Creater使用后记得回收
@@ -477,7 +477,7 @@ namespace AssetBundles
             {
                 url = AssetBundleUtility.GetAssetBundleFileUrl(filePath);
             }
-            creater.Init(filePath, url, true);
+            creater.Init(filePath, url, true, false);
             webRequesting.Add(filePath, creater);
             webRequesterQueue.Enqueue(creater);
             return creater;

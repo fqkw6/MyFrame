@@ -61,6 +61,7 @@ namespace AssetBundles
             isOver = false;
             this.isLoadBundle = isLoadBundle;
             bundle = null;
+            //  Debug.LogError("isLoadBundle==" + isLoadBundle + "====" + url);
         }
 
         public int Sequence
@@ -91,16 +92,21 @@ namespace AssetBundles
         {
             get
             {
+                // Debug.LogError(isLoadBundle + "=====isLoadBundle" + "===url===" + url);
                 if (www.isDone && bundle == null)
                 {
-                    bundle = AssetBundle.LoadFromMemory(www.downloadHandler.data);
+                    if (!isLoadBundle)
+                        bundle = AssetBundle.LoadFromMemory(www.downloadHandler.data);
+                    else
+                        bundle = (www.downloadHandler as DownloadHandlerAssetBundle).assetBundle;
                 }
-                return isLoadBundle ? bundle : null;
+                //return isLoadBundle ? bundle : null;
+                return bundle;
             } //}
         }
 
         public byte[] bytes => www.downloadHandler.data;
-
+        // public byte[] newbytes => www.downloadedBytes;
         public string text => www.downloadHandler.text;
 
         public string error => string.IsNullOrEmpty(www.error) ? null : www.error;
@@ -112,8 +118,18 @@ namespace AssetBundles
 
         public void Start()
         {
-            www = UnityWebRequest.Get(url);
+            if (!isLoadBundle)
+            {
+                www = UnityWebRequest.Get(url);
+                // Debug.LogError(url);
+                Debug.Log("isLoadBundle==" + isLoadBundle + "====" + url);
+            }
 
+            else
+            {
+                www = UnityWebRequestAssetBundle.GetAssetBundle(url);
+                Debug.Log("isLoadBundle==" + isLoadBundle + "====" + url);
+            }
             if (www == null)
             {
                 Logger.LogError("New www failed!!!");
