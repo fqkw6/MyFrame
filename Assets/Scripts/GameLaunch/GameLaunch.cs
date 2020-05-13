@@ -85,13 +85,15 @@ public class GameLaunch : MonoBehaviour
         yield return null;
         yield return InitNoticeTipPrefab();
 
-        yield return TestLoad();
+
         // 开始更新
         if (updater != null)
         {
             updater.StartCheckUpdate();
         }
+        yield return TestLoad();
         yield break;
+
     }
 
     IEnumerator InitAppVersion()
@@ -189,28 +191,30 @@ public class GameLaunch : MonoBehaviour
     const string producePrefabPath = "UI/SpriteAtlas/Role.spriteatlas";
     IEnumerator TestLoad()
     {
+        Debug.LogError(Time.time + "-==111==kaishi");
         var loader = AssetBundleManager.Instance.LoadAssetAsync(producePrefabPath, typeof(UnityEngine.U2D.SpriteAtlas), (objd) =>
         {
             UnityEngine.U2D.SpriteAtlas producePrefab1 = objd as UnityEngine.U2D.SpriteAtlas;
             Debug.LogError(producePrefab1);
+            Debug.LogError(Time.time + "==1111==huidiao");
         });
-
-        var loader1 = AssetBundleManager.Instance.LoadAssetAsync("UI/Prefabs/View/ssss.prefab", typeof(UnityEngine.GameObject), (objd) =>
-        {
-            UnityEngine.GameObject producePrefab1 = objd as UnityEngine.GameObject;
-            Debug.LogError(producePrefab1);
-        });
-        Debug.LogError(Time.time);
         yield return loader;
-        yield return loader1;
-        Debug.LogError(Time.time);
+        Debug.LogError(Time.time + "-====kaishi");
+
         UnityEngine.U2D.SpriteAtlas producePrefab = loader.asset as UnityEngine.U2D.SpriteAtlas;
         string ip = GetCurrentMachineLocalIP();
-        loader.Dispose();
-        loader1.Dispose();
 
-        //  SceneManager.LoadScene(1);
-        //producePrefab.GetSprite(spriteName);
+        loader.Dispose();
+
+        //     var abloader = AssetBundleManager.Instance.LoadAssetBundleAsync("testab/uiapk_lua_bytes.assetbundle", (objd) =>
+        //    {
+        //        Debug.LogError(objd);
+        //        Debug.LogError(Time.time + "==huidiao");
+        //    });
+        //     yield return abloader;
+        //     abloader.Dispose();
+        //     Debug.LogError(Time.time + "-=-=-=-=jieshu");
+
         yield break;
     }
 

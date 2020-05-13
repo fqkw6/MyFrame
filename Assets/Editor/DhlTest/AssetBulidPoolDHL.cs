@@ -22,8 +22,24 @@ public class AssetBulidPoolDHL : Editor
         {
             Directory.CreateDirectory(dir);//在工程下创建AssetBundles目录
         }
+        string filePath = "Assets/AssetsPackage/UI/Prefabs/View/UIBoardNPC.prefab";
+        AssetBundleBuild[] ss = new AssetBundleBuild[1];
+        AssetBundleBuild build = new AssetBundleBuild();
+        build.assetBundleName = "UIBoardNPC.ab";
+        build.assetBundleVariant = string.Empty;
+        build.assetNames = new string[] { filePath.Replace("\\", "/") };
+
+
+        // AssetBundleBuild[] ss = new AssetBundleBuild[10];
+        // AssetBundleBuild b1 = new AssetBundleBuild();
+        // b1.assetBundleName = "www";
+        // b1.addressableNames[0] = "";
+        // // 摘要:
+        // //     AssetBundle variant.
+        // b1.assetBundleVariant = "ss";
         //参数一为打包到哪个路径，参数二压缩选项  参数三 平台的目标
         //只要setname 的资源都会按照设计的名字打包
-        BuildPipeline.BuildAssetBundles(dir, BuildAssetBundleOptions.DeterministicAssetBundle | BuildAssetBundleOptions.ChunkBasedCompression, BuildTarget.Android);
+        BuildPipeline.BuildAssetBundles(dir, ss, BuildAssetBundleOptions.DeterministicAssetBundle | BuildAssetBundleOptions.ChunkBasedCompression, BuildTarget.Android);
+        //BuildPipeline.BuildAssetBundles(dir, BuildAssetBundleOptions.DeterministicAssetBundle | BuildAssetBundleOptions.ChunkBasedCompression, BuildTarget.Android);
     }
 }

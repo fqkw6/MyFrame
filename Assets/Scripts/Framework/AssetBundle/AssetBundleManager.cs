@@ -394,7 +394,10 @@ namespace AssetBundles
 #if UNITY_EDITOR
             if (AssetBundleConfig.IsEditorMode)
             {
-                return new EditorAssetBundleAsyncLoader(assetbundleName);
+                EditorAssetBundleAsyncLoader loaderAb = new EditorAssetBundleAsyncLoader(assetbundleName);
+                if (callBack != null)
+                    callBack(loaderAb.assetbundle);
+                return loaderAb;
             }
 #endif
 
@@ -621,7 +624,6 @@ namespace AssetBundles
                 Logger.LogError("No assetbundle at asset path :" + assetPath);
                 return null;
             }
-            Debug.LogError(assetPath + "==assetPath==" + (callBack != null));
             var loader = AssetAsyncLoader.Get();
             prosessingAssetAsyncLoader.Add(loader);
             if (IsAssetLoaded(assetName))
