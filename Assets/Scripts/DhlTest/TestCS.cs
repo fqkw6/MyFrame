@@ -2,9 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 using XLua;
+using System;
 [LuaCallCSharp]
 public class TestCS
 {
+    [CSharpCallLua]
+    public delegate void EventHandle();
+    public event EventHandle eventHandle;
+
     #region lua 调用C#
     LuaEnv luaEnv = new LuaEnv();
     //静态属性 和方法
@@ -16,9 +21,9 @@ public class TestCS
 
     //非静态方法 和属性
     public int id = 1;
-    public void Log(int id = 1, string name = "hello")
+    public static void Log(int id = 1, string name = "hello")
     {
-        Debug.Log("id加姓名：" + id + name);
+        Debug.LogError("id加姓名：" + id + name);
     }
 
     #endregion
@@ -36,6 +41,13 @@ public class TestCS
     {
         //释放
         luaEnv.Dispose();
+    }
+
+    public static void LoadAssetAsync3(Action callBack)
+    {
+        Debug.LogError("fgggggggg===" + (callBack != null));
+        if (callBack != null) callBack();
+        //  callBack();
     }
 
 }

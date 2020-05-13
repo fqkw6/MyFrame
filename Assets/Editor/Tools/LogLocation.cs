@@ -32,10 +32,11 @@ stack traceback:
 	XLua/Hotfix/HotfixTest.lua:25: in function 'XLua.Hotfix.HotfixTest.Register'
         */
 
-         //Match match = Regex.Match(stackTrace, "LuaException: (.*?.lua:\\d+)");
+        //Match match = Regex.Match(stackTrace, "LuaException: (.*?.lua:\\d+)");
         Match match = Regex.Match(stackTrace, "stack traceback:\n(.*?.lua:\\d+)");
+
         // Match match = Regex.Match(match1.ToString().Replace("stack traceback:\n\t", ""), ".*");
-       // UnityEngine.Debug.LogError("===================: " +match.ToString());
+        // UnityEngine.Debug.LogError("===================: " +match.ToString());
         if (OpenLuaLocation(match))
         {
             return true;
@@ -89,13 +90,13 @@ stack traceback:
                 int spliteIndex = pathLine.LastIndexOf(':');
                 string path = pathLine.Substring(0, spliteIndex);
                 int line = System.Convert.ToInt32(pathLine.Substring(spliteIndex + 1));
-                string s=path.Replace("\t","");
+                string s = path.Replace("\t", "");
 
                 for (int i = 0; i < XLuaManager.m_path.Count; i++)
                 {
                     if (XLuaManager.m_path[i].Contains(s))//xlua 里所有lua 文件地址合集
                     {
-                        path=XLuaManager.m_path[i];
+                        path = XLuaManager.m_path[i];
                     }
                 }
                 string args = string.Empty;

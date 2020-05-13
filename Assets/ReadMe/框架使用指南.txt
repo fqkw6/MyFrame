@@ -36,6 +36,8 @@ lua 加载 CustomLoader XLuaManager
 
 执行 AssetBundles/Run All Checkers 会自动把预设体路径写到 AssetsaddressConfig
 
+LogLocation 打印辅助工具不好使时，就随便保存一行，重新运行
+ 
 重要事情
 1，python 升级3.7
 2，iis本地服务器必须把防火墙关了

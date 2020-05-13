@@ -11,7 +11,6 @@
 local ResourcesManager = BaseClass("ResourcesManager", Singleton)
 local AssetBundleManager = CS.AssetBundles.AssetBundleManager.Instance
 local AssetBundleUtility = CS.AssetBundles.AssetBundleUtility
-
 -- 是否有加载任务正在进行
 local function IsProsessRunning(self)
     return AssetBundleManager.IsProsessRunning
@@ -92,7 +91,8 @@ local function NewLoadAsync(self, path, res_type, progress_callback)
 end
 
 local function NewLoadAsync2(progress_callback)
-    AssetBundleManager:LoadAssetAsync2(progress_callback)
+    print(progress_callback)
+    AssetBundleManager:LoadAssetAsync3(progress_callback)
 end
 
 -- 清理资源：切换场景时调用

@@ -1,5 +1,7 @@
 -- 全局模块
 require "Global.Global"
+
+local AssetBundleManager = CS.AssetBundles.AssetBundleManager.Instance
 -- package.cpath =
 --     package.cpath ..
 --     ";c:/Users/Administrator.XSOOY-20190615H/.vscode/extensions/tangzx.emmylua-0.3.37/debugger/emmy/windows/x64/?.dll"
@@ -13,14 +15,17 @@ local function Initilize()
     local loadingAssetbundlePath = "UI/Prefabs/View/UILoading.prefab"
 
     --ResourcesManager:GetInstance():CoLoadAssetBundleAsync(loadingAssetbundlePath)
+    AssetBundleManager:LoadAssetAsync(loadingAssetbundlePath, typeof(GameObject), loadCall)
 
-    local callBack = function(obj)
-        Logger.LogError("name .... " .. obj.name)
-    end
-    ResourcesManager:GetInstance():NewLoadAsync2(callBack)
-    ResourcesManager:GetInstance():NewLoadAsync(loadingAssetbundlePath, typeof(GameObject), callBack)
+    --  ResourcesManager:GetInstance():NewLoadAsync(loadingAssetbundlePath, typeof(GameObject), loadCall)
 end
-
+loadCall = function(obj)
+    Logger.LogError("带参数 .... ")
+    Logger.LogError(obj.name)
+end
+callBack = function()
+    Logger.LogError("没有参数.... ")
+end
 -- 进入游戏
 local function EnterGame()
     -- luaide 调试
@@ -45,6 +50,11 @@ local function Start()
     -- Logger.LogError("GameMain start...")
     Logger.Log("dddddd")
     Logger.Log(CS.TestCS.index .. "===CS>TestCS")
+    local loadingAssetbundlePath = "UI/Prefabs/View/UILoading.prefab"
+    AssetBundleManager:LoadAssetAsync(loadingAssetbundlePath, typeof(GameObject), loadCall)
+    -- AssetBundleManager:LoadAssetAsync3(callBack)
+    -- AssetBundleManager:LoadAssetAsync5(loadCall)
+    -- AssetBundleManager:LoadAssetAsyncmk()
     -- 模块启动
     UpdateManager:GetInstance():Startup()
     TimerManager:GetInstance():Startup()

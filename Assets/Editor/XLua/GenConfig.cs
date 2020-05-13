@@ -28,6 +28,8 @@ public static class GenConfig
         typeof(WWW),
         typeof(List<int>),
         typeof(Action<string>),
+        typeof(Action<GameObject>),
+        typeof(Action),
         typeof(UnityEngine.Debug),
         typeof(Delegate),
         typeof(Dictionary<string, GameObject>),
@@ -104,6 +106,7 @@ public static class GenConfig
     public static List<Type> CSharpCallLua = new List<Type>() {
 		// unity
 		typeof(Action),
+        typeof(Action<GameObject>),
         typeof(Action<int>),
         typeof(Action<WWW>),
         typeof(Callback),
@@ -113,31 +116,31 @@ public static class GenConfig
         typeof(UnityEngine.Events.UnityAction<Vector2>),
     };
 
-	//黑名单
-	[BlackList]
-	public static List<List<string>> BlackList = new List<List<string>>()  {
+    //黑名单
+    [BlackList]
+    public static List<List<string>> BlackList = new List<List<string>>()  {
 		// unity
 		new List<string>(){"UnityEngine.WWW", "movie"},
-		new List<string>(){"UnityEngine.Texture2D", "alphaIsTransparency"},
+        new List<string>(){"UnityEngine.Texture2D", "alphaIsTransparency"},
         new List<string>(){"UnityEngine.WWW", "GetMovieTexture"},
         new List<string>(){"UnityEngine.Texture2D", "alphaIsTransparency"},
-		new List<string>(){"UnityEngine.Security", "GetChainOfTrustValue"},
-		new List<string>(){"UnityEngine.CanvasRenderer", "onRequestRebuild"},
-		new List<string>(){"UnityEngine.Light", "areaSize"},
-		new List<string>(){"UnityEngine.AnimatorOverrideController", "PerformOverrideClipListCleanup"},
+        new List<string>(){"UnityEngine.Security", "GetChainOfTrustValue"},
+        new List<string>(){"UnityEngine.CanvasRenderer", "onRequestRebuild"},
+        new List<string>(){"UnityEngine.Light", "areaSize"},
+        new List<string>(){"UnityEngine.AnimatorOverrideController", "PerformOverrideClipListCleanup"},
 		#if !UNITY_WEBPLAYER
 		new List<string>(){"UnityEngine.Application", "ExternalEval"},
 		#endif
 		new List<string>(){"UnityEngine.GameObject", "networkView"}, //4.6.2 not support
 		new List<string>(){"UnityEngine.Component", "networkView"},  //4.6.2 not support
 		new List<string>(){"System.IO.FileInfo", "GetAccessControl", "System.Security.AccessControl.AccessControlSections"},
-		new List<string>(){"System.IO.FileInfo", "SetAccessControl", "System.Security.AccessControl.FileSecurity"},
-		new List<string>(){"System.IO.DirectoryInfo", "GetAccessControl", "System.Security.AccessControl.AccessControlSections"},
-		new List<string>(){"System.IO.DirectoryInfo", "SetAccessControl", "System.Security.AccessControl.DirectorySecurity"},
-		new List<string>(){"System.IO.DirectoryInfo", "CreateSubdirectory", "System.String", "System.Security.AccessControl.DirectorySecurity"},
-		new List<string>(){"System.IO.DirectoryInfo", "Create", "System.Security.AccessControl.DirectorySecurity"},
-		new List<string>(){"UnityEngine.MonoBehaviour", "runInEditMode"},
-		new List<string>(){"UnityEngine.UI.Text", "OnRebuildRequested"},
+        new List<string>(){"System.IO.FileInfo", "SetAccessControl", "System.Security.AccessControl.FileSecurity"},
+        new List<string>(){"System.IO.DirectoryInfo", "GetAccessControl", "System.Security.AccessControl.AccessControlSections"},
+        new List<string>(){"System.IO.DirectoryInfo", "SetAccessControl", "System.Security.AccessControl.DirectorySecurity"},
+        new List<string>(){"System.IO.DirectoryInfo", "CreateSubdirectory", "System.String", "System.Security.AccessControl.DirectorySecurity"},
+        new List<string>(){"System.IO.DirectoryInfo", "Create", "System.Security.AccessControl.DirectorySecurity"},
+        new List<string>(){"UnityEngine.MonoBehaviour", "runInEditMode"},
+        new List<string>(){"UnityEngine.UI.Text", "OnRebuildRequested"},
         new List<string>(){"System.Type", "IsSZArray"},
 
     };

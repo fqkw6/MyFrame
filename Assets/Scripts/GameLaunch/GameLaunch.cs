@@ -206,9 +206,9 @@ public class GameLaunch : MonoBehaviour
         Debug.LogError(Time.time);
         UnityEngine.U2D.SpriteAtlas producePrefab = loader.asset as UnityEngine.U2D.SpriteAtlas;
         string ip = GetCurrentMachineLocalIP();
-        Debug.LogError(producePrefab);
         loader.Dispose();
         loader1.Dispose();
+
         //  SceneManager.LoadScene(1);
         //producePrefab.GetSprite(spriteName);
         yield break;

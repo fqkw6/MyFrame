@@ -47,7 +47,7 @@ namespace AssetBundles
             assetbundleLoader = null;
             isOver = true;
             this.callBack = callBack;
-            UnityEngine.Debug.LogError((callBack != null) + "=====unload");
+            //   UnityEngine.Debug.LogError((callBack != null) + "=====unload");
         }
 
         public int Sequence
@@ -63,7 +63,7 @@ namespace AssetBundles
             isOver = false;
             assetbundleLoader = loader;
             this.callBack = callBack;
-            UnityEngine.Debug.LogError((callBack != null) + "=====load");
+            //    UnityEngine.Debug.LogError((callBack != null) + "=====load");
         }
 
         public string AssetName
@@ -91,8 +91,6 @@ namespace AssetBundles
         {
             if (isDone)
             {
-                // UnityEngine.Debug.LogError("sssscallBack==" + (callBack != null) + "==sddsds" + AssetName);
-
                 return;
             }
 
@@ -105,7 +103,7 @@ namespace AssetBundles
             asset = AssetBundleManager.Instance.GetAssetCache(AssetName);
             if (callBack != null)
             {
-                UnityEngine.Debug.LogError("sssscallBack");
+                // UnityEngine.Debug.LogError("ssss===callBack");
                 callBack(asset);
             }
             assetbundleLoader.Dispose();
