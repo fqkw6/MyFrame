@@ -3,6 +3,9 @@ using System.Collections;
 using System.IO;
 using UnityEngine.Networking;
 using UnityEngine;
+/// <summary>
+/// 断点续传
+/// </summary>
 public class HttpDownLoad : MonoSingleton<HttpDownLoad>
 {
     public float progress { get; private set; }

@@ -123,14 +123,14 @@ namespace AssetBundles
         {
             var path = GetStreamingAssetBundleServerUrl();
             GameUtility.SafeWriteAllText(path, GetAssetBundleServerURL());
-            AssetDatabase.Refresh();
+            //    AssetDatabase.Refresh();
         }
 
         public static void ClearAssetBundleServerURL()
         {
             var path = GetStreamingAssetBundleServerUrl();
             GameUtility.SafeDeleteFile(path);
-            AssetDatabase.Refresh();
+            //AssetDatabase.Refresh();
         }
 
         public static string GetAssetBundleServerURL()

@@ -47,7 +47,8 @@ public class BuildPlayer : Editor
 
     private static void InnerBuildAssetBundles(BuildTarget buildTarget, string channelName, bool writeConfig)
     {
-        BuildAssetBundleOptions buildOption = BuildAssetBundleOptions.IgnoreTypeTreeChanges | BuildAssetBundleOptions.DeterministicAssetBundle;
+        //更改打包的压缩方式LZ4
+        BuildAssetBundleOptions buildOption = BuildAssetBundleOptions.IgnoreTypeTreeChanges | BuildAssetBundleOptions.DeterministicAssetBundle | BuildAssetBundleOptions.ChunkBasedCompression;
         string outputPath = PackageUtils.GetAssetBundleOutputPath(buildTarget, channelName);
         AssetBundleManifest manifest = BuildPipeline.BuildAssetBundles(outputPath, buildOption, buildTarget);
         if (manifest != null && writeConfig)
@@ -56,6 +57,7 @@ public class BuildPlayer : Editor
             VariantMappingEditor.BuildVariantMapping(manifest);
             BuildPipeline.BuildAssetBundles(outputPath, buildOption, buildTarget);
             Debug.Log("输出路径" + outputPath);
+
         }
         WriteChannelNameFile(buildTarget, channelName);
         WriteAssetBundleSize(buildTarget, channelName);

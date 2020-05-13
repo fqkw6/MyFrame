@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Networking;
 using System.Collections;
-
+using System.Collections.Generic;
 /// <summary>
 /// 下载测试
 /// 
@@ -60,11 +60,14 @@ public class WebRequestTest : MonoBehaviour
             }
         }
     }
+    Dictionary<string, GameObject> dic = new Dictionary<string, GameObject>();
+
+
+
 
     // 下载AssetBundle
     private IEnumerator DoLoadAssetBundle()
     {
-        Caching.currentCacheForWriting = Caching.AddCache("F:/UnityCaching/");
         string url = Application.streamingAssetsPath + "/" + "AssetBundles/ui/prefabs/view/" + "ssss_prefab.assetbundle";
         Debug.LogError(url);
         using (UnityWebRequest request = UnityWebRequestAssetBundle.GetAssetBundle(url))
@@ -77,17 +80,29 @@ public class WebRequestTest : MonoBehaviour
             }
             else
             {
+                string assetName = "Assets/AssetsPackage/UI/Prefabs/View/ssss.prefab";
                 // 下载完成
                 AssetBundle assetBundle = (request.downloadHandler as DownloadHandlerAssetBundle).assetBundle;
-                GameObject gameObject = assetBundle.LoadAsset<GameObject>("Assets/AssetsPackage/UI/Prefabs/View/ssss.prefab");
-                Debug.LogError(gameObject);
+                GameObject go = assetBundle.LoadAsset<GameObject>(assetName);
+                Debug.LogError(go);
+                dic.Add(assetName, go);
+                assetBundle.Unload(false);
                 // 优先释放request 会降低内存峰值
-                byte[] data = request.downloadHandler.data;
-                Debug.LogError(data.Length);
-                GameUtility.SafeWriteAllBytes(Application.persistentDataPath, data);
                 request.Dispose();
-
+                //GameObject.Instantiate(dic[assetName]);
+                Debug.LogError("ssssssss");
+                finsh = true;
             }
+        }
+    }
+    bool finsh = false;
+    private void Update()
+    {
+        if (finsh)
+        {
+            finsh = false;
+
+            GameObject.Instantiate(dic["Assets/AssetsPackage/UI/Prefabs/View/ssss.prefab"]);
         }
     }
 
