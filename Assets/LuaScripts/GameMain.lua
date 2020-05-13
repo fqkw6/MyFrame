@@ -15,16 +15,16 @@ local function Initilize()
     local loadingAssetbundlePath = "UI/Prefabs/View/UILoading.prefab"
 
     --ResourcesManager:GetInstance():CoLoadAssetBundleAsync(loadingAssetbundlePath)
-    AssetBundleManager:LoadAssetAsync(loadingAssetbundlePath, typeof(GameObject), loadCall)
+    --  AssetBundleManager:LoadAssetAsync(loadingAssetbundlePath, typeof(GameObject), loadCall)
 
-    --  ResourcesManager:GetInstance():NewLoadAsync(loadingAssetbundlePath, typeof(GameObject), loadCall)
+    ResourcesManager:GetInstance():NewLoadAsync(loadingAssetbundlePath, typeof(GameObject), loadCall)
 end
 loadCall = function(obj)
-    Logger.LogError("带参数 .... ")
+    Logger.LogError("带参数11 .... ")
     Logger.LogError(obj.name)
 end
 callBack = function()
-    Logger.LogError("没有参数.... ")
+    Logger.LogError("没有参数11.... ")
 end
 -- 进入游戏
 local function EnterGame()
