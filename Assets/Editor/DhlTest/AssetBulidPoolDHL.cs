@@ -75,7 +75,7 @@ public class AssetBulidPoolDHL : Editor
             string path = AssetDatabase.GetAssetPath(selected);
             AssetImporter assetImporter = AssetImporter.GetAtPath(path);
             assetImporter.assetBundleName = selected.name;
-            assetImporter.assetBundleVariant = ".unity3d";//后缀名
+            assetImporter.assetBundleVariant = "unity3d";//后缀名
         }
         Debug.Log("SetName Secuss");
     }
@@ -88,7 +88,7 @@ public class AssetBulidPoolDHL : Editor
     {
         AssetImporter assetImporter = AssetImporter.GetAtPath("Assets/AssetsPackage/TestAB");
         assetImporter.assetBundleName = "testababab";
-        assetImporter.assetBundleVariant = ".unity3d";//后缀名
+        assetImporter.assetBundleVariant = "unity3d";//后缀名
         Debug.Log("SetName Secuss");
     }
 
