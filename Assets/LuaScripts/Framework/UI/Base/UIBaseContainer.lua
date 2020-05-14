@@ -7,8 +7,10 @@
 -- 3、GetComponent用来获取组件，GetComponents用来获取一个类别的组件
 -- 4、很重要：子组件必须保证名字互斥，即一个不同的名字要保证对应于Unity中一个不同的Transform
 --]]
+---@class UIBaseContainer
 local UIBaseContainer = BaseClass("UIBaseContainer", UIBaseComponent)
 -- 基类，用来调用基类方法
+---@return UIBaseComponent
 local base = UIBaseComponent
 
 -- 创建

@@ -2,6 +2,7 @@
 -- added by wsh @ 2017-11-30
 -- Logger系统：Lua中所有错误日志输出均使用本脚本接口，以便上报服务器
 --]]
+---@class Logger
 local Logger = BaseClass("Logger")
 
 local function Log(msg)

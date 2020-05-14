@@ -6,6 +6,7 @@
 -- 2、OnEnable函数每次在窗口打开时调用，直接刷新
 -- 3、组件命名参考代码规范
 --]]
+---@class UILoginView:UIBaseView
 local UILoginView = BaseClass("UILoginView", UIBaseView)
 local base = UIBaseView
 
@@ -15,6 +16,7 @@ local account_input_path = "ContentRoot/AccountRoot/AccountInput"
 local password_input_path = "ContentRoot/PasswordRoot/PasswordInput"
 local server_select_btn_path = "ContentRoot/SvrRoot/SvrSelectBtn"
 local login_btn_path = "ContentRoot/LoginBtn"
+
 local long_press_bg = "BgRoot/Bg"
 
 local app_version_text_path = "ContentRoot/AppVersionText"
@@ -139,6 +141,7 @@ local function OnEnable(self)
     base.OnEnable(self)
     self:OnRefresh()
     Logger.Log(self.gameObject:GetComponent("UILogin").panelname)
+
     --self.transform.localPosition=Vector3.New(220,11,5);
 end
 

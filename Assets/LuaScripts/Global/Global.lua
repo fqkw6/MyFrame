@@ -44,6 +44,7 @@ UIBaseModel = require "Framework.UI.Base.UIBaseModel"
 UIBaseCtrl = require "Framework.UI.Base.UIBaseCtrl"
 UIBaseComponent = require "Framework.UI.Base.UIBaseComponent"
 UIBaseContainer = require "Framework.UI.Base.UIBaseContainer"
+---@type UIBaseView
 UIBaseView = require "Framework.UI.Base.UIBaseView"
 
 -- ui component
@@ -88,6 +89,7 @@ GameObjectPool = require "Framework.Resource.GameObjectPool"
 
 -- update & time
 Timer = require "Framework.Updater.Timer"
+---@type TimerManager
 TimerManager = require "Framework.Updater.TimerManager"
 UpdateManager = require "Framework.Updater.UpdateManager"
 LogicUpdater = require "GameLogic.Main.LogicUpdater"
@@ -102,6 +104,7 @@ AtlasConfig = require "Resource.Config.AtlasConfig"
 AtlasManager = require "Framework.Resource.AtlasManager"
 
 -- effect
+---@type EffectConfig
 EffectConfig = require "Resource.Config.EffectConfig"
 BaseEffect = require "Framework.Resource.Effect.Base.BaseEffect"
 EffectManager = require "Framework.Resource.Effect.EffectManager"

@@ -12,6 +12,7 @@
 -- 4、虽然支持Update、LateUpdate、FixedUpdate更新，但是UI组件最好不要使用---不要定义这些函数即可
 -- 5、需要定时刷新的界面，最好启用定时器、协程，界面需要刷新的频率一般较低，倒计时之类的只需要每秒钟更新一次即可
 --]]
+---@class UIBaseComponent
 local UIBaseComponent = BaseClass("UIBaseComponent", Updatable)
 local base = Updatable
 

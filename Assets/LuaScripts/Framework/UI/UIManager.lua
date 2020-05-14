@@ -9,6 +9,7 @@
 -- 5、可将UIManager看做一个挂载在UIRoot上的不完全UI组件，但是它是Singleton，不使用多重继承，UI组件特性隐式实现
 --]]
 local Messenger = require "Framework.Common.Messenger"
+---@class UIManager:Singleton
 local UIManager = BaseClass("UIManager", Singleton)
 
 -- UIRoot路径
@@ -25,6 +26,7 @@ local MaxOderPerWindow = 10
 local UINoticeTip = CS.UINoticeTip.Instance
 
 -- 构造函数
+
 local function __init(self)
     -- 成员变量
     -- 消息中心
@@ -82,6 +84,7 @@ local function __init(self)
 end
 
 -- 注册消息
+
 local function AddListener(self, e_type, e_listener)
     self.ui_message_center:AddListener(e_type, e_listener)
 end
@@ -530,7 +533,7 @@ UIManager.OpenThreeButtonTip = OpenThreeButtonTip
 UIManager.CloseTip = CloseTip
 UIManager.WaitForViewCreated = WaitForViewCreated
 UIManager.WaitForTipResponse = WaitForTipResponse
-UIManager.GetTipLastClickIndex = GetTipLastClickIndex
+--UIManager.GetTipLastClickIndex = GetTipLastClickIndex
 UIManager.__delete = __delete
 
 return UIManager
