@@ -40,6 +40,7 @@ namespace AssetBundles
 
         public void RunCheckers(bool checkChannel)
         {
+            UnityEngine.Debug.Log("开始检测了");
             switch (config.Type)
             {
                 case AssetBundleDispatcherFilterType.Root:

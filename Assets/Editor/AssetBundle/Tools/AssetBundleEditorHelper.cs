@@ -235,6 +235,7 @@ namespace AssetBundles
             {
                 string assetPath = AssetDatabase.GetAssetPath(obj);
                 string toName = AssetPathToAssetbundleName(assetPath);
+                Debug.LogError(assetPath);
                 if (!string.IsNullOrEmpty(toName) && !ret.Contains(toName))
                 {
                     ret.Add(toName);

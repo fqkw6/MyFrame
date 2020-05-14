@@ -107,6 +107,7 @@ namespace AssetBundles
         {
             get
             {
+                // Debug.Log("get=" + assetImporter.assetBundleName);
                 return IsValid ? assetImporter.assetBundleName : null;
             }
             set
@@ -114,6 +115,7 @@ namespace AssetBundles
                 if (IsValid)
                 {
                     assetImporter.assetBundleName = AssetBundleUtility.AssetBundlePathToAssetBundleName(value);
+                    //  Debug.LogError(assetImporter.assetBundleName);
                 }
             }
         }
@@ -122,6 +124,7 @@ namespace AssetBundles
         {
             get
             {
+                //Debug.Log("getss=" + assetImporter.assetBundleVariant);
                 return IsValid ? assetImporter.assetBundleVariant : null;
             }
             set
@@ -129,7 +132,7 @@ namespace AssetBundles
                 //must firstly set assetBundleName,then set assetBundleVariant
                 if (IsValid && !string.IsNullOrEmpty(assetImporter.assetBundleName))
                 {
-                    Debug.LogError(value);
+                    //Debug.LogError(value);
                     assetImporter.assetBundleVariant = value;
                 }
             }

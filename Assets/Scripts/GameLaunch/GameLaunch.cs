@@ -191,15 +191,14 @@ public class GameLaunch : MonoBehaviour
     const string producePrefabPath = "UI/SpriteAtlas/Role.spriteatlas";
     IEnumerator TestLoad()
     {
-        Debug.LogError(Time.time + "-==111==kaishi");
+        Debug.Log(Time.time + "-==111==kaishi");
         var loader = AssetBundleManager.Instance.LoadAssetAsync(producePrefabPath, typeof(UnityEngine.U2D.SpriteAtlas), (objd) =>
         {
             UnityEngine.U2D.SpriteAtlas producePrefab1 = objd as UnityEngine.U2D.SpriteAtlas;
-            Debug.LogError(producePrefab1);
-            Debug.LogError(Time.time + "==1111==huidiao");
+            Debug.Log(producePrefab1.name + Time.time + "==1111==huidiao");
         });
         yield return loader;
-        Debug.LogError(Time.time + "-====kaishi");
+        Debug.Log(Time.time + "-====kaishi");
 
         UnityEngine.U2D.SpriteAtlas producePrefab = loader.asset as UnityEngine.U2D.SpriteAtlas;
         string ip = GetCurrentMachineLocalIP();

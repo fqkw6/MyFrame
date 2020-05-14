@@ -71,8 +71,9 @@ namespace AssetBundles
             var checkerFilters = config.CheckerFilters;
             if (checkerFilters == null || checkerFilters.Count == 0)
             {
+                Debug.LogError(importer.packagePath);
                 importer.assetBundleName = assetsPath;
-
+                // Debug.LogError(assetsPath);
             }
             else
             {
@@ -91,7 +92,7 @@ namespace AssetBundles
                     if (imp.IsFile)
                     {
                         importer.assetBundleName = assetsPath;
-
+                        // Debug.LogError(assetsPath);
                         continue;
                     }
                     string[] objGuids = AssetDatabase.FindAssets(checkerFilter.ObjectFilter, new string[] { relativePath });
@@ -100,7 +101,7 @@ namespace AssetBundles
                         var path = AssetDatabase.GUIDToAssetPath(guid);
                         imp = AssetBundleImporter.GetAtPath(path);
                         imp.assetBundleName = assetsPath;
-
+                        //Debug.LogError(assetsPath);
                     }
                 }
             }
@@ -119,6 +120,7 @@ namespace AssetBundles
 
             var imp = AssetBundleImporter.GetAtPath(channelAssetPath);
             imp.assetBundleName = assetsPath;
+            Debug.LogError(assetsPath);
         }
 
         public static void Run(AssetBundleCheckerConfig config, bool checkChannel)
