@@ -71,7 +71,7 @@ namespace AssetBundles
             var checkerFilters = config.CheckerFilters;
             if (checkerFilters == null || checkerFilters.Count == 0)
             {
-                Debug.LogError(importer.packagePath);
+                //  Debug.LogError(importer.packagePath);
                 importer.assetBundleName = assetsPath;
                 // Debug.LogError(assetsPath);
             }
