@@ -14,15 +14,15 @@ local UIBaseContainer = BaseClass("UIBaseContainer", UIBaseComponent)
 local base = UIBaseComponent
 
 -- 创建
-function UIBaseContainer:OnCreate()
-    base.OnCreate()
+local function OnCreate(self)
+    base.OnCreate(self)
     self.components = {}
     self.length = 0
 end
 
 -- 打开
-function UIBaseContainer:OnEnable()
-    base.OnEnable()
+local function OnEnable(self)
+    base.OnEnable(self)
     self:Walk(
         function(component)
             component:OnEnable()
@@ -31,7 +31,7 @@ function UIBaseContainer:OnEnable()
 end
 
 -- 遍历：注意，这里是无序的
-function UIBaseContainer:Walk(callback, component_class)
+local function Walk(self, callback, component_class)
     for _, components in pairs(self.components) do
         for cmp_class, component in pairs(components) do
             if component_class == nil then
@@ -44,34 +44,34 @@ function UIBaseContainer:Walk(callback, component_class)
 end
 
 -- 如果必要，创建新的记录，对应Unity下一个Transform下所有挂载脚本的记录表
-function UIBaseContainer:AddNewRecordIfNeeded(name)
+local function AddNewRecordIfNeeded(self, name)
     if self.components[name] == nil then
         self.components[name] = {}
     end
 end
 
 -- 记录Component
-function UIBaseContainer:RecordComponent(name, component_class, component)
+local function RecordComponent(self, name, component_class, component)
     -- 同一个Transform不能挂两个同类型的组件
     assert(self.components[name][component_class] == nil, "Aready exist component_class : ", component_class.__cname)
     self.components[name][component_class] = component
 end
 
 -- 子组件改名回调
-function UIBaseContainer:OnComponentSetName(component, new_name)
-    self.AddNewRecordIfNeeded(self, new_name)
+local function OnComponentSetName(self, component, new_name)
+    AddNewRecordIfNeeded(self, new_name)
     -- 该名字对应Unity的Transform下挂载的所有脚本都要改名
     local old_name = component:GetName()
     local components = self.components[old_name]
     for k, v in pairs(components) do
         v:SetName(new_name)
-        self.RecordComponent(self, new_name, k, v)
+        RecordComponent(self, new_name, k, v)
     end
     self.components[old_name] = nil
 end
 
 -- 子组件销毁
-function UIBaseContainer:OnComponentDestroy(component)
+local function OnComponentDestroy(self, component)
     self.length = self.length - 1
 end
 
@@ -82,7 +82,7 @@ end
 --    A）inst:AddComponent(ComponentTypeClass, relative_path)
 --    B）inst:AddComponent(ComponentTypeClass, child_index)
 --    C）inst:AddComponent(ComponentTypeClass, unity_gameObject)
-function UIBaseContainer:AddComponent(component_target, var_arg, ...) ---var_arg地址, ... 作为参数new
+local function AddComponent(self, component_target, var_arg, ...) ---var_arg地址, ... 作为参数new
     assert(component_target.__ctype == ClassType.class)
     local component_inst = nil
     local component_class = nil
@@ -96,14 +96,14 @@ function UIBaseContainer:AddComponent(component_target, var_arg, ...) ---var_arg
     end
 
     local name = component_inst:GetName()
-    self.AddNewRecordIfNeeded(self, name)
-    self.RecordComponent(self, name, component_class, component_inst)
+    AddNewRecordIfNeeded(self, name)
+    RecordComponent(self, name, component_class, component_inst)
     self.length = self.length + 1
     return component_inst
 end
 
 -- 获取组件
-function UIBaseContainer:GetComponent(name, component_class)
+local function GetComponent(self, name, component_class)
     local components = self.components[name]
     if components == nil then
         return nil
@@ -123,7 +123,7 @@ end
 -- 获取一系列组件：2种重载方式
 -- 1、获取一个类别的组件
 -- 2、获取某个name（Transform）下的所有组件
-function UIBaseContainer:GetComponents(component_target)
+local function GetComponents(self, component_target)
     local components = {}
     if type(component_target) == "table" then
         self:Walk(
@@ -141,12 +141,12 @@ function UIBaseContainer:GetComponents(component_target)
 end
 
 -- 获取组件个数
-function UIBaseContainer:GetComponentsCount()
+local function GetComponentsCount(self)
     return self.length
 end
 
 -- 移除组件
-function UIBaseContainer:RemoveComponent(name, component_class)
+local function RemoveComponent(self, name, component_class)
     local component = self:GetComponent(name, component_class)
     if component ~= nil then
         local cmp_class = component._class_type
@@ -158,7 +158,7 @@ end
 -- 移除一系列组件：2种重载方式
 -- 1、移除一个类别的组件
 -- 2、移除某个name（Transform）下的所有组件
-function UIBaseContainer:RemoveComponents(component_target)
+local function RemoveComponents(self, component_target)
     local components = self:GetComponents(component_target)
     for _, component in pairs(components) do
         local cmp_name = component:GetName()
@@ -170,7 +170,7 @@ function UIBaseContainer:RemoveComponents(component_target)
 end
 
 -- 关闭
-function UIBaseContainer:OnDisable()
+local function OnDisable(self)
     base.OnDisable(self)
     self:Walk(
         function(component)
@@ -180,7 +180,7 @@ function UIBaseContainer:OnDisable()
 end
 
 -- 销毁
-function UIBaseContainer:OnDestroy()
+local function OnDestroy(self)
     self:Walk(
         function(component)
             -- 说明：现在一个组件可以被多个容器持有，但是holder只有一个，所以由holder去释放
@@ -194,8 +194,22 @@ function UIBaseContainer:OnDestroy()
 end
 
 ------获取子类的transform
-function UIBaseContainer:GetChildTransform(name)
+local function GetChildTransform(self, name)
     return self.transform:Find(name)
 end
 
+UIBaseContainer.OnCreate = OnCreate
+UIBaseContainer.OnEnable = OnEnable
+UIBaseContainer.Walk = Walk
+UIBaseContainer.OnComponentSetName = OnComponentSetName
+UIBaseContainer.OnComponentDestroy = OnComponentDestroy
+UIBaseContainer.AddComponent = AddComponent
+UIBaseContainer.GetComponent = GetComponent
+UIBaseContainer.GetComponents = GetComponents
+UIBaseContainer.GetComponentsCount = GetComponentsCount
+UIBaseContainer.RemoveComponent = RemoveComponent
+UIBaseContainer.RemoveComponents = RemoveComponents
+UIBaseContainer.OnDisable = OnDisable
+UIBaseContainer.OnDestroy = OnDestroy
+UIBaseContainer.GetChildTransform = GetChildTransform
 return UIBaseContainer
