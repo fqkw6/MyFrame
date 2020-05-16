@@ -18,6 +18,7 @@ require "LuaDhl.Test01"
 
 -- 创建全局模块
 Config = require "Global.Config"
+SingleGet = require "Common.SingleGet"
 Singleton = require "Framework.Common.Singleton"
 Updatable = require "Framework.Common.Updatable"
 UpdatableSingleton = require "Framework.Common.UpdatableSingleton"
@@ -50,6 +51,7 @@ UIBaseView = require "Framework.UI.Base.UIBaseView"
 -- ui component
 UILayer = require "Framework.UI.Component.UILayer"
 UICanvas = require "Framework.UI.Component.UICanvas"
+---@type UIText
 UIText = require "Framework.UI.Component.UIText"
 UIImage = require "Framework.UI.Component.UIImage"
 UISlider = require "Framework.UI.Component.UISlider"
@@ -75,6 +77,7 @@ UIPointerLongPress = require "Framework.UI.Component.UIPointerLongPress"
 UIPointerDoubleClick = require "Framework.UI.Component.UIPointerDoubleClick"
 
 -- ui window
+---@type UILayers
 UILayers = require "Framework.UI.UILayers"
 UIWindow = require "Framework.UI.UIWindow"
 UIManager = require "Framework.UI.UIManager"
@@ -84,6 +87,7 @@ UIConfig = require "UI.Config.UIConfig"
 UIBoardManager = require "UI.UIBoard.UIBoardManager"
 
 -- res
+---@type ResourcesManager
 ResourcesManager = require "Framework.Resource.ResourcesManager"
 GameObjectPool = require "Framework.Resource.GameObjectPool"
 

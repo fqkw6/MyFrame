@@ -5,12 +5,13 @@
 -- 1、所有需要预设都从这里加载，不要直接到ResourcesManager去加载，由这里统一做缓存管理
 -- 2、缓存分为两部分：从资源层加载的原始GameObject(Asset)，从GameObject实例化出来的多个Inst
 --]]
+---@class GameObjectPool:Singleton
 local GameObjectPool = BaseClass("GameObjectPool", Singleton)
 local __cacheTransRoot = nil
 local __goPool = {}
 local __instCache = {}
 
-local function __init(self)
+function GameObjectPool:__init()
     local go = CS.UnityEngine.GameObject.Find("GameObjectCacheRoot")
     if go == nil then
         go = CS.UnityEngine.GameObject("GameObjectCacheRoot")
@@ -27,7 +28,7 @@ local function InitInst(inst)
 end
 
 -- 检测是否已经被缓存
-local function CheckHasCached(self, path)
+function GameObjectPool:CheckHasCached(path)
     assert(path ~= nil and type(path) == "string" and #path > 0, "path err : " .. path)
     assert(string.endswith(path, ".prefab", true), "GameObject must be prefab : " .. path)
 
@@ -41,7 +42,7 @@ local function CheckHasCached(self, path)
 end
 
 -- 缓存并实例化GameObject
-local function CacheAndInstGameObject(self, path, go, inst_count)
+function GameObjectPool:CacheAndInstGameObject(path, go, inst_count)
     assert(not IsNull(go))
     assert(inst_count == nil or type(inst_count) == "number" and inst_count >= 0)
 
@@ -59,7 +60,7 @@ local function CacheAndInstGameObject(self, path, go, inst_count)
 end
 
 -- 尝试从缓存中获取
-local function TryGetFromCache(self, path)
+function GameObjectPool:TryGetFromCache(path)
     if not self:CheckHasCached(path) then
         return nil
     end
@@ -81,7 +82,7 @@ local function TryGetFromCache(self, path)
 end
 
 -- 预加载：可提供初始实例化个数
-local function PreLoadGameObjectAsync(self, path, inst_count, callback, ...)
+function GameObjectPool:PreLoadGameObjectAsync(path, inst_count, callback, ...)
     assert(inst_count == nil or type(inst_count) == "number" and inst_count >= 0)
     if self:CheckHasCached(path) then
         if callback then
@@ -91,12 +92,12 @@ local function PreLoadGameObjectAsync(self, path, inst_count, callback, ...)
     end
 
     local args = SafePack(...)
-    ResourcesManager:GetInstance():LoadAsync(
+    SingleGet.ResourcesManager():LoadAsync(
         path,
         typeof(CS.UnityEngine.GameObject),
         function(go)
             if not IsNull(go) then
-                CacheAndInstGameObject(self, path, go, inst_count)
+                self:CacheAndInstGameObject(path, go, inst_count)
             end
 
             if callback then
@@ -107,19 +108,19 @@ local function PreLoadGameObjectAsync(self, path, inst_count, callback, ...)
 end
 
 -- 预加载：协程形式
-local function CoPreLoadGameObjectAsync(self, path, inst_count, progress_callback)
+function GameObjectPool:CoPreLoadGameObjectAsync(path, inst_count, progress_callback)
     if self:CheckHasCached(path) then
         return
     end
 
     local go = ResourcesManager:GetInstance():CoLoadAsync(path, typeof(CS.UnityEngine.GameObject), progress_callback)
     if not IsNull(go) then
-        CacheAndInstGameObject(self, path, go, inst_count)
+        self:CacheAndInstGameObject(path, go, inst_count)
     end
 end
 
 -- 异步获取：必要时加载
-local function GetGameObjectAsync(self, path, callback, ...)
+function GameObjectPool:GetGameObjectAsync(path, callback, ...)
     local inst = self:TryGetFromCache(path)
     if not IsNull(inst) then
         InitInst(inst)
@@ -141,7 +142,7 @@ local function GetGameObjectAsync(self, path, callback, ...)
 end
 
 -- 异步获取：协程形式
-local function CoGetGameObjectAsync(self, path, progress_callback)
+function GameObjectPool:CoGetGameObjectAsync(path, progress_callback)
     local inst = self:TryGetFromCache(path)
     if not IsNull(inst) then
         InitInst(inst)
@@ -157,7 +158,7 @@ local function CoGetGameObjectAsync(self, path, progress_callback)
 end
 
 -- 回收
-local function RecycleGameObject(self, path, inst)
+function GameObjectPool:RecycleGameObject(path, inst)
     assert(not IsNull(inst))
     assert(path ~= nil and type(path) == "string" and #path > 0, "path err : " .. path)
     assert(string.endswith(path, ".prefab", true), "GameObject must be prefab : " .. path)
@@ -170,7 +171,7 @@ local function RecycleGameObject(self, path, inst)
 end
 
 -- 清理缓存
-local function Cleanup(self, includePooledGo)
+function GameObjectPool:Cleanup(includePooledGo)
     for _, cachedInst in pairs(__instCache) do
         for _, inst in pairs(cachedInst) do
             if not IsNull(inst) then
@@ -184,15 +185,5 @@ local function Cleanup(self, includePooledGo)
         __goPool = {}
     end
 end
-
-GameObjectPool.__init = __init
-GameObjectPool.CheckHasCached = CheckHasCached
-GameObjectPool.TryGetFromCache = TryGetFromCache
-GameObjectPool.PreLoadGameObjectAsync = PreLoadGameObjectAsync
-GameObjectPool.CoPreLoadGameObjectAsync = CoPreLoadGameObjectAsync
-GameObjectPool.GetGameObjectAsync = GetGameObjectAsync
-GameObjectPool.CoGetGameObjectAsync = CoGetGameObjectAsync
-GameObjectPool.RecycleGameObject = RecycleGameObject
-GameObjectPool.Cleanup = Cleanup
 
 return GameObjectPool

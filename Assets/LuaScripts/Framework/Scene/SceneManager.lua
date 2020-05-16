@@ -5,10 +5,11 @@
 -- 1、资源预加载放各个场景类中自行控制
 -- 2、场景loading的UI窗口这里统一管理，由于这个窗口很简单，更新进度数据时直接写Model层
 --]]
+---@class SceneManager:Singleton
 local SceneManager = BaseClass("SceneManager", Singleton)
 
 -- 构造函数
-local function __init(self)
+function SceneManager:__init()
     -- 成员变量
     -- 当前场景
     self.current_scene = nil
@@ -19,7 +20,7 @@ local function __init(self)
 end
 
 -- 切换场景：内部使用协程
-local function CoInnerSwitchScene(self, scene_config)
+function SceneManager:CoInnerSwitchScene(scene_config)
     -- 打开loading界面
     local uimgr_instance = UIManager:GetInstance()
     uimgr_instance:OpenWindow(UIWindowNames.UILoading)
@@ -47,7 +48,7 @@ local function CoInnerSwitchScene(self, scene_config)
     GameObjectPool:GetInstance():Cleanup(true)
     model.value = model.value + 0.01
     coroutine.waitforframes(1)
-    ResourcesManager:GetInstance():Cleanup()
+    SingleGet.ResourcesManager():Cleanup()
     model.value = model.value + 0.01
     coroutine.waitforframes(1)
     -- 同步加载loading场景
@@ -115,7 +116,7 @@ local function CoInnerSwitchScene(self, scene_config)
 end
 
 -- 切换场景
-local function SwitchScene(self, scene_config)
+function SceneManager:SwitchScene(scene_config)
     assert(scene_config ~= LaunchScene and scene_config ~= LoadingScene)
     assert(scene_config.Type ~= nil)
     if self.busing then
@@ -126,18 +127,14 @@ local function SwitchScene(self, scene_config)
     end
 
     self.busing = true
-    coroutine.start(CoInnerSwitchScene, self, scene_config)
+    coroutine.start(self.CoInnerSwitchScene, self, scene_config)
 end
 
 -- 析构函数
-local function __delete(self)
+function SceneManager:__delete()
     for _, scene in pairs(self.scenes) do
         scene:Delete()
     end
 end
-
-SceneManager.__init = __init
-SceneManager.SwitchScene = SwitchScene
-SceneManager.__delete = __delete
 
 return SceneManager

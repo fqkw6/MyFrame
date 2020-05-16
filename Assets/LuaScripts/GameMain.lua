@@ -8,16 +8,17 @@ local AssetBundleManager = CS.AssetBundles.AssetBundleManager.Instance
 -- local dbg = require("emmy_core")
 -- dbg.tcpListen("localhost", 9966)
 -- 定义为全局模块，整个lua程序的入口类
+---@class GameMain
 GameMain = {}
 
 -- 全局初始化
 local function Initilize()
     local loadingAssetbundlePath = "UI/Prefabs/View/UILoading.prefab"
 
-    --ResourcesManager:GetInstance():CoLoadAssetBundleAsync(loadingAssetbundlePath)
+    -- SingleGet.ResourcesManager():CoLoadAssetBundleAsync(loadingAssetbundlePath)
     --  AssetBundleManager:LoadAssetAsync(loadingAssetbundlePath, typeof(GameObject), loadCall)
 
-    ResourcesManager:GetInstance():NewLoadAsync(loadingAssetbundlePath, typeof(GameObject), loadCall)
+    SingleGet.ResourcesManager():NewLoadAsync(loadingAssetbundlePath, typeof(GameObject), loadCall)
 end
 loadCall = function(obj)
     Logger.LogError("带参数11 .... ")

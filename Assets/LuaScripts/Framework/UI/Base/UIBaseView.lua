@@ -8,8 +8,9 @@
 -- 4、Ctrl层不依赖View层，但是依赖Model层
 -- 5、任何情况下不要在游戏逻辑代码操作界面刷新---除了打开、关闭界面
 --]]
----@class UIBaseView
+---@class UIBaseView:UIBaseContainer
 local UIBaseView = BaseClass("UIBaseView", UIBaseContainer)
+---@return UIBaseContainer
 local base = UIBaseContainer
 
 -- 构造函数：必须把基类需要的所有参数列齐---即使在这里不用，提高代码可读性

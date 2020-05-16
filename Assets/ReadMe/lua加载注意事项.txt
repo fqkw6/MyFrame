@@ -35,3 +35,25 @@
         5，TetsCS 头上顶[LuaCallCSharp]
 
         Logger.Log(CS.TestCS.index.."===CS>TestCS")
+
+
+        5，lua  :  self
+        例如1, local function NewLoadAsync2(self,progress_callback)//
+                print(progress_callback)
+            end
+
+            ResourcesManager.NewLoadAsync2=NewLoadAsync2
+
+        加首个参数 self ,:调用时自动传入  ResourcesManager:GetInstance() 作为self
+        外部调用  ResourcesManager:GetInstance():NewLoadAsync2
+
+        例如2, function ResourcesManager:NewLoadAsync2(progress_callback)//
+                print(progress_callback)
+            end
+
+           ---不用写这句可以外部调用 ResourcesManager.NewLoadAsync2=NewLoadAsync2
+
+        不加首个参数 self  ResourcesManager:GetInstance():NewLoadAsync2 
+
+
+

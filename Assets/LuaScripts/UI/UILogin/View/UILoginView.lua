@@ -8,6 +8,7 @@
 --]]
 ---@class UILoginView:UIBaseView
 local UILoginView = BaseClass("UILoginView", UIBaseView)
+---@return UIBaseView
 local base = UIBaseView
 
 -- 各个组件路径
@@ -18,7 +19,7 @@ local server_select_btn_path = "ContentRoot/SvrRoot/SvrSelectBtn"
 local login_btn_path = "ContentRoot/LoginBtn"
 
 local long_press_bg = "BgRoot/Bg"
-
+---@return UIText
 local app_version_text_path = "ContentRoot/AppVersionText"
 local res_version_text_path = "ContentRoot/ResVersionText"
 
@@ -111,6 +112,7 @@ local function OnCreate(self)
     self.update_value = 0
     self.coroutine_value = 0
     self.test_timer_text = self:AddComponent(UIText, test_timer_path)
+
     self.test_updater_text = self:AddComponent(UIText, test_updater_path)
     self.test_coroutine_text = self:AddComponent(UIText, test_coroutine_path)
     -- 这里一定要对回调函数持有引用，否则随时可能被GC，引起定时器失效
