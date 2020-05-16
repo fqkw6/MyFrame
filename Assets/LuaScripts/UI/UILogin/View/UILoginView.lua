@@ -38,15 +38,14 @@ local test_top_canvas_path = "TopRoot"
 local test_timer_path = "TestTimer"
 local test_updater_path = "TestUpdater"
 local test_coroutine_path = "TestCoroutine"
-
-local function ClickOnLoginBtn(self)
+function UILoginView:ClickOnLoginBtn()
     local name = self.account_input:GetText()
     local password = self.password_input:GetText()
     self.ctrl:LoginServer(name, password)
 end
 
-local function OnCreate(self)
-    base.OnCreate(self)
+function UILoginView:OnCreate()
+    base.OnCreate()
     -- 初始化各个组件
     self.app_version_text = self:AddComponent(UIText, app_version_text_path)
     self.res_version_text = self:AddComponent(UIText, res_version_text_path)
@@ -139,7 +138,7 @@ local function OnCreate(self)
     )
 end
 
-local function OnEnable(self)
+function UILoginView:OnEnable()
     base.OnEnable(self)
     self:OnRefresh()
     Logger.Log(self.gameObject:GetComponent("UILogin").panelname)
@@ -148,37 +147,36 @@ local function OnEnable(self)
 end
 
 -- Update测试
-local function Update(self)
+function UILoginView:Update()
     self.update_value = self.update_value + Time.deltaTime
     self.test_updater_text:SetText(tostring(string.format("%.3f", self.update_value)))
 end
 
-local function OnRefreshServerInfo(self)
+function UILoginView:OnRefreshServerInfo()
     self.server_text:SetText(self.model.area_name .. " " .. self.model.server_name)
 end
-
-local function OnRefresh(self)
+function UILoginView:OnRefresh()
     -- 各组件刷新
     self.app_version_text:SetText("游戏版本号：" .. self.model.client_app_ver)
     self.res_version_text:SetText("资源版本号：" .. self.model.client_res_ver)
     self.account_input:SetText(self.model.account)
     self.password_input:SetText(self.model.password)
-    OnRefreshServerInfo(self)
+    self.OnRefreshServerInfo(self)
 end
 
-local function OnAddListener(self)
-    base.OnAddListener(self)
+function UILoginView:OnAddListener()
+    base.OnAddListener()
     -- UI消息注册
     self:AddUIListener(UIMessageNames.UILOGIN_ON_SELECTED_SVR_CHG, OnRefreshServerInfo)
 end
 
-local function OnRemoveListener(self)
-    base.OnRemoveListener(self)
+function UILoginView:OnRemoveListener()
+    base.OnRemoveListener()
     -- UI消息注销
     self:RemoveUIListener(UIMessageNames.UILOGIN_ON_SELECTED_SVR_CHG, OnRefreshServerInfo)
 end
 
-local function OnDestroy(self)
+function UILoginView:OnDestroy()
     self.app_version_text = nil
     self.res_version_text = nil
     self.server_text = nil
@@ -188,15 +186,7 @@ local function OnDestroy(self)
     self.login_btn = nil
     -- 测试代码
     self.timer:Stop()
-    base.OnDestroy(self)
+    base.OnDestroy()
 end
-
-UILoginView.OnCreate = OnCreate
-UILoginView.OnEnable = OnEnable
-UILoginView.Update = Update
-UILoginView.OnRefresh = OnRefresh
-UILoginView.OnAddListener = OnAddListener
-UILoginView.OnRemoveListener = OnRemoveListener
-UILoginView.OnDestroy = OnDestroy
 
 return UILoginView
