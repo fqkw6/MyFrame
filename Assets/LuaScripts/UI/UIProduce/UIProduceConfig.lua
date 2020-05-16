@@ -3,6 +3,7 @@
 -- UILoading模块窗口配置，要使用还需要导出到UI.Config.UIConfig.lua
 --]]
 -- 窗口配置
+---@class UIProduce
 local UIProduce = {
     Name = UIWindowNames.UIProduce,
     Layer = UILayers.BackgroudLayer,

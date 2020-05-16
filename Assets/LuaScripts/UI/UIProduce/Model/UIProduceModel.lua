@@ -2,7 +2,9 @@
 -- added by wsh @ 2017-12-01
 -- 函数每次在窗口打开时调用，可传递参数用来初始化Model
 --]]
+---@class UIProduceModel:UIBaseModel
 local UIProduceModel = BaseClass("UIProduceModel", UIBaseModel)
+---@return UIBaseModel
 local base = UIBaseModel
 
 -- 创建

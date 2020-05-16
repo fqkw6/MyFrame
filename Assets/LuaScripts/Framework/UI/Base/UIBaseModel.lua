@@ -9,6 +9,7 @@
 -- 5、界面Model层不依赖Ctrl层和View层，意思是说拿掉这这两层代码，Model依旧能完好运行
 -- 6、界面Model层数据只影响UI，不影响游戏逻辑，游戏逻辑不能从Model层取数据，意思是没有界面，游戏依旧能跑
 --]]
+---@class UIBaseModel
 local UIBaseModel = BaseClass("UIBaseModel")
 
 -- 如非必要，别重写构造函数，使用OnCreate初始化

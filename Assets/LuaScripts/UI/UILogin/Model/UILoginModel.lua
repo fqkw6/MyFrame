@@ -7,7 +7,9 @@
 -- 3、OnEnable内放窗口打开时才需要的成员变量，窗口关闭后及时清理
 -- 4、OnEnable函数每次在窗口打开时调用，可传递参数用来初始化Model
 --]]
+---@class UILoginModel:UIBaseModel
 local UILoginModel = BaseClass("UILoginModel", UIBaseModel)
+---@return UIBaseModel
 local base = UIBaseModel
 
 -- 创建

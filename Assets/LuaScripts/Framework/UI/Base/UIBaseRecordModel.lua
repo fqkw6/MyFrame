@@ -2,7 +2,9 @@
 -- added by wsh @ 2017-12-15
 -- UI带有子窗口记忆功能的模型层基类：窗口被重新打开时会自动打开之前没有关闭的子级窗口
 --]]
+---@class UIBaseRecordModel:UIBaseModel
 local UIBaseRecordModel = BaseClass("UIBaseRecordModel", UIBaseModel)
+---@return UIBaseModel
 local base = UIBaseModel
 
 -- 创建
