@@ -2,6 +2,7 @@
 -- added by wsh @ 2018-01-08
 -- 特效基类：提供特效组件的基础功能
 --]]
+---@class BaseEffect
 local BaseEffect = BaseClass("BaseEffect")
 
 -- 获取渲染器

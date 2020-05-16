@@ -2,6 +2,7 @@
 -- added by wsh @ 2017-12-15
 -- 场景基类，各场景类从这里继承：提供统一的场景加载和初始化步骤，负责资源预加载
 --]]
+---@class BaseScene
 local BaseScene = BaseClass("BaseScene")
 
 -- 构造函数，别重写，初始化放OnInit
