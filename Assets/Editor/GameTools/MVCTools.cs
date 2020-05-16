@@ -13,7 +13,7 @@ public class MVCTools : EditorWindow
         EditorWindow.GetWindow(typeof(MVCTools));
     }
 
-    public static string author = "passion";
+    public static string author = "fqkw6";
     public static string newUIStr = "UIName";
     public static string newFileStr = "FileName";
     public static string newWarpItemStr = "UIXXXWarpItem";
@@ -114,8 +114,10 @@ public class MVCTools : EditorWindow
             Directory.CreateDirectory(DirectoryName + Path.DirectorySeparatorChar + newFileStr + Path.DirectorySeparatorChar + ComponentName);
         }
         string luaData = "";
-        luaData = "--[[\r\n-- added by "+ author +" @" + System.DateTime.Now + "\r\n-- +" + newFileStr + "模块" + newFileStr + "View窗口中服务器列表的可复用Item\r\n--]]\r\n"
+        luaData = "--[[\r\n-- added by " + author + " @" + System.DateTime.Now + "\r\n-- +" + newFileStr + "模块" + newFileStr + "View窗口中服务器列表的可复用Item\r\n--]]\r\n"
+                    + "---@class " + newUIStr + ": UIWrapComponent" + "\r\n"
                     + "local " + newWarpItemStr + " = BaseClass(" + "\"" + newWarpItemStr + "\", UIWrapComponent)" + "\r\n"
+                    + "---@return UIWrapComponent" + "\r\n"
                     + "local base = UIWrapComponent\r\n"
                     + "-- 创建\r\n"
                     + "local function OnCreate(self)\r\n\t"
@@ -141,11 +143,12 @@ public class MVCTools : EditorWindow
     private static void CreatCrtlLua()
     {
         string luaData = "";
-        luaData = "--[[\r\n-- added by "+author+" @" + System.DateTime.Now + "\r\n"
-            +"-- +" + newUIStr + "控制层\r\n--]]\r\n"
+        luaData = "--[[\r\n-- added by " + author + " @" + System.DateTime.Now + "\r\n"
+            + "-- +" + newUIStr + "控制层\r\n--]]\r\n"
+            + "---@class " + newUIStr + ": UIBaseCtrl" + "\r\n"
             + "local " + newUIStr + "Ctrl = BaseClass(" + "\"" + newUIStr + "Ctrl\", UIBaseCtrl)" + "\r\n"
             + "return " + newUIStr + "Ctrl";
-        
+
         Debug.Log(luaData);
         string path = DirectoryName + newFileStr + Path.DirectorySeparatorChar + ControllerName + Path.DirectorySeparatorChar + newUIStr + "Ctrl.lua";
         CreatUIScript(path, luaData);
@@ -156,7 +159,7 @@ public class MVCTools : EditorWindow
     {
         string luaData = "";
         luaData = "--[[\r\n"
-        + "-- added by "+author+" @ " + System.DateTime.Now + "\r\n"
+        + "-- added by " + author + " @ " + System.DateTime.Now + "\r\n"
         + "-- " + newUIStr + "UIMain模型层" + "\r\n"
         + "-- 注意：" + "\r\n"
         + "-- 1、成员变量预先在OnCreate、OnEnable函数声明，提高代码可读性" + "\r\n"
@@ -164,7 +167,9 @@ public class MVCTools : EditorWindow
         + "-- 3、OnEnable内放窗口打开时才需要的成员变量，窗口关闭后及时清理" + "\r\n"
         + "-- 4、OnEnable函数每次在窗口打开时调用，可传递参数用来初始化Model" + "\r\n"
         + "--]]" + "\r\n"
+        + "---@class " + newUIStr + ": UIBaseModel" + "\r\n"
         + "local " + newUIStr + "Model = BaseClass(\"" + newUIStr + "Model\", UIBaseModel)" + "\r\n\r\n\r\n"
+        + "---@return UIBaseModel" + "\r\n"
         + "local base = UIBaseModel"
         + "-- 创建" + "\r\n"
         + "local function OnCreate(self)" + "\r\n\t"
@@ -199,34 +204,36 @@ public class MVCTools : EditorWindow
     {
         string luaData = "";
         luaData = "--[[\r\n"
-        + "-- added by " + author +" @ " + System.DateTime.Now + "\r\n"
+        + "-- added by " + author + " @ " + System.DateTime.Now + "\r\n"
         + "-- " + newUIStr + "视图层" + "\r\n"
         + "-- 注意：" + "\r\n"
         + "-- 1、成员变量最好预先在__init函数声明，提高代码可读性" + "\r\n"
         + "-- 2、OnEnable函数每次在窗口打开时调用，直接刷新" + "\r\n"
         + "-- 3、组件命名参考代码规范" + "\r\n"
         + "--]]" + "\r\n"
-        + "local " + newUIStr + "View = BaseClass(\"" + newUIStr + "View\", UIBaseView)" + "\r\n"
-        + "local base = UIBaseView" + "\r\n"
-        + "local function OnCreate(self)" + "\r\n\t"
-        + "base.OnCreate(self)" + "\r\n\t"
-        + "-- 窗口生命周期内保持的成员变量放这" + "\r\n"
-        + "end" + "\r\n"
-        + "-- 打开" + "\r\n"
-        + "local function OnEnable(self)" + "\r\n\t"
-        + "base.OnEnable(self)" + "\r\n\t"
-        + "-- 窗口关闭时可以清理的成员变量放这" + "\r\n"
-        + "end" + "\r\n"
-        + "-- 关闭" + "\r\n"
-        + "local function OnDestroy(self)" + "\r\n\t"
-        + "base.OnDestroy(self)" + "\r\n\t"
-        + "-- 清理成员变量" + "\r\n"
-        + "end" + "\r\n\r\n\r\n"
+        + "---@class " + newUIStr + ": UIBaseView" + "\r\n"
+         + "local " + newUIStr + "View = BaseClass(\"" + newUIStr + "View\", UIBaseView)" + "\r\n"
+         + "---@return UIBaseView" + "\r\n"
+         + "local base = UIBaseView" + "\r\n"
+         + "local function OnCreate(self)" + "\r\n\t"
+         + "base.OnCreate(self)" + "\r\n\t"
+         + "-- 窗口生命周期内保持的成员变量放这" + "\r\n"
+         + "end" + "\r\n"
+         + "-- 打开" + "\r\n"
+         + "local function OnEnable(self)" + "\r\n\t"
+         + "base.OnEnable(self)" + "\r\n\t"
+         + "-- 窗口关闭时可以清理的成员变量放这" + "\r\n"
+         + "end" + "\r\n"
+         + "-- 关闭" + "\r\n"
+         + "local function OnDestroy(self)" + "\r\n\t"
+         + "base.OnDestroy(self)" + "\r\n\t"
+         + "-- 清理成员变量" + "\r\n"
+         + "end" + "\r\n\r\n\r\n"
 
-        + newUIStr + "View.OnCreate = OnCreate" + "\r\n"
-        + newUIStr + "View.OnEnable = OnEnable" + "\r\n"
-        + newUIStr + "View.OnDestroy = OnDestroy" + "\r\n\r\n"
-        + "return " + newUIStr + "View" + "\r\n\r\n\r\n";
+         + newUIStr + "View.OnCreate = OnCreate" + "\r\n"
+         + newUIStr + "View.OnEnable = OnEnable" + "\r\n"
+         + newUIStr + "View.OnDestroy = OnDestroy" + "\r\n\r\n"
+         + "return " + newUIStr + "View" + "\r\n\r\n\r\n";
         Debug.Log(luaData);
         string path = DirectoryName + newFileStr + Path.DirectorySeparatorChar + ViewName + Path.DirectorySeparatorChar + newUIStr + "View.lua";
         CreatUIScript(path, luaData);
@@ -245,6 +252,7 @@ public class MVCTools : EditorWindow
         + "-- " + newUIStr + "模块窗口配置，要使用还需要导出到UI.Config.UIConfig.lua" + "\r\n"
         + "--]]" + "\r\n"
         + "-- 窗口配置" + "\r\n"
+        + "---@class " + newUIStr + "\r\n"
         + "local " + newUIStr + "= {" + "\r\n\t"
         + "Name = UIWindowNames." + newUIStr + "," + "\r\n\t"
         + "Layer = UILayers." + mLayerType.ToString() + "," + "\r\n\t"
@@ -256,7 +264,7 @@ public class MVCTools : EditorWindow
         + "return {" + "\r\n\t"
         + newUIStr + "=" + newUIStr + ",\r\n"
         + "}" + "\r\n";
-        Debug.Log(luaData);
+        Debug.LogError(luaData);
         string path = DirectoryName + newFileStr + Path.DirectorySeparatorChar + newUIStr + "Config.lua";
         CreatUIScript(path, luaData);
 
