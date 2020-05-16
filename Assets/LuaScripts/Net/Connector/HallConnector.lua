@@ -49,7 +49,7 @@ function HallConnector:LoadPB()
         table.walk(
             pbFiles,
             function(i, path)
-                ResourcesManager:GetInstance():LoadAsync(
+                SingleGet.ResourcesManager():LoadAsync(
                     "Lua/" .. path .. ".bytes",
                     typeof(CS.UnityEngine.TextAsset),
                     function(data)

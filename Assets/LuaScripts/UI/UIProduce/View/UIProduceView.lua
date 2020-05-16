@@ -21,7 +21,7 @@ end
 
 local function ClickOnCloseBtn(self)
     Logger.Log("Close")
-    UIManager:GetInstance():CloseWindow(UIWindowNames.UIProduce)
+    SingleGet.UIManager():CloseWindow(UIWindowNames.UIProduce)
 end
 
 local function OnCreate(self)
@@ -54,7 +54,7 @@ local function OnEnable(self)
     self:OnRefresh()
     Logger.Log("OnEnable")
     for i = 1, 30 do
-        GameObjectPool:GetInstance():GetGameObjectAsync(
+        SingleGet.GameObjectPool():GetGameObjectAsync(
             AssetaddressConfig.ProduceElement,
             function(go)
                 local trans = go.transform

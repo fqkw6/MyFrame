@@ -33,7 +33,7 @@ local function SetSpriteName(self, sprite_name)
         return
     end
 
-    AtlasManager:GetInstance():LoadImageAsync(
+    SingleGet.AtlasManager():LoadImageAsync(
         self.atlas_config,
         sprite_name,
         function(sprite, sprite_name)
@@ -61,7 +61,7 @@ local function SetSpriteNameBySpriteAtlas(self, sprite_atlas, sprite_name)
         return
     end
 
-    AtlasManager:GetInstance():LoadImageAsyncByAtlas(
+    SingleGet.AtlasManager():LoadImageAsyncByAtlas(
         sprite_atlas,
         function(atlas)
             -- 预设已经被销毁

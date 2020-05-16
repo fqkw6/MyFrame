@@ -44,7 +44,7 @@ end
 
 -- 从图集异步加载图片：协程方式
 function AtlasManager:CoLoadImageAsync(atlas_config, image_name, progress_callback)
-    local sprite = ResourcesManager:GetInstance():CoLoadAsync(path, sprite_type, progress_callback)
+    local sprite = SingleGet.ResourcesManager():CoLoadAsync(path, sprite_type, progress_callback)
     return not IsNull(sprite) and sprite or nil
 end
 

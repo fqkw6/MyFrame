@@ -117,12 +117,12 @@ EffectManager = require "Framework.Resource.Effect.EffectManager"
 HallConnector = require "Net.Connector.HallConnector"
 
 -- 单例类初始化
-UIManager:GetInstance()
-DataManager:GetInstance()
-ResourcesManager:GetInstance()
-UpdateManager:GetInstance()
-SceneManager:GetInstance()
-AtlasManager:GetInstance()
-LogicUpdater:GetInstance()
-HallConnector:GetInstance()
+SingleGet.UIManager()
+SingleGet.DataManager()
+SingleGet.ResourcesManager()
+SingleGet.UpdateManager()
+SingleGet.SceneManager()
+SingleGet.AtlasManager()
+SingleGet.LogicUpdater()
+SingleGet.HallConnector()
 UIBoardManager:GetInstance()

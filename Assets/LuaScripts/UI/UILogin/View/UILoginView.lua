@@ -74,8 +74,8 @@ local function OnCreate(self)
     -- 使用方式一：闭包绑定
     self.server_select_btn:SetOnClick(
         function()
-            UIManager:GetInstance():OpenWindow(UIWindowNames.UILoginServer)
-            -- UIManager:GetInstance():OpenWindow(UIWindowNames.UIProduce)
+            SingleGet.UIManager():OpenWindow(UIWindowNames.UILoginServer)
+            -- SingleGet.UIManager():OpenWindow(UIWindowNames.UIProduce)
             --self.ctrl:ChooseServer()
         end
     )
@@ -121,7 +121,7 @@ local function OnCreate(self)
         self.timer_value = self.timer_value + 1
         self.test_timer_text:SetText(tostring(self.timer_value))
     end
-    self.timer = TimerManager:GetInstance():GetTimer(1, self.timer_action, self)
+    self.timer = SingleGet.TimerManager():GetTimer(1, self.timer_action, self)
     -- 启动定时器
     self.timer:Start()
     -- 启动协程

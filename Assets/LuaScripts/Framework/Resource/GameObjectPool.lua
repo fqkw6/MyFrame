@@ -113,7 +113,7 @@ function GameObjectPool:CoPreLoadGameObjectAsync(path, inst_count, progress_call
         return
     end
 
-    local go = ResourcesManager:GetInstance():CoLoadAsync(path, typeof(CS.UnityEngine.GameObject), progress_callback)
+    local go = SingleGet.ResourcesManager():CoLoadAsync(path, typeof(CS.UnityEngine.GameObject), progress_callback)
     if not IsNull(go) then
         self:CacheAndInstGameObject(path, go, inst_count)
     end

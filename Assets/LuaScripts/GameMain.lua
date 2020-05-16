@@ -37,13 +37,13 @@ local function EnterGame()
     local ServerData = require "DataCenter.ServerData.ServerData"
     local TestServerData = require "GameTest.DataTest.TestServerData"
     local ClientData = require "DataCenter.ClientData.ClientData"
-    ServerData:GetInstance():ParseServerList(TestServerData)
-    local selected = ClientData:GetInstance().login_server_id
-    if selected == nil or ServerData:GetInstance().servers[selected] == nil then
-        ClientData:GetInstance():SetLoginServerID(10001)
+    SingleGet.ServerData():ParseServerList(TestServerData)
+    local selected = SingleGet.ClientData().login_server_id
+    if selected == nil or SingleGet.ServerData().servers[selected] == nil then
+        SingleGet.ClientData():SetLoginServerID(10001)
     end
 
-    SceneManager:GetInstance():SwitchScene(SceneConfig.LoginScene)
+    SingleGet.SceneManager():SwitchScene(SceneConfig.LoginScene)
 end
 
 --主入口函数。从这里开始lua逻辑
@@ -57,10 +57,10 @@ local function Start()
     -- AssetBundleManager:LoadAssetAsync5(loadCall)
     -- AssetBundleManager:LoadAssetAsyncmk()
     -- 模块启动
-    UpdateManager:GetInstance():Startup()
-    TimerManager:GetInstance():Startup()
-    LogicUpdater:GetInstance():Startup()
-    UIManager:GetInstance():Startup()
+    SingleGet.UpdateManager():Startup()
+    SingleGet.TimerManager():Startup()
+    SingleGet.LogicUpdater():Startup()
+    SingleGet.UIManager():Startup()
     if Config.Debug then
     -- 单元测试()
     -- local UnitTest = require "UnitTest.UnitTestMain"
@@ -83,10 +83,10 @@ end
 
 local function OnApplicationQuit()
     -- 模块注销
-    UpdateManager:GetInstance():Dispose()
-    TimerManager:GetInstance():Dispose()
-    LogicUpdater:GetInstance():Dispose()
-    -- HallConnector:GetInstance():Dispose()
+    SingleGet.UpdateManager():Dispose()
+    SingleGet.TimerManager():Dispose()
+    SingleGet.LogicUpdater():Dispose()
+    -- SingleGet.HallConnector():Dispose()
 end
 
 -- GameMain公共接口，其它的一律为私有接口，只能在本模块访问

@@ -50,9 +50,9 @@ end
 -- 启动
 function UpdateManager:Startup()
     self:Dispose()
-    self.__update_handle = UpdateBeat:CreateListener(UpdateHandle, UpdateManager:GetInstance())
-    self.__lateupdate_handle = LateUpdateBeat:CreateListener(LateUpdateHandle, UpdateManager:GetInstance())
-    self.__fixedupdate_handle = FixedUpdateBeat:CreateListener(FixedUpdateHandle, UpdateManager:GetInstance())
+    self.__update_handle = UpdateBeat:CreateListener(UpdateHandle, SingleGet.UpdateManager())
+    self.__lateupdate_handle = LateUpdateBeat:CreateListener(LateUpdateHandle, SingleGet.UpdateManager())
+    self.__fixedupdate_handle = FixedUpdateBeat:CreateListener(FixedUpdateHandle, SingleGet.UpdateManager())
     UpdateBeat:AddListener(self.__update_handle)
     LateUpdateBeat:AddListener(self.__lateupdate_handle)
     FixedUpdateBeat:AddListener(self.__fixedupdate_handle)

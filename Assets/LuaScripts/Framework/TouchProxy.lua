@@ -30,57 +30,56 @@
 	DeltaPosition				-- 变化位置
 	HoldTime					-- 动作保持的时间
 --]]
-
-local Object = require "Framework.Object";
-TouchProxy = Class("TouchProxy", Object);
-local M = TouchProxy;
+local Object = require "Framework.Object"
+TouchProxy = Class("TouchProxy", Object)
+local M = TouchProxy
 
 TouchType = {
-	Down = 0;
-	Up = 1;
-	Click = 2,
-	DragBegin = 3,
-	Drag = 4,
-	DragEnd = 5,
-	Press = 6
+    Down = 0,
+    Up = 1,
+    Click = 2,
+    DragBegin = 3,
+    Drag = 4,
+    DragEnd = 5,
+    Press = 6
 }
 
-local touchCS = nil;
-local mainCamera = nil;
+local touchCS = nil
+local mainCamera = nil
 
-local downEventMaps = {};
-local upEventMaps = {};
-local clickEventMaps = {};
-local pressEventMaps = {};
-local dragBeginEventMaps = {};
-local dragEventMaps = {};
-local dragEndEventMaps = {};
+local downEventMaps = {}
+local upEventMaps = {}
+local clickEventMaps = {}
+local pressEventMaps = {}
+local dragBeginEventMaps = {}
+local dragEventMaps = {}
+local dragEndEventMaps = {}
 
-local uiPressMaps = {};
-local uiClickMaps = {};
+local uiPressMaps = {}
+local uiClickMaps = {}
 
 function M:Ctor()
-	self.lastClickPosition = Vector2.zero;
+    self.lastClickPosition = Vector2.zero
 end
 
 --c#调用
 function M.SetTouch(touch)
-	touchCS = touch;
-	if mainCamera and uguiCamera then
-		touchCS.SetCamera(mainCamera);
-	end
+    touchCS = touch
+    if mainCamera and uguiCamera then
+        touchCS.SetCamera(mainCamera)
+    end
 end
 
 --Lua调用
 function M.SetCamera(camera)
-	mainCamera = camera;
-	if touchCS then
-		touchCS:SetCamera(camera);
-	end
+    mainCamera = camera
+    if touchCS then
+        touchCS:SetCamera(camera)
+    end
 end
 
 function M.GetLastClickPosition()
-	return TouchProxy.lastClickPosition;
+    return TouchProxy.lastClickPosition
 end
 
 -------------------------------------------------------------------------------------------------------
@@ -93,26 +92,26 @@ end
 	callBack 	--触发函数
 --]]
 function M.RegisterEvent(listener, event, callBack)
-	local key = tostring(listener);
-	local list = {};
-	list.callBack = callBack;
-	list.listener = listener;
+    local key = tostring(listener)
+    local list = {}
+    list.callBack = callBack
+    list.listener = listener
 
-	if event == TouchType.Down then
-		downEventMaps[key] = list;
-	elseif event == TouchType.Up then
-		upEventMaps[key] = list;
-	elseif event == TouchType.Click then
-		clickEventMaps[key] = list;
-	elseif event == TouchType.Press then
-		pressEventMaps[key] = list;
-	elseif event == TouchType.DragBegin then
-		dragBeginEventMaps[key] = list;
-	elseif event == TouchType.Drag then
-		dragEventMaps[key] = list;
-	elseif event == TouchType.DragEnd then
-		dragEndEventMaps[key] = list;
-	end	
+    if event == TouchType.Down then
+        downEventMaps[key] = list
+    elseif event == TouchType.Up then
+        upEventMaps[key] = list
+    elseif event == TouchType.Click then
+        clickEventMaps[key] = list
+    elseif event == TouchType.Press then
+        pressEventMaps[key] = list
+    elseif event == TouchType.DragBegin then
+        dragBeginEventMaps[key] = list
+    elseif event == TouchType.Drag then
+        dragEventMaps[key] = list
+    elseif event == TouchType.DragEnd then
+        dragEndEventMaps[key] = list
+    end
 end
 
 --[[
@@ -121,38 +120,37 @@ end
 	event		--监听的事件类型
 --]]
 function M.UnregisterEvent(listener, event)
-	local key = tostring(listener);
-	if event == TouchType.Down then
-		if downEventMaps[key] then
-			downEventMaps[key] = nil;
-		end
-	elseif event == TouchType.Up then
-		if upEventMaps[key] then
-			upEventMaps[key] = nil;
-		end
-	elseif event == TouchType.Click then
-		if clickEventMaps[key] then
-			clickEventMaps[key] = nil;
-		end
-	elseif event == TouchType.Press then
-		if pressEventMaps[key] then
-			pressEventMaps[key] = nil;
-		end
-	elseif event == TouchType.DragBegin then
-		if dragBeginEventMaps[key] then
-			dragBeginEventMaps[key] = nil;
-		end
-	elseif event == TouchType.Drag then
-		if dragEventMaps[key] then
-			downEventMaps[key] = nil;
-		end
-	elseif event == TouchType.DragEnd then
-		if dragEndEventMaps[key] then
-			dragEndEventMaps[key] = nil;
-		end	
-	end	
+    local key = tostring(listener)
+    if event == TouchType.Down then
+        if downEventMaps[key] then
+            downEventMaps[key] = nil
+        end
+    elseif event == TouchType.Up then
+        if upEventMaps[key] then
+            upEventMaps[key] = nil
+        end
+    elseif event == TouchType.Click then
+        if clickEventMaps[key] then
+            clickEventMaps[key] = nil
+        end
+    elseif event == TouchType.Press then
+        if pressEventMaps[key] then
+            pressEventMaps[key] = nil
+        end
+    elseif event == TouchType.DragBegin then
+        if dragBeginEventMaps[key] then
+            dragBeginEventMaps[key] = nil
+        end
+    elseif event == TouchType.Drag then
+        if dragEventMaps[key] then
+            downEventMaps[key] = nil
+        end
+    elseif event == TouchType.DragEnd then
+        if dragEndEventMaps[key] then
+            dragEndEventMaps[key] = nil
+        end
+    end
 end
-
 
 -------------------------------------------------------------------------------------------------------
 ----------------------------------------------  UI事件  -----------------------------------------------
@@ -170,51 +168,55 @@ end
 	@param useFrame     --是否使用帧数
 --]]
 function M.RegisterUIPress(target, callBack, data, delay, loop, useFrame)
-	if not target or not target.gameObject then
-		if error then error("Register ui press timer need a gameObject as target") end
-		return
-	end
+    if not target or not target.gameObject then
+        if error then
+            error("Register ui press timer need a gameObject as target")
+        end
+        return
+    end
 
-	local key = target.gameObject:GetInstanceID();
-	if uiPressMaps[key] then
-		local timer = uiPressMaps[key].timer;
-		if timer then
-			timer:Stop();
-			timer = nil;
-		end
-	else
-		uiPressMaps[key] = {};
-	end
+    local key = target.gameObject:GetInstanceID()
+    if uiPressMaps[key] then
+        local timer = uiPressMaps[key].timer
+        if timer then
+            timer:Stop()
+            timer = nil
+        end
+    else
+        uiPressMaps[key] = {}
+    end
 
-	if not delay and not loop and not useFrame then
-		local pressTarget = {};
-		pressTarget.callBack = callBack;
-		pressTarget.data = data;
-		uiPressMaps[key].pressTarget = pressTarget;
-	else
-		uiPressMaps[key].timer = require "Framework.Timer".New(delay, callBack, data, loop, useFrame);
-	end
+    if not delay and not loop and not useFrame then
+        local pressTarget = {}
+        pressTarget.callBack = callBack
+        pressTarget.data = data
+        uiPressMaps[key].pressTarget = pressTarget
+    else
+        uiPressMaps[key].timer = require "Framework.Timer".New(delay, callBack, data, loop, useFrame)
+    end
 end
 
 --[[
 	UI注销长按
 --]]
 function M.UnregisterUIPress(target)
-	if not target or not target.gameObject then 
-		if error then error("Unregister ui press timer need a gameObject as target, Please your RegisterPressTimer function.") end
-		return
-	end
+    if not target or not target.gameObject then
+        if error then
+            error("Unregister ui press timer need a gameObject as target, Please your RegisterPressTimer function.")
+        end
+        return
+    end
 
-	local key = target.gameObject:GetInstanceID();
-	if uiPressMaps[key] then
-		local timer = uiPressMaps[key].timer;
-		if timer then
-			timer:Stop();
-			timer = nil;
-		end
-		
-		uiPressMaps[key] = nil;
-	end
+    local key = target.gameObject:GetInstanceID()
+    if uiPressMaps[key] then
+        local timer = uiPressMaps[key].timer
+        if timer then
+            timer:Stop()
+            timer = nil
+        end
+
+        uiPressMaps[key] = nil
+    end
 end
 
 --[[
@@ -224,36 +226,40 @@ end
 	@param data         --回传参数
 --]]
 function M.RegisterUIClick(target, callBack, data)
-	if not target or not target.gameObject then 
-		if error then error("Unregister ui click need a gameObject as target, Please your RegisterPressTimer function.") end
-		return
-	end
+    if not target or not target.gameObject then
+        if error then
+            error("Unregister ui click need a gameObject as target, Please your RegisterPressTimer function.")
+        end
+        return
+    end
 
-	local key = target.gameObject:GetInstanceID();
-	if uiClickMaps[key] then
-		uiClickMaps[key].callBack = callBack;
-		uiClickMaps[key].data = data;
-	else
-		local clickTarget = {};
-		clickTarget.callBack = callBack;
-		clickTarget.data = data;
-		uiClickMaps[key] = clickTarget;
-	end
+    local key = target.gameObject:GetInstanceID()
+    if uiClickMaps[key] then
+        uiClickMaps[key].callBack = callBack
+        uiClickMaps[key].data = data
+    else
+        local clickTarget = {}
+        clickTarget.callBack = callBack
+        clickTarget.data = data
+        uiClickMaps[key] = clickTarget
+    end
 end
 
 --[[
 	UI注销点击
 --]]
 function M.UnregisterUIClick(target)
-	if not target or not target.gameObject then 
-		if error then error("Unregister ui click need a gameObject as target, Please your RegisterPressTimer function.") end
-		return
-	end
+    if not target or not target.gameObject then
+        if error then
+            error("Unregister ui click need a gameObject as target, Please your RegisterPressTimer function.")
+        end
+        return
+    end
 
-	local key = target.gameObject:GetInstanceID();
-	if uiClickMaps[key] then
-		uiClickMaps[key] = nil;
-	end
+    local key = target.gameObject:GetInstanceID()
+    if uiClickMaps[key] then
+        uiClickMaps[key] = nil
+    end
 end
 
 -------------------------------------------------------------------------------------------------------
@@ -261,87 +267,87 @@ end
 -------------------------------------------------------------------------------------------------------
 
 function M.OnTouchDown(eventData)
-	TouchProxy.lastClickPosition = eventData.Position;
-	
-	for k,v in pairs(downEventMaps) do
-		v.callBack(eventData, v.listener);
-	end
+    TouchProxy.lastClickPosition = eventData.Position
+
+    for k, v in pairs(downEventMaps) do
+        v.callBack(eventData, v.listener)
+    end
 end
 
 function M.OnTouchUp(eventData)
-	for k,v in pairs(upEventMaps) do
-		v.callBack(eventData, v.listener);
-	end
+    for k, v in pairs(upEventMaps) do
+        v.callBack(eventData, v.listener)
+    end
 end
 
 function M.OnTouchClick(eventData)
-	for k,v in pairs(clickEventMaps) do
-		v.callBack(eventData, v.listener);
-	end
+    for k, v in pairs(clickEventMaps) do
+        v.callBack(eventData, v.listener)
+    end
 
-	-- UI点击
-	if eventData.CurrentSelectedGameObject then
-		local key = eventData.CurrentSelectedGameObject:GetInstanceID();
-		if uiClickMaps and uiClickMaps[key] then
-			local clickTarget = uiClickMaps[key];
-			if clickTarget.callBack then
-				clickTarget.callBack(clickTarget.data);
-			end
-		end
-	end
+    -- UI点击
+    if eventData.CurrentSelectedGameObject then
+        local key = eventData.CurrentSelectedGameObject:GetInstanceID()
+        if uiClickMaps and uiClickMaps[key] then
+            local clickTarget = uiClickMaps[key]
+            if clickTarget.callBack then
+                clickTarget.callBack(clickTarget.data)
+            end
+        end
+    end
 
-	-- if info then info("屏幕点击position:" .. eventData.Position.x .. "|" .. eventData.Position.y) end
-	UIManager:GetInstance():CheckOutClick(eventData.Position);
-	UIManager:GetInstance():CheckComponentClick(eventData.Position);
+    -- if info then info("屏幕点击position:" .. eventData.Position.x .. "|" .. eventData.Position.y) end
+    SingleGet.UIManager():CheckOutClick(eventData.Position)
+    SingleGet.UIManager():CheckComponentClick(eventData.Position)
 end
 
 function M.OnTouchPress(eventData)
-	for k,v in pairs(pressEventMaps) do
-		v.callBack(eventData, v.listener);
-	end
+    for k, v in pairs(pressEventMaps) do
+        v.callBack(eventData, v.listener)
+    end
 
-	-- UI长按
-	if eventData.CurrentSelectedGameObject then
-		local key = eventData.CurrentSelectedGameObject:GetInstanceID();
-		if uiPressMaps and uiPressMaps[key] then
-			local timer = uiPressMaps[key].timer;
-			if timer then
-				timer:Start();
-			else
-				local pressTarget = uiPressMaps[key].pressTarget;
-				if pressTarget.callBack then
-					pressTarget.callBack(pressTarget.data);
-				end
-			end
-		end
-	end
+    -- UI长按
+    if eventData.CurrentSelectedGameObject then
+        local key = eventData.CurrentSelectedGameObject:GetInstanceID()
+        if uiPressMaps and uiPressMaps[key] then
+            local timer = uiPressMaps[key].timer
+            if timer then
+                timer:Start()
+            else
+                local pressTarget = uiPressMaps[key].pressTarget
+                if pressTarget.callBack then
+                    pressTarget.callBack(pressTarget.data)
+                end
+            end
+        end
+    end
 end
 
 function M.OnTouchPressEnd(eventData)
-	if eventData.CurrentSelectedGameObject then
-		local key = eventData.CurrentSelectedGameObject:GetInstanceID();
-		if uiPressMaps and uiPressMaps[key] and uiPressMaps[key].timer then
-			uiPressMaps[key].timer:Stop();
-		end
-	end
+    if eventData.CurrentSelectedGameObject then
+        local key = eventData.CurrentSelectedGameObject:GetInstanceID()
+        if uiPressMaps and uiPressMaps[key] and uiPressMaps[key].timer then
+            uiPressMaps[key].timer:Stop()
+        end
+    end
 end
 
 function M.OnTouchDrag(eventData)
-	for k,v in pairs(dragEventMaps) do
-		v.callBack(eventData, v.listener);
-	end
+    for k, v in pairs(dragEventMaps) do
+        v.callBack(eventData, v.listener)
+    end
 end
 
 function M.OnTouchDragBegin(eventData)
-	for k,v in pairs(dragBeginEventMaps) do
-		v.callBack(eventData, v.listener);
-	end
+    for k, v in pairs(dragBeginEventMaps) do
+        v.callBack(eventData, v.listener)
+    end
 end
 
 function M.OnTouchDragEnd(eventData)
-	for k,v in pairs(dragEndEventMaps) do
-		v.callBack(eventData, v.listener);
-	end
+    for k, v in pairs(dragEndEventMaps) do
+        v.callBack(eventData, v.listener)
+    end
 end
 
-return M;
+return M
