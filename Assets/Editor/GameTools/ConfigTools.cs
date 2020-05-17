@@ -179,7 +179,7 @@ public class ConfigTools : EditorWindow
         if (luaFiles.Length > 0)
         {
             string genPatt = @"---Auto Generated Start---([\s\S]*).*?---Auto Generated End---";
-            mgrContent = File.ReadAllText(configMgrPath, Encoding.Default);
+            mgrContent = File.ReadAllText(configMgrPath, Encoding.UTF8);
             Match mc = Regex.Match(mgrContent, genPatt);
             machContent = mc.Value;
             Debug.LogError(mc.Value);

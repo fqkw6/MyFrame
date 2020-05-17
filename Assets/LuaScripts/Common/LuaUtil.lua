@@ -152,7 +152,8 @@ function Serialize(tb, flag)
     return result
 end
 ----新加的
---避免充分require
+--避免充分require  重新加载模块，以防require加载时package.loaded已经加载过了，保存下来，这时改变了，所以要重新加载
+
 function reload(script)
     if (package.loaded[script]) then
         return package.loaded[script], false
