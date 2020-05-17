@@ -45,7 +45,7 @@ function UILoginView:ClickOnLoginBtn()
 end
 
 function UILoginView:OnCreate()
-    base.OnCreate()
+    base.OnCreate(self)
     -- 初始化各个组件
     self.app_version_text = self:AddComponent(UIText, app_version_text_path)
     self.res_version_text = self:AddComponent(UIText, res_version_text_path)
@@ -79,7 +79,7 @@ function UILoginView:OnCreate()
         end
     )
     -- 使用方式二：私有函数、成员函数绑定
-    self.login_btn:SetOnClick(self, ClickOnLoginBtn)
+    self.login_btn:SetOnClick(self, self.ClickOnLoginBtn)
 
     -- 以下为UI特效层级测试代码
     local effect1_config = EffectConfig.UIPetRankYellow
@@ -167,13 +167,13 @@ end
 function UILoginView:OnAddListener()
     base.OnAddListener()
     -- UI消息注册
-    self:AddUIListener(UIMessageNames.UILOGIN_ON_SELECTED_SVR_CHG, OnRefreshServerInfo)
+    self:AddUIListener(UIMessageNames.UILOGIN_ON_SELECTED_SVR_CHG, self.OnRefreshServerInfo)
 end
 
 function UILoginView:OnRemoveListener()
     base.OnRemoveListener()
     -- UI消息注销
-    self:RemoveUIListener(UIMessageNames.UILOGIN_ON_SELECTED_SVR_CHG, OnRefreshServerInfo)
+    self:RemoveUIListener(UIMessageNames.UILOGIN_ON_SELECTED_SVR_CHG, self.OnRefreshServerInfo)
 end
 
 function UILoginView:OnDestroy()
@@ -186,7 +186,7 @@ function UILoginView:OnDestroy()
     self.login_btn = nil
     -- 测试代码
     self.timer:Stop()
-    base.OnDestroy()
+    base.OnDestroy(self)
 end
 
 return UILoginView

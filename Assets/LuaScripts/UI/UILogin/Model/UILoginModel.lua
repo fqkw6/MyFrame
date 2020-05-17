@@ -13,13 +13,13 @@ local UILoginModel = BaseClass("UILoginModel", UIBaseModel)
 local base = UIBaseModel
 
 -- 创建
-local function OnCreate(self)
+function UILoginModel:OnCreate()
     base.OnCreate(self)
     -- 窗口生命周期内保持的成员变量放这
 end
 
 -- 打开
-local function OnEnable(self)
+function UILoginModel:OnEnable()
     base.OnEnable(self)
     -- 窗口关闭时可以清理的成员变量放这
     -- 账号
@@ -38,7 +38,7 @@ local function OnEnable(self)
     self:OnRefresh()
 end
 
-local function SetServerInfo(self, select_svr_id)
+function UILoginModel:SetServerInfo(select_svr_id)
     local server_data = SingleGet.ServerData()
     local select_svr = server_data.servers[select_svr_id]
     if select_svr ~= nil then
@@ -48,33 +48,33 @@ local function SetServerInfo(self, select_svr_id)
 end
 
 -- 刷新全部数据
-local function OnRefresh(self)
+function UILoginModel:OnRefresh()
     local client_data = SingleGet.ClientData()
     self.account = client_data.account
     self.password = client_data.password
     self.client_app_ver = client_data.app_version
     self.client_res_ver = client_data.res_version
-    SetServerInfo(self, client_data.login_server_id)
+    self.SetServerInfo(self, client_data.login_server_id)
 end
 
-local function OnSelectedSvrChg(self, id)
-    SetServerInfo(self, id)
+function UILoginModel:OnSelectedSvrChg(id)
+    self.SetServerInfo(self, id)
     self:UIBroadcast(UIMessageNames.UILOGIN_ON_SELECTED_SVR_CHG)
 end
 
 -- 监听选服变动
-local function OnAddListener(self)
+function UILoginModel:OnAddListener()
     base.OnAddListener(self)
-    self:AddDataListener(DataMessageNames.ON_LOGIN_SERVER_ID_CHG, OnSelectedSvrChg)
+    self:AddDataListener(DataMessageNames.ON_LOGIN_SERVER_ID_CHG, self.OnSelectedSvrChg)
 end
 
-local function OnRemoveListener(self)
+function UILoginModel:OnRemoveListener()
     base.OnRemoveListener(self)
-    self:RemoveDataListener(DataMessageNames.ON_LOGIN_SERVER_ID_CHG, OnSelectedSvrChg)
+    self:RemoveDataListener(DataMessageNames.ON_LOGIN_SERVER_ID_CHG, self.OnSelectedSvrChg)
 end
 
 -- 关闭
-local function OnDisable(self)
+function UILoginModel:OnDisable()
     base.OnDisable(self)
     -- 清理成员变量
     self.account = nil
@@ -86,17 +86,9 @@ local function OnDisable(self)
 end
 
 -- 销毁
-local function OnDistroy(self)
+function UILoginModel:OnDistroy()
     base.OnDistroy(self)
     -- 清理成员变量
 end
-
-UILoginModel.OnCreate = OnCreate
-UILoginModel.OnEnable = OnEnable
-UILoginModel.OnRefresh = OnRefresh
-UILoginModel.OnAddListener = OnAddListener
-UILoginModel.OnRemoveListener = OnRemoveListener
-UILoginModel.OnDisable = OnDisable
-UILoginModel.OnDistroy = OnDistroy
 
 return UILoginModel

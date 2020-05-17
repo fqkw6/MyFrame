@@ -12,28 +12,28 @@
 --		资源加载路径PrefabPath
 -- } 
 --]]
-
 -- 窗口配置
+---@class UILogin
 local UILogin = {
-	Name = UIWindowNames.UILogin,
-	Layer = UILayers.BackgroudLayer,
-	Model = require "UI.UILogin.Model.UILoginModel",
-	Ctrl = require "UI.UILogin.Controller.UILoginCtrl",
-	View = require "UI.UILogin.View.UILoginView",
-	PrefabPath = "UI/Prefabs/View/UILogin.prefab",
+    Name = UIWindowNames.UILogin,
+    Layer = UILayers.BackgroudLayer,
+    Model = require "UI.UILogin.Model.UILoginModel",
+    Ctrl = require "UI.UILogin.Controller.UILoginCtrl",
+    View = require "UI.UILogin.View.UILoginView",
+    PrefabPath = "UI/Prefabs/View/UILogin.prefab"
 }
-
+---@class UILoginServer
 local UILoginServer = {
-	Name = UIWindowNames.UILoginServer,
-	Layer = UILayers.NormalLayer,
-	Model = require "UI.UILogin.Model.UILoginServerModel",
-	Ctrl = require "UI.UILogin.Controller.UILoginServerCtrl",
-	View = require "UI.UILogin.View.UILoginServerView",
-	PrefabPath = "UI/Prefabs/View/UILoginServer.prefab",
+    Name = UIWindowNames.UILoginServer,
+    Layer = UILayers.NormalLayer,
+    Model = require "UI.UILogin.Model.UILoginServerModel",
+    Ctrl = require "UI.UILogin.Controller.UILoginServerCtrl",
+    View = require "UI.UILogin.View.UILoginServerView",
+    PrefabPath = "UI/Prefabs/View/UILoginServer.prefab"
 }
 
 return {
-	-- 配置
-	UILogin = UILogin,
-	UILoginServer = UILoginServer,
+    -- 配置
+    UILogin = UILogin,
+    UILoginServer = UILoginServer
 }
