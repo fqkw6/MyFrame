@@ -70,9 +70,9 @@ function SingleGet.LogicUpdater()
     return LogicUpdater:GetInstance()
 end
 
--- ---@return ConfigCfgManager
--- function SingleGet.ConfigCfgManager()
---     return ConfigCfgManager:GetInstance()
--- end
+---@return ConfigCfgManager
+function SingleGet.ConfigCfgManager()
+    return ConfigCfgManager:GetInstance()
+end
 
 return SingleGet

@@ -97,7 +97,10 @@ local function RemoveUIListener(self, msg_name, callback)
     RemoveCallback(self.__ui_callback, msg_name, bindFunc)
     SingleGet.UIManager():RemoveListener(msg_name, bindFunc)
 end
-
+--发送消息
+local function UIBroadcast(self, msg_name, ...)
+    SingleGet.UIManager():Broadcast(msg_name, ...)
+end
 -- 关闭：窗口隐藏
 local function OnDisable(self)
     self:OnRemoveListener()
@@ -125,5 +128,5 @@ UIBaseView.OnDisable = OnDisable
 UIBaseView.AddUIListener = AddUIListener
 UIBaseView.RemoveUIListener = RemoveUIListener
 UIBaseView.OnDestroy = OnDestroy
-
+UIBaseView.UIBroadcast = UIBroadcast
 return UIBaseView

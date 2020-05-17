@@ -3,7 +3,9 @@ using UnityEditor;
 using System.IO;
 using System.Diagnostics;
 using System.Collections.Generic;
-
+using System.Text;
+using System.Text.RegularExpressions;
+using Debug = UnityEngine.Debug;
 /// <summary>
 /// modify by zfc @ 2018.11.16
 /// 说明：此处xlsx生成lua 以及proto 生成lua配置工具
@@ -12,14 +14,16 @@ using System.Collections.Generic;
 
 public class ConfigTools : EditorWindow
 {
+    private static string _luaOutPutFolder = string.Empty;
     private static string xlsxFolder = string.Empty;
     private static string protoFolder = string.Empty;
-
+    private static string _toolRootPath = string.Empty;
     private bool xlsxGenLuaFinished = false;
     private bool protoGenLuaFinished = false;
 
     void OnEnable()
     {
+        maxSize = new Vector2(600, 320);
         ReadPath();
     }
 
@@ -32,8 +36,11 @@ public class ConfigTools : EditorWindow
 
     private void OnGUI()
     {
+        ///------------
         GUILayout.Space(10);
+
         GUILayout.BeginHorizontal();
+
         GUILayout.Label("xlsx path : ", EditorStyles.boldLabel, GUILayout.Width(80));
         xlsxFolder = GUILayout.TextField(xlsxFolder, GUILayout.Width(300));
         if (GUILayout.Button("...", GUILayout.Width(40)))
@@ -41,7 +48,31 @@ public class ConfigTools : EditorWindow
             SelectXlsxFolder();
         }
         GUILayout.EndHorizontal();
+        ///------------
+        GUILayout.Space(10);
+        GUILayout.BeginHorizontal();
+        GUILayout.Label("Lua output path : ", EditorStyles.boldLabel, GUILayout.Width(150));
+        _luaOutPutFolder = GUILayout.TextField(_luaOutPutFolder, GUILayout.Width(400));
+        if (GUILayout.Button("...", GUILayout.Width(30)))
+        {
+            SelectOutputFolder();
+        }
 
+        GUILayout.EndHorizontal();
+        ///------------
+        /// 
+        GUILayout.BeginVertical();
+        GUILayout.BeginHorizontal();
+        GUILayout.Space(10);
+
+        if (GUILayout.Button("Gen ConfigCfgManager", GUILayout.Width(150)))
+        {
+            Gen2ConfigCfgManager();
+        }
+
+        GUILayout.EndHorizontal();
+        GUILayout.EndVertical();
+        ///------------
         GUILayout.Space(10);
         GUILayout.BeginHorizontal();
         GUILayout.Label("proto path : ", EditorStyles.boldLabel, GUILayout.Width(80));
@@ -51,7 +82,7 @@ public class ConfigTools : EditorWindow
             SelectProtoFolder();
         }
         GUILayout.EndHorizontal();
-
+        ///------------
         GUILayout.Space(20);
         GUILayout.BeginHorizontal();
         GUILayout.Label("---------------------");
@@ -61,7 +92,9 @@ public class ConfigTools : EditorWindow
         }
         GUILayout.Label("---------------------");
         GUILayout.EndHorizontal();
-
+        ///------------
+        ///协议
+        ///   ///------------
         GUILayout.Space(20);
         GUILayout.BeginHorizontal();
         GUILayout.Label("---------------------");
@@ -125,6 +158,72 @@ public class ConfigTools : EditorWindow
         }
     }
 
+
+    /// <summary>
+    /// 生成ConfigCfgManager获取配置接口
+    /// </summary>
+    private void Gen2ConfigCfgManager()
+    {
+        Debug.Log(">>>Generated ConfigCfgManager start ");
+        StringBuilder sb = new StringBuilder();
+        string mgrContent = null;
+        string machContent = null;
+        string configMgrPath = string.Format("{0}/../ConfigCfgManager.lua", _luaOutPutFolder);
+        if (string.IsNullOrEmpty(_luaOutPutFolder))
+        {
+            Debug.LogError("路径为空，请选择lua路径");
+            return;
+        }
+
+        var luaFiles = UtilEditorUI.FindFiles(_luaOutPutFolder, "*.lua", true);
+        if (luaFiles.Length > 0)
+        {
+            string genPatt = @"---Auto Generated Start---([\s\S]*).*?---Auto Generated End---";
+            mgrContent = File.ReadAllText(configMgrPath, Encoding.Default);
+            Match mc = Regex.Match(mgrContent, genPatt);
+            machContent = mc.Value;
+            Debug.LogError(mc.Value);
+        }
+
+        if (string.IsNullOrEmpty(machContent))
+        {
+            Debug.LogError(">>>>>找不到匹配的---Generated start--- 生成区块， 本次生成ConfigCfgManager失败，请检查");
+            return;
+        }
+
+        sb.Clear();
+        sb.AppendLine("---Auto Generated Start---");
+        foreach (var luaFile in luaFiles)
+        {
+            var tempFileName = luaFile.Replace(@"\", "");
+            tempFileName = tempFileName.Replace(".lua", "");
+
+            GenEveryFileFromName(ref sb, tempFileName);
+        }
+        sb.AppendLine("---Auto Generated End---");
+        mgrContent = mgrContent.Replace(machContent, sb.ToString());
+
+        File.WriteAllText(configMgrPath, mgrContent, Encoding.Default);
+        Logger.LogColor(Color.green, ">>>Generated ConfigCfgManager finish !!");
+    }
+
+
+
+    private void GenEveryFileFromName(ref StringBuilder sb, string fileName)
+    {
+        string helperName = fileName.Replace("Table", "Helper");
+        string functionNmae = helperName.Replace("Helper", "");
+        functionNmae = functionNmae.Replace("Cfg", "Get");
+
+        sb.AppendFormat("\n---@return {0}\n", helperName);
+        sb.AppendFormat("function ConfigCfgManager:{0}()\n", functionNmae);
+        sb.AppendFormat("\treturn reload('Config.Data.{0}')\n", fileName);
+        sb.AppendFormat("end\n");
+    }
+
+    /// <summary>
+    /// 不变
+    /// </summary>
     private void ProtoGenLua()
     {
         if (!CheckProtoPath(protoFolder))
@@ -175,7 +274,7 @@ public class ConfigTools : EditorWindow
             xlsxGenLuaFinished = false;
 
             // copy files
-            string destPath = Application.dataPath + "/LuaScripts/Config/Data";
+            string destPath = _luaOutPutFolder;// Application.dataPath + "/LuaScripts/Config/Data";
             if (Directory.Exists(destPath))
             {
                 Directory.Delete(destPath, true);
@@ -244,7 +343,12 @@ public class ConfigTools : EditorWindow
         xlsxFolder = selXlsxPath;
         SavePath();
     }
-
+    private void SelectOutputFolder()
+    {
+        var outoutPath = EditorUtility.OpenFolderPanel("Select out put folder", "", "");
+        _luaOutPutFolder = outoutPath;
+        SavePath();
+    }
     private void SelectProtoFolder()
     {
         var selProtoPath = EditorUtility.OpenFolderPanel("Select proto folder", "", "");
@@ -261,12 +365,14 @@ public class ConfigTools : EditorWindow
     {
         EditorPrefs.SetString("xlsxFolder", xlsxFolder);
         EditorPrefs.SetString("protoFolder", protoFolder);
+        EditorPrefs.SetString("luaOutPutFolder", _luaOutPutFolder);
     }
 
     static private void ReadPath()
     {
         xlsxFolder = EditorPrefs.GetString("xlsxFolder");
         protoFolder = EditorPrefs.GetString("protoFolder");
+        _luaOutPutFolder = EditorPrefs.GetString("luaOutPutFolder");
     }
 
     /// <summary>

@@ -127,6 +127,7 @@ end
 function UIManager:__init()
     -- 成员变量
     -- 消息中心
+
     self.ui_message_center = Messenger.New()
     -- 所有存活的窗体
     ---@type table<int, UIWindow>

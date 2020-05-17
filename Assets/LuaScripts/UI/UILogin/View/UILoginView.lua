@@ -153,6 +153,8 @@ function UILoginView:Update()
 end
 
 function UILoginView:OnRefreshServerInfo()
+    Logger.LogError("接收到消息")
+
     self.server_text:SetText(self.model.area_name .. " " .. self.model.server_name)
 end
 function UILoginView:OnRefresh()

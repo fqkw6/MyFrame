@@ -112,7 +112,8 @@ AtlasManager = require "Framework.Resource.AtlasManager"
 EffectConfig = require "Resource.Config.EffectConfig"
 BaseEffect = require "Framework.Resource.Effect.Base.BaseEffect"
 EffectManager = require "Framework.Resource.Effect.EffectManager"
-
+---@type ConfigCfgManager
+ConfigCfgManager = require "Config.ConfigCfgManager"
 -- net
 HallConnector = require "Net.Connector.HallConnector"
 

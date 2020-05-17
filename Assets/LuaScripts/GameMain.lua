@@ -20,9 +20,16 @@ local function Initilize()
 
     SingleGet.ResourcesManager():NewLoadAsync(loadingAssetbundlePath, typeof(GameObject), loadCall)
 end
+timeCallBack = function(canshu)
+    Logger.LogError("sfdsfs .... ")
+    Logger.LogError(canshu)
+end
+
 loadCall = function(obj)
     Logger.LogError("带参数11 .... ")
     Logger.LogError(obj.name)
+    Logger.LogError(SingleGet.ConfigCfgManager():Hero()[1].name)
+    SingleGet.TimerManager():GetTimer(5, timeCallBack, "canshu")
 end
 callBack = function()
     Logger.LogError("没有参数11.... ")

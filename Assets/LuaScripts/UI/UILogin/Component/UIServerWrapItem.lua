@@ -22,7 +22,7 @@ end
 
 -- 创建
 function UIServerWrapItem:OnCreate()
-    base.OnCreate()
+    base.OnCreate(self)
     -- 组件初始化
     self.server_name_text = self:AddComponent(UIText, "SvrName")
     self.server_choose_cmp = self:AddComponent(UIBaseComponent, "SvrChoose")
@@ -35,7 +35,10 @@ function UIServerWrapItem:OnRefresh(real_index, check)
     local server = self.view.server_list[real_index + 1]
     self.server_name_text:SetText(LangUtil.GetServerName(server.server_id))
     self.server_choose_cmp:SetActive(check)
-    self.server_state_img:SetSpriteNameBySpriteAtlas(AssetaddressConfig.Login, GetServerStateSpriteName(server.state))
+    self.server_state_img:SetSpriteNameBySpriteAtlas(
+        AssetaddressConfig.Login,
+        self.GetServerStateSpriteName(server.state)
+    )
 end
 
 -- 组件添加了按钮组，则按钮被点击时回调该函数
