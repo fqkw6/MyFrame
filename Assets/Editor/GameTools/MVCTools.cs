@@ -167,30 +167,27 @@ public class MVCTools : EditorWindow
         + "-- 3、OnEnable内放窗口打开时才需要的成员变量，窗口关闭后及时清理" + "\r\n"
         + "-- 4、OnEnable函数每次在窗口打开时调用，可传递参数用来初始化Model" + "\r\n"
         + "--]]" + "\r\n"
-        + "---@class " + newUIStr + ": UIBaseModel" + "\r\n"
+        + "---@class " + newUIStr + "Model : UIBaseModel" + "\r\n"
         + "local " + newUIStr + "Model = BaseClass(\"" + newUIStr + "Model\", UIBaseModel)" + "\r\n\r\n\r\n"
         + "---@return UIBaseModel" + "\r\n"
         + "local base = UIBaseModel"
         + "-- 创建" + "\r\n"
-        + "local function OnCreate(self)" + "\r\n\t"
+        + "function " + newUIStr + "Model : " + "OnCreate()" + "\r\n\t"
         + "base.OnCreate(self)" + "\r\n\t"
         + "-- 窗口生命周期内保持的成员变量放这" + "\r\n"
         + "end" + "\r\n"
         + "-- 打开" + "\r\n"
-        + "local function OnEnable(self)" + "\r\n\t"
+        + "function " + newUIStr + "Model : " + "OnEnable()" + "\r\n\t"
         + "base.OnEnable(self)" + "\r\n\t"
         + "-- 窗口关闭时可以清理的成员变量放这" + "\r\n"
         + "end" + "\r\n"
         + "-- 关闭" + "\r\n"
-        + "local function OnDestroy(self)" + "\r\n\t"
+        + "function " + newUIStr + "Model : " + "OnDestroy()" + "\r\n\t"
         + "base.OnDestroy(self)" + "\r\n\t"
         + "-- 清理成员变量" + "\r\n"
         + "end" + "\r\n\r\n\r\n"
 
-        + newUIStr + "Model.OnCreate = OnCreate" + "\r\n"
-        + newUIStr + "Model.OnEnable = OnEnable" + "\r\n"
-        + newUIStr + "Model.OnDisable = OnDisable" + "\r\n"
-        + newUIStr + "Model.OnDestroy = OnDestroy" + "\r\n\r\n"
+
         + "return " + newUIStr + "Model" + "\r\n";
 
         Debug.Log(luaData);
@@ -211,29 +208,27 @@ public class MVCTools : EditorWindow
         + "-- 2、OnEnable函数每次在窗口打开时调用，直接刷新" + "\r\n"
         + "-- 3、组件命名参考代码规范" + "\r\n"
         + "--]]" + "\r\n"
-        + "---@class " + newUIStr + ": UIBaseView" + "\r\n"
+        + "---@class " + newUIStr + "View : UIBaseView" + "\r\n"
          + "local " + newUIStr + "View = BaseClass(\"" + newUIStr + "View\", UIBaseView)" + "\r\n"
          + "---@return UIBaseView" + "\r\n"
          + "local base = UIBaseView" + "\r\n"
-         + "local function OnCreate(self)" + "\r\n\t"
-         + "base.OnCreate(self)" + "\r\n\t"
-         + "-- 窗口生命周期内保持的成员变量放这" + "\r\n"
-         + "end" + "\r\n"
-         + "-- 打开" + "\r\n"
-         + "local function OnEnable(self)" + "\r\n\t"
-         + "base.OnEnable(self)" + "\r\n\t"
-         + "-- 窗口关闭时可以清理的成员变量放这" + "\r\n"
-         + "end" + "\r\n"
-         + "-- 关闭" + "\r\n"
-         + "local function OnDestroy(self)" + "\r\n\t"
-         + "base.OnDestroy(self)" + "\r\n\t"
-         + "-- 清理成员变量" + "\r\n"
-         + "end" + "\r\n\r\n\r\n"
+         + "function " + newUIStr + "View : " + "OnCreate()" + "\r\n\t"
+          + "base.OnCreate(self)" + "\r\n\t"
+          + "-- 窗口生命周期内保持的成员变量放这" + "\r\n"
+          + "end" + "\r\n"
+          + "-- 打开" + "\r\n"
+          + "function " + newUIStr + "View : " + "OnEnable()" + "\r\n\t"
+          + "base.OnEnable(self)" + "\r\n\t"
+          + "-- 窗口关闭时可以清理的成员变量放这" + "\r\n"
+          + "end" + "\r\n"
+          + "-- 关闭" + "\r\n"
+          + "function " + newUIStr + "View : " + "OnDestroy()" + "\r\n\t"
+          + "base.OnDestroy(self)" + "\r\n\t"
+          + "-- 清理成员变量" + "\r\n"
+          + "end" + "\r\n\r\n\r\n"
 
-         + newUIStr + "View.OnCreate = OnCreate" + "\r\n"
-         + newUIStr + "View.OnEnable = OnEnable" + "\r\n"
-         + newUIStr + "View.OnDestroy = OnDestroy" + "\r\n\r\n"
-         + "return " + newUIStr + "View" + "\r\n\r\n\r\n";
+
+          + "return " + newUIStr + "View" + "\r\n\r\n\r\n";
         Debug.Log(luaData);
         string path = DirectoryName + newFileStr + Path.DirectorySeparatorChar + ViewName + Path.DirectorySeparatorChar + newUIStr + "View.lua";
         CreatUIScript(path, luaData);
@@ -264,7 +259,7 @@ public class MVCTools : EditorWindow
         + "return {" + "\r\n\t"
         + newUIStr + "=" + newUIStr + ",\r\n"
         + "}" + "\r\n";
-        Debug.LogError(luaData);
+        Debug.Log(luaData);
         string path = DirectoryName + newFileStr + Path.DirectorySeparatorChar + newUIStr + "Config.lua";
         CreatUIScript(path, luaData);
 
