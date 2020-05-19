@@ -82,19 +82,15 @@ end
 function ResourcesManager:NewLoadAsync(path, res_type, progress_callback)
     assert(path ~= nil and type(path) == "string" and #path > 0, "path err : " .. path)
     local loader = AssetBundleManager:LoadAssetAsync(path, res_type, progress_callback)
-
+    loader:Dispose()
+    --暂时先写在这里
+    Logger.Log("xiezai")
     -- local asset = loader.asset
 
-    -- loader:Dispose()
     -- if IsNull(asset) then
     --     Logger.LogError("Asset load err : " .. path, res_type)
     -- end
     return asset
-end
-
-function ResourcesManager:NewLoadAsync2(progress_callback)
-    print(progress_callback)
-    AssetBundleManager:LoadAssetAsync3(progress_callback)
 end
 
 -- 清理资源：切换场景时调用
