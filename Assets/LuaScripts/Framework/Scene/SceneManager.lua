@@ -85,7 +85,8 @@ function SceneManager:CoInnerSwitchScene(scene_config)
     -- 异步加载目标场景
     cur_progress = model.value
     coroutine.waitforasyncop(
-        scene_mgr.LoadSceneAsync(scene_config.Level),
+        scene_mgr.LoadSceneAsync(scene_config.Name),
+        --scene_config.Level改为切换场景名字
         function(co, progress)
             assert(progress <= 1.0, "What's the funck!!!")
             model.value = cur_progress + 0.15 * progress
