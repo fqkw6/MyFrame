@@ -638,38 +638,7 @@ namespace AssetBundles
                 return loader;
             }
         }
-        public void LoadAssetAsync2(Action<UnityEngine.Object> callBack)
-        {
-            Debug.LogError("sdsds===" + (callBack != null));
-            if (callBack != null) callBack(null);
-        }
 
-        public void LoadAssetAsync3(Action callBack)
-        {
-            Debug.LogError("fgggggggg===" + (callBack != null));
-            if (callBack != null) callBack();
-            //  callBack();
-        }
-
-        public void LoadAssetAsync5(Action<GameObject> callBack)
-        {
-            Debug.LogError("fgggggggg===" + (callBack != null));
-            if (callBack != null) callBack(gameObject);
-            //  callBack();
-        }
-        public void LoadAssetAsyncop(int a)
-        {
-            Debug.LogError(a);
-            Debug.LogError("fgggggggg===" + a);
-
-            //  callBack();
-        }
-        public void LoadAssetAsyncmk()
-        {
-            Debug.LogError("sdsdsd");
-
-            //  callBack();
-        }
         void Update()
         {
             OnProsessingWebRequester();

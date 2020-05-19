@@ -156,7 +156,7 @@ public class GameLaunch : MonoBehaviour
     IEnumerator InitNoticeTipPrefab()
     {
         var start = DateTime.Now;
-        var loader = AssetBundleManager.Instance.LoadAssetAsync(noticeTipPrefabPath, typeof(GameObject), (obj) => { });
+        var loader = AssetBundleManager.Instance.LoadAssetAsync(noticeTipPrefabPath, typeof(GameObject));
         yield return loader;
         noticeTipPrefab = loader.asset as GameObject;
         Logger.Log(string.Format("Load noticeTipPrefab use {0}ms", (DateTime.Now - start).Milliseconds));
@@ -174,7 +174,7 @@ public class GameLaunch : MonoBehaviour
     IEnumerator InitLaunchPrefab()
     {
         var start = DateTime.Now;
-        var loader = AssetBundleManager.Instance.LoadAssetAsync(launchPrefabPath, typeof(GameObject), (obj) => { });
+        var loader = AssetBundleManager.Instance.LoadAssetAsync(launchPrefabPath, typeof(GameObject));
         yield return loader;
         launchPrefab = loader.asset as GameObject;
         Logger.Log(string.Format("Load launchPrefab use {0}ms", (DateTime.Now - start).Milliseconds));

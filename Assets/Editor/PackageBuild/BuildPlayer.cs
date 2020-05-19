@@ -47,8 +47,16 @@ public class BuildPlayer : Editor
 
     private static void InnerBuildAssetBundles(BuildTarget buildTarget, string channelName, bool writeConfig)
     {
-        //更改打包的压缩方式LZ4
-        BuildAssetBundleOptions buildOption = BuildAssetBundleOptions.IgnoreTypeTreeChanges | BuildAssetBundleOptions.DeterministicAssetBundle | BuildAssetBundleOptions.ChunkBasedCompression;
+        // 更改打包的压缩方式LZ4 BuildAssetBundleOptions.ChunkBasedCompression  默认LZMA 压缩
+        // (1)随包资源StreamingAssets:
+        // 未压缩或LZ4压缩：LoadFromFile；
+        // LZMA压缩：可使用 WWW.LoadFromCacheOrDownload解压缩到本地磁盘。
+        // (2)热更新资源：LZMA + WWW.LoadFromCacheOrDownload + Caching.compressionEnabled；
+        // (3)加密资源: LZ4 + LoadFromMemory；
+        // (4)自己压缩的资源：UncompressAssetBundle的AssetBundle包 + 自己的算法压缩 + LoadFromFileAsync。
+        // WWW.LoadFromCacheOrDownload会被UnityWebRequest取代
+        //目前采取的是UnityWebRequest加载
+        BuildAssetBundleOptions buildOption = BuildAssetBundleOptions.IgnoreTypeTreeChanges | BuildAssetBundleOptions.DeterministicAssetBundle;//| BuildAssetBundleOptions.ChunkBasedCompression;
         string outputPath = PackageUtils.GetAssetBundleOutputPath(buildTarget, channelName);
         AssetBundleManifest manifest = BuildPipeline.BuildAssetBundles(outputPath, buildOption, buildTarget);
         if (manifest != null && writeConfig)

@@ -62,7 +62,7 @@ public class AtlasLoader : MonoSingleton<AtlasLoader>
             yield return new WaitUntil(() => AssetBundleManager.Instance.IsInitialized);
 #endif
 
-        var loader = AssetBundleManager.Instance.LoadAssetAsync(path, typeof(SpriteAtlas), (obj) => { Debug.LogError(obj); });
+        var loader = AssetBundleManager.Instance.LoadAssetAsync(path, typeof(SpriteAtlas));
         yield return loader;
 
         if (loader != null)

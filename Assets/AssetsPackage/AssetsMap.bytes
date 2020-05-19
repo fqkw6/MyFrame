@@ -10,6 +10,7 @@ lua.assetbundle,Lua/AssetaddressConfig.lua.bytes
 lua.assetbundle,Lua/Common/Define.lua.bytes
 lua.assetbundle,Lua/Common/LuaUtil.lua.bytes
 lua.assetbundle,Lua/Common/Main.lua.bytes
+lua.assetbundle,Lua/Common/SingleGet.lua.bytes
 lua.assetbundle,Lua/Common/StringUtil.lua.bytes
 lua.assetbundle,Lua/Common/TableUtil.lua.bytes
 lua.assetbundle,Lua/Common/Tools/cjson/util.lua.bytes
@@ -43,6 +44,7 @@ lua.assetbundle,Lua/Common/Tools/UnityEngine/Vector2.lua.bytes
 lua.assetbundle,Lua/Common/Tools/UnityEngine/Vector3.lua.bytes
 lua.assetbundle,Lua/Common/Tools/UnityEngine/Vector4.lua.bytes
 lua.assetbundle,Lua/Common/Tools/utf8.lua.bytes
+lua.assetbundle,Lua/Config/ConfigCfgManager.lua.bytes
 lua.assetbundle,Lua/Config/Data/Hero.lua.bytes
 lua.assetbundle,Lua/Config/Data/Language.lua.bytes
 lua.assetbundle,Lua/Config/Data/Me.lua.bytes
