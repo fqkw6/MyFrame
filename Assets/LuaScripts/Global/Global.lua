@@ -25,7 +25,7 @@ UpdatableSingleton = require "Framework.Common.UpdatableSingleton"
 SortingLayerNames = require "Global.SortingLayerNames"
 Logger = require "Framework.Logger.Logger"
 require "Framework.Updater.Coroutine"
-
+Messenger = require "Framework.Common.Messenger"
 -- game data
 DataMessageNames = require "DataCenter.Config.DataMessageNames"
 DataManager = require "DataCenter.DataManager"

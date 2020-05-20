@@ -38,10 +38,19 @@ local test_top_canvas_path = "TopRoot"
 local test_timer_path = "TestTimer"
 local test_updater_path = "TestUpdater"
 local test_coroutine_path = "TestCoroutine"
+
+local TestEventCenter = Messenger.New()
+local TestMessengerType1 = "TestMessengerType1"
+
 function UILoginView:ClickOnLoginBtn()
     local name = self.account_input:GetText()
     local password = self.password_input:GetText()
-    self.ctrl:LoginServer(name, password)
+    TestEventCenter:Broadcast(TestMessengerType1)
+    --self.ctrl:LoginServer(name, password)
+end
+calkkk = function(arg)
+    Logger.LogError("ceeee")
+    Logger.LogError(arg.Name)
 end
 
 function UILoginView:OnCreate()
@@ -54,8 +63,10 @@ function UILoginView:OnCreate()
     self.password_input = self:AddComponent(UIInput, password_input_path)
     self.server_select_btn = self:AddComponent(UIButton, server_select_btn_path)
     self.login_btn = self:AddComponent(UIButton, login_btn_path)
-
-    Logger.Log("dakailogin")
+    tal = {}
+    tal.Name = "laoli"
+    tal.Arg = 90
+    TestEventCenter:AddListener(TestMessengerType1, calkkk, tal)
     --长按事件
     self.press_Img = self:AddComponent(UIPointerLongPress, long_press_bg)
     self.press_Img:SetOnClick(
@@ -137,12 +148,12 @@ function UILoginView:OnCreate()
         end
     )
 end
-
 function UILoginView:OnEnable()
     base.OnEnable(self)
     self:OnRefresh()
     Logger.Log(self.gameObject:GetComponent("UILogin").panelname)
 
+    Logger.Log("dakailogin")
     --self.transform.localPosition=Vector3.New(220,11,5);
 end
 
