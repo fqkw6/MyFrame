@@ -10,6 +10,7 @@ local unpack = unpack or table.unpack
 function SafePack(...)
     local params = {...}
     params.n = select("#", ...)
+    ---可变参数的个数
     return params
 end
 

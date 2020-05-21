@@ -25,7 +25,9 @@ local function __delete(self)
     self.events = nil
     self.error_handle = nil
 end
-
+---events 是一个table k=e_type,v是 callback table
+---callback k-function,v--参数
+---同一个e_type 的监听对应多个回调，不同地方都有添加
 local function AddListener(self, e_type, e_listener, ...)
     local event = self.events[e_type]
     if event == nil then
