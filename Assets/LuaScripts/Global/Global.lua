@@ -26,6 +26,9 @@ SortingLayerNames = require "Global.SortingLayerNames"
 Logger = require "Framework.Logger.Logger"
 require "Framework.Updater.Coroutine"
 Messenger = require "Framework.Common.Messenger"
+
+MsgIDDefine = require "Net.Config.MsgIDDefine"
+MsgIDMap = require "Net.Config.MsgIDMap"
 -- game data
 DataMessageNames = require "DataCenter.Config.DataMessageNames"
 DataManager = require "DataCenter.DataManager"
