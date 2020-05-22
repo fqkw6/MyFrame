@@ -121,8 +121,11 @@ lua.assetbundle,Lua/GameTest/ModuleTest/TestKeepModel.lua.bytes
 lua.assetbundle,Lua/GameTest/ModuleTest/TestLogWinStack.lua.bytes
 lua.assetbundle,Lua/GameTest/ModuleTest/TestNoticeTip.lua.bytes
 lua.assetbundle,Lua/Global/Config.lua.bytes
+lua.assetbundle,Lua/Global/EventDispatcherLua.lua.bytes
+lua.assetbundle,Lua/Global/EventEnumLua.lua.bytes
 lua.assetbundle,Lua/Global/Global.lua.bytes
 lua.assetbundle,Lua/Global/LayerIndex.lua.bytes
+lua.assetbundle,Lua/Global/new_lua.lua.bytes
 lua.assetbundle,Lua/Global/SortingLayerNames.lua.bytes
 lua.assetbundle,Lua/LuaDebug.lua.bytes
 lua.assetbundle,Lua/LuaDhl/Test01.lua.bytes
