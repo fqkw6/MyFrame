@@ -11,6 +11,7 @@ local UILoginView = BaseClass("UILoginView", UIBaseView)
 ---@return UIBaseView
 local base = UIBaseView
 
+UILoginCtrl = require("Assets.LuaScripts.UI.UILogin.Controller.UILoginCtrl")
 -- 各个组件路径
 local server_text_path = "ContentRoot/SvrRoot/SvrSelectBtn/SvrText"
 local account_input_path = "ContentRoot/AccountRoot/AccountInput"
@@ -38,7 +39,7 @@ local test_top_canvas_path = "TopRoot"
 local test_timer_path = "TestTimer"
 local test_updater_path = "TestUpdater"
 local test_coroutine_path = "TestCoroutine"
-
+---@return Messenger
 local TestEventCenter = Messenger.New()
 local TestMessengerType1 = "TestMessengerType1"
 
@@ -46,11 +47,13 @@ function UILoginView:ClickOnLoginBtn()
     local name = self.account_input:GetText()
     local password = self.password_input:GetText()
     TestEventCenter:Broadcast(TestMessengerType1)
-    --self.ctrl:LoginServer(name, password)
+    --UILoginCtrl:ConnectServer()
+    Logger.LogError("denglu ")
+    self.ctrl:LoginServer(name, password)
 end
 calkkk = function(arg)
-    Logger.LogError("ceeee")
-    Logger.LogError(arg.Name)
+    -- Logger.LogError("ceeee")
+    -- Logger.LogError(arg.Name)
 end
 
 function UILoginView:OnCreate()
@@ -71,12 +74,12 @@ function UILoginView:OnCreate()
     self.press_Img = self:AddComponent(UIPointerLongPress, long_press_bg)
     self.press_Img:SetOnClick(
         function()
-            Logger.Log("click")
+            -- Logger.Log("click")
         end
     )
     self.press_Img:SetOnPress(
         function()
-            Logger.Log("long Press")
+            -- Logger.Log("long Press")
         end
     )
 
@@ -91,7 +94,16 @@ function UILoginView:OnCreate()
     )
     -- 使用方式二：私有函数、成员函数绑定
     self.login_btn:SetOnClick(self, self.ClickOnLoginBtn)
-
+    -- self.login_btn:SetOnClick(
+    --     function()
+    --         local name = self.account_input:GetText()
+    --         local password = self.password_input:GetText()
+    --         TestEventCenter:Broadcast(TestMessengerType1)
+    --         --UILoginCtrl:ConnectServer()
+    --         Logger.LogError("denglu ")
+    --         self.ctrl:LoginServer(name, password)
+    --     end
+    -- )
     -- 以下为UI特效层级测试代码
     local effect1_config = EffectConfig.UIPetRankYellow
     local effect2_config = EffectConfig.UITaskFinish
@@ -151,9 +163,9 @@ end
 function UILoginView:OnEnable()
     base.OnEnable(self)
     self:OnRefresh()
-    Logger.Log(self.gameObject:GetComponent("UILogin").panelname)
+    -- Logger.Log(self.gameObject:GetComponent("UILogin").panelname)
 
-    Logger.Log("dakailogin")
+    -- Logger.Log("dakailogin")
     --self.transform.localPosition=Vector3.New(220,11,5);
 end
 
@@ -164,7 +176,7 @@ function UILoginView:Update()
 end
 
 function UILoginView:OnRefreshServerInfo()
-    Logger.LogError("接收到消息")
+    -- Logger.LogError("接收到消息")
 
     self.server_text:SetText(self.model.area_name .. " " .. self.model.server_name)
 end
