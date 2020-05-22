@@ -2,18 +2,17 @@
 -- added by wsh @ 2017-12-01
 -- UILogin控制层
 --]]
----@class UILoginCtrl:UIBaseCtrl
 local UILoginCtrl = BaseClass("UILoginCtrl", UIBaseCtrl)
-local MsgIDDefine = require "Net.Config.MsgIDDefine"
 
-function UILoginCtrl:OnConnect(sender, result, msg)
+local function OnConnect(self, sender, result, msg)
     if result < 0 then
         Logger.LogError("Connect err : " .. msg)
         return
     end
 
     -- TODO：
-    local msd_id = MsgIDDefine.LOGIN_REQ_GET_UID
+    local msd_id = MsgIDDefine.LOGIN_REQ_LOGIN
+
     local msg = {}
     msg.plat_account = "455445"
     msg.from_svrid = 4001
@@ -24,21 +23,24 @@ function UILoginCtrl:OnConnect(sender, result, msg)
     msg.app_ver = ""
     msg.package_id = ""
     msg.res_ver = ""
+    Logger.Log("fasong")
+    Logger.Log(msd_id)
     SingleGet.HallConnector():SendMessage(msd_id, msg)
 end
 
-function UILoginCtrl:OnClose(sender, result, msg)
+local function OnClose(self, sender, result, msg)
     if result < 0 then
         Logger.LogError("Close err : " .. msg)
         return
     end
 end
 
-function UILoginCtrl:ConnectServer()
-    SingleGet.HallConnector():Connect("192.168.1.245", 10020, Bind(self, OnConnect), Bind(self, OnClose))
+local function ConnectServer(self)
+    SingleGet.HallConnector():Connect("127.0.0.1", 10020, Bind(self, OnConnect), Bind(self, OnClose))
+    --SingleGet.HallConnector():Connect("127.0.0.1", 10020, OnConnect, OnClose)
 end
 
-function UILoginCtrl:LoginServer(name, password)
+local function LoginServer(self, name, password)
     -- 合法性检验
     if string.len(name) > 20 or string.len(name) < 1 then
         -- TODO：错误弹窗
@@ -61,13 +63,17 @@ function UILoginCtrl:LoginServer(name, password)
     end
 
     SingleGet.ClientData():SetAccountInfo(name, password)
-
+    Logger.Log("ceshi ")
     -- TODO start socket
-    --ConnectServer(self)
+    ConnectServer(self)
     SingleGet.SceneManager():SwitchScene(SceneConfig.HomeScene)
 end
-function UILoginCtrl:ChooseServer()
+
+local function ChooseServer(self)
     SingleGet.UIManager():OpenWindow(UIWindowNames.UILoginServer)
 end
+
+UILoginCtrl.LoginServer = LoginServer
+UILoginCtrl.ChooseServer = ChooseServer
 
 return UILoginCtrl
