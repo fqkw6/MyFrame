@@ -12,6 +12,7 @@ message test3
 {
 	optional int32 d = 1[default = 0];
 	optional test4 cc = 2;
+	optional string named = 3[default = 'asdasdasd'];
 }
 
 message client_info
