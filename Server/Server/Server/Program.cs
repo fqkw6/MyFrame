@@ -96,6 +96,7 @@ public class TcpServer
             }
             //输出接收到的数据
             recvStr = Encoding.ASCII.GetString(recvData, 0, recvLen);
+
             System.Console.WriteLine (recvStr);
             //将接收到的数据经过处理再发送出去
             sendStr = "From Server: " + recvStr;

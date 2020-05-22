@@ -91,12 +91,12 @@ stack traceback:
                 string path = pathLine.Substring(0, spliteIndex);
                 int line = System.Convert.ToInt32(pathLine.Substring(spliteIndex + 1));
                 string s = path.Replace("\t", "");
-
                 for (int i = 0; i < XLuaManager.m_path.Count; i++)
                 {
                     if (XLuaManager.m_path[i].Contains(s))//xlua 里所有lua 文件地址合集
                     {
                         path = XLuaManager.m_path[i];
+                        break;
                     }
                 }
                 string args = string.Empty;

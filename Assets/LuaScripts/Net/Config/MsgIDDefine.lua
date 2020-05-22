@@ -15,4 +15,4 @@ local MsgIDDefine = {
 	ROOM_NTF_JOIN_MATCH_RESULT = 31001,
 	ROOM_NTF_JOIN_MATCH_MATEINFO = 31002
 }
-return ConstClass("MsgIDDefine", EffectMsgIDDefineConfig)
+return ConstClass("MsgIDDefine", MsgIDDefine)
