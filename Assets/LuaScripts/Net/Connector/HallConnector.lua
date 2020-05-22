@@ -7,9 +7,8 @@
 --]]
 ---@class HallConnector :Singleton
 local HallConnector = BaseClass("HallConnector", Singleton)
-local MsgIDMap = require("Net/Config/MsgIDMap")
 local pb = require("pb")
-local LoginHandler = require("Net/Handlers/LoginHandler")
+local LoginHandler = require("Net.Handlers.LoginHandler")
 
 local ConnStatus = {
     Init = 0,
@@ -88,7 +87,7 @@ end
 function HallConnector:Connect(host_ip, host_port, on_connect, on_close)
     if not self.hallSocket then
         self.hallSocket = CS.Networks.HjTcpNetwork()
-        self.hallSocket.ReceivePkgHandle = Bind(self, OnReceivePackage)
+        self.hallSocket.ReceivePkgHandle = Bind(self, self.OnReceivePackage)
     end
     self.hallSocket.OnConnect = on_connect
     self.hallSocket.OnClosed = on_close
@@ -101,6 +100,7 @@ end
 
 function HallConnector:SendMessage(msg_id, msg)
     local send = CS.ByteBuffer()
+    Logger.Log(msg_id)
     send:WriteShort(msg_id)
     if (msg) then
         local msg_bytes = pb.encode(MsgIDMap[msg_id], msg)
