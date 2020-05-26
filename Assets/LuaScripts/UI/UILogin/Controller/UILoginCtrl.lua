@@ -14,15 +14,7 @@ local function OnConnect(self, sender, result, msg)
     local msd_id = MsgIDDefine.LOGIN_REQ_LOGIN
 
     local msg = {}
-    msg.plat_account = "455445"
-    msg.from_svrid = 4001
-    msg.device_id = ""
-    msg.device_model = "All Series (ASUS)"
-    msg.mobile_type = ""
-    msg.plat_token = ""
-    msg.app_ver = ""
-    msg.package_id = ""
-    msg.res_ver = ""
+    msg.flag = 4
     Logger.Log("fasong")
     Logger.Log(msd_id)
     SingleGet.HallConnector():SendMessage(msd_id, msg)
@@ -36,7 +28,7 @@ local function OnClose(self, sender, result, msg)
 end
 
 local function ConnectServer(self)
-    SingleGet.HallConnector():Connect("127.0.0.1", 10020, Bind(self, OnConnect), Bind(self, OnClose))
+    SingleGet.HallConnector():Connect("127.0.0.1", 8088, Bind(self, OnConnect), Bind(self, OnClose))
     --SingleGet.HallConnector():Connect("127.0.0.1", 10020, OnConnect, OnClose)
 end
 

@@ -104,7 +104,9 @@ function HallConnector:SendMessage(msg_id, msg)
     send:WriteShort(msg_id)
     if (msg) then
         local msg_bytes = pb.encode(MsgIDMap[msg_id], msg)
+        --send:WriteInt(msg_bytes.Length)
         send:WriteBytes(msg_bytes)
+        Logger.Log("send messgemsg_bytes：" .. msg_id .. "；byte count：" .. #msg_bytes)
     end
 
     local bytes = send:ToBytes()

@@ -44,7 +44,7 @@ namespace Networks
             }, null);
             mStatus = SOCKSTAT.CONNECTING;
         }
-        
+
         protected override void DoClose()
         {
             // 关闭socket，Tcp下要等待现有数据发送、接受完成
@@ -110,7 +110,9 @@ namespace Networks
                         var msgObj = workList[k];
                         if (mSendWork)
                         {
+                            UnityEngine.Debug.LogError(msgObj.Length);
                             mClientSocket.Send(msgObj, msgObj.Length, SocketFlags.None);
+                            // mClientSocket.Send(msgObj);
                         }
                     }
                 }
@@ -134,7 +136,7 @@ namespace Networks
                     workList.Clear();
                 }
             }
-            
+
             if (mStatus == SOCKSTAT.CONNECTED)
             {
                 mStatus = SOCKSTAT.CLOSED;
