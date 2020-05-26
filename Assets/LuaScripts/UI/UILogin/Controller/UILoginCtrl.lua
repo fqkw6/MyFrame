@@ -14,7 +14,7 @@ local function OnConnect(self, sender, result, msg)
     local msd_id = MsgIDDefine.LOGIN_REQ_LOGIN
 
     local msg = {}
-    msg.flag = 4
+    msg.flag = 455555
     Logger.Log("fasong")
     Logger.Log(msd_id)
     SingleGet.HallConnector():SendMessage(msd_id, msg)

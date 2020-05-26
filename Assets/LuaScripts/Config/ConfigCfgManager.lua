@@ -5,38 +5,40 @@ local ConfigCfgManager = BaseClass("ConfigManager", Singleton)
 
 ---@return Hero
 function ConfigCfgManager:Hero()
-    return reload("Config.Data.Hero")
+	return reload('Config.Data.Hero')
 end
 
 ---@return Language
 function ConfigCfgManager:Language()
-    return reload("Config.Data.Language")
+	return reload('Config.Data.Language')
 end
 
 ---@return Me
 function ConfigCfgManager:Me()
-    return reload("Config.Data.Me")
+	return reload('Config.Data.Me')
 end
 
 ---@return Server
 function ConfigCfgManager:Server()
-    return reload("Config.Data.Server")
+	return reload('Config.Data.Server')
 end
 
 ---@return ServerAreaLang
 function ConfigCfgManager:ServerAreaLang()
-    return reload("Config.Data.ServerAreaLang")
+	return reload('Config.Data.ServerAreaLang')
 end
 
 ---@return ServerLang
 function ConfigCfgManager:ServerLang()
-    return reload("Config.Data.ServerLang")
+	return reload('Config.Data.ServerLang')
 end
 
 ---@return TestName
 function ConfigCfgManager:TestName()
-    return reload("Config.Data.TestName")
+	return reload('Config.Data.TestName')
 end
 ---Auto Generated End---
+
+
 
 return ConfigCfgManager

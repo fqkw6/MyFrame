@@ -1,0 +1,14 @@
+//base.proto
+//消息类型
+enum msg_type
+{
+	test_type = 1;
+}
+ 
+//消息包
+message base_message
+{
+	required msg_type 	_type 	= 1;
+	optional bytes		_data 	= 2;
+	optional uint32		_ecode 	= 3;
+}
