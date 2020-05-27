@@ -127,7 +127,7 @@ public class ConfigTools : EditorWindow
             string fileName = Path.GetFileNameWithoutExtension(item);
             Process p = new Process();
             p.StartInfo.FileName = "python";
-            p.StartInfo.Arguments = string.Format("excel2lua.py excel/{0}.xlsx lua/{0}.lua", fileName);
+            p.StartInfo.Arguments = string.Format("excel2luap2.py excel/{0}.xlsx lua/{0}.lua", fileName);
             UnityEngine.Debug.Log(p.StartInfo.Arguments);
             p.StartInfo.UseShellExecute = false;
             p.StartInfo.RedirectStandardOutput = true;

@@ -35,12 +35,12 @@ namespace Networks
         private volatile bool mReceiveWork = false;
         private List<byte[]> mTempMsgList = null;
         protected IMessageQueue mReceiveMsgQueue = null;
-        
+
 
         public HjNetworkBase(int maxBytesOnceSent = 1024 * 512, int maxReceiveBuffer = 1024 * 1024 * 2)
         {
             mStatus = SOCKSTAT.CLOSED;
-            
+
             mMaxBytesOnceSent = maxBytesOnceSent;
             mMaxReceiveBuffer = maxReceiveBuffer;
 
@@ -68,7 +68,7 @@ namespace Networks
             mIp = ip;
             mPort = port;
         }
-        
+
         protected abstract void DoConnect();
         public void Connect()
         {
@@ -182,6 +182,7 @@ namespace Networks
             {
                 try
                 {
+
                     if (!mReceiveWork) break;
                     if (mClientSocket != null)
                     {
@@ -189,7 +190,7 @@ namespace Networks
                         int readLen = mClientSocket.Receive(receiveStreamBuffer.GetBuffer(), bufferCurLen, bufferLeftLen, SocketFlags.None);
                         if (readLen == 0) throw new ObjectDisposedException("DisposeEX", "receive from server 0 bytes,closed it");
                         if (readLen < 0) throw new Exception("Unknow exception, readLen < 0" + readLen);
-
+                        UnityEngine.Debug.LogError(readLen);
                         bufferCurLen += readLen;
                         DoReceive(receiveStreamBuffer, ref bufferCurLen);
                         if (bufferCurLen == receiveStreamBuffer.size)
@@ -214,7 +215,7 @@ namespace Networks
                 mStatus = SOCKSTAT.CLOSED;
             }
         }
-        
+
         protected void AddNetworkEvt(HjNetworkEvt evt)
         {
             lock (mNetworkEvtLock)

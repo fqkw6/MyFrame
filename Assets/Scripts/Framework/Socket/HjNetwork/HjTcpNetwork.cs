@@ -61,6 +61,7 @@ namespace Networks
             {
                 mSendThread = new Thread(SendThread);
                 mSendWork = true;
+
                 mSendThread.Start(null);
             }
         }
@@ -110,9 +111,7 @@ namespace Networks
                         var msgObj = workList[k];
                         if (mSendWork)
                         {
-                            UnityEngine.Debug.LogError(msgObj.Length);
                             mClientSocket.Send(msgObj, msgObj.Length, SocketFlags.None);
-                            // mClientSocket.Send(msgObj);
                         }
                     }
                 }
@@ -153,12 +152,14 @@ namespace Networks
                 streamBuffer.ResetStream();
                 while (true)
                 {
+
                     if (bufferCurLen - start < sizeof(int))
                     {
                         break;
                     }
+                    // int msgLen = BitConverter.ToInt32(data, start);
+                    int msgLen = bufferCurLen - sizeof(int);
 
-                    int msgLen = BitConverter.ToInt32(data, start);
                     if (bufferCurLen < msgLen + sizeof(int))
                     {
                         break;

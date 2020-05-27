@@ -30,7 +30,7 @@ end
 function HallConnector:LoadPB()
     local pbFiles = {
         "Net/Proto/common.pb",
-        "Net/Proto/login.pb",
+        "Net/Proto/protocol_c2s.pb",
         "Net/Proto/room.pb",
         "Net/Proto/user.pb"
     }
@@ -61,26 +61,40 @@ function HallConnector:LoadPB()
     end
 end
 
---接受数据
+--接受数据 原来的写法
+-- function HallConnector:OnReceivePackage(receive_bytes)
+--     local receive = CS.ByteBuffer(receive_bytes)
+--     Logger.Log("收到消息:" .. #receive_bytes)
+--     local msg_id = receive:ReadShort()
+--     local msg_bytes = receive:ReadBytes()
+
+--     if (self.handlers[msg_id] == nil) then
+--         Logger.LogError("msg_id 未绑定函数" .. msg_id)
+--         return
+--     end
+
+--     Logger.Log("msg_id:" .. msg_id .. " | msg_bytes.len:" .. #msg_bytes)
+
+--     local msg = nil
+--     if (msg_bytes ~= nil) then
+--         msg = pb.decode(MsgIDMap[msg_id], msg_bytes)
+--     end
+
+--     self.handlers[msg_id](msg_id, msg)
+-- end
 function HallConnector:OnReceivePackage(receive_bytes)
     local receive = CS.ByteBuffer(receive_bytes)
-
-    local msg_id = receive:ReadShort()
+    Logger.Log("收到消息:" .. #receive_bytes)
     local msg_bytes = receive:ReadBytes()
-
-    if (self.handlers[msg_id] == nil) then
-        Logger.LogError("msg_id 未绑定函数" .. msg_id)
-        return
-    end
-
-    Logger.Log("msg_id:" .. msg_id .. " | msg_bytes.len:" .. #msg_bytes)
-
     local msg = nil
+    local msgreally = nil
     if (msg_bytes ~= nil) then
-        msg = pb.decode(MsgIDMap[msg_id], msg_bytes)
+        msg = pb.decode("cs.CSMessage", msg_bytes)
+        msgreally = pb.decode("cs.CSLoginInfo", msg.Data)
+        Logger.Log(msgreally.UserName)
     end
 
-    self.handlers[msg_id](msg_id, msg)
+    -- self.handlers[msg_id](msg_id, msg)
 end
 
 --连接服务器
@@ -100,13 +114,17 @@ end
 
 function HallConnector:SendMessage(msg_id, msg)
     local send = CS.ByteBuffer()
-    Logger.Log(msg_id)
-    send:WriteShort(msg_id)
+    Logger.Log(msg.UserName)
+
     if (msg) then
-        local msg_bytes = pb.encode(MsgIDMap[msg_id], msg)
-        --send:WriteInt(msg_bytes.Length)
-        send:WriteBytes(msg_bytes)
-        Logger.Log("send messgemsg_bytes：" .. msg_id .. "；byte count：" .. #msg_bytes)
+        local msg_bytes = pb.encode("cs.CSLoginInfo", msg)
+        Logger.Log("send messge msg_bytes" .. msg_id .. "；byte count：" .. #msg_bytes)
+        local heard = {}
+        heard.TypeId = msg_id
+        heard.Data = msg_bytes
+        local msg_really = pb.encode("cs.CSMessage", heard)
+        send:WriteBytes(msg_really)
+        Logger.Log("send messge msg_really" .. msg_id .. "；byte count：" .. #msg_really)
     end
 
     local bytes = send:ToBytes()

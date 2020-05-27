@@ -2,30 +2,40 @@ local pb = require "pb"
 local bytes
 function InitPB()
     --初始化pb文件，路径采用绝对路径
-    assert(pb.loadfile "Assets/LuaScripts/Net/Proto/login.pb")
+    assert(pb.loadfile "Assets/LuaScripts/Net/Proto/protocol_c2s.pb")
 end
 local function Encoder()
     local data = {
-        flag = "666"
+        UserName = "lisi",
+        Password = "mima123"
     }
-
-    -- encode lua table data into binary format in lua string and return
-    bytes = assert(pb.encode("login.req_login", data))
-    ---压缩
-    Logger.LogError(pb.tohex(bytes))
+    bytes = assert(pb.encode("cs.CSLoginInfo", data))
+    local data2 = {
+        TypeId = 101,
+        Data = bytes
+    }
+    -- local data3 = {
+    --     UserName = "dfdfdf",
+    --     Password = "666"
+    -- }
+    -- bytes = assert(pb.encode("cs.CSLoginReq", data3))
+    -- ---压缩
+    bytes = assert(pb.encode("cs.CSMessage", data2))
+    Logger.Log(pb.tohex(bytes))
     return bytes
 end
 
 function Decoder(pb_data)
     -- and decode the binary data back into lua table
-    local data2 = assert(pb.decode("login.req_login", bytes))
+    local data2 = assert(pb.decode("cs.CSMessage", pb_data))
+    local datae = assert(pb.decode("cs.CSLoginInfo", data2.Data))
     ---解压
-    -- Logger.LogError("cesss")
-    -- Logger.LogError(data2.flag)
+    Logger.Log(data2.TypeId)
+    Logger.Log(datae.UserName)
 end
 
 local function Run()
-    -- Logger.LogError("------------Test lua_PB------------")
+    Logger.Log("------------Test lua_PB------------")
 
     InitPB()
 
