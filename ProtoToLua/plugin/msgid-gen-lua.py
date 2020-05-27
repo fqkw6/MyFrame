@@ -1,9 +1,9 @@
 import sys
 import os
-
+# 升级python3
 msgid_conf = "F:/MyFrame/ProtoToLua/msgid.conf"
-targetMsgIDDefine = "../../Assets/LuaScripts/Net/Config/MsgIDDefine.lua"
-targetMsgIDMap = "../../Assets/LuaScripts/Net/Config/MsgIDMap.lua"
+targetMsgIDDefine = "F:/MyFrame/Assets/LuaScripts/Net/Config/MsgIDDefine.lua"
+targetMsgIDMap = "F:/MyFrame/Assets/LuaScripts/Net/Config/MsgIDMap.lua"
 
 
 class MsgInfo(object):
@@ -23,8 +23,8 @@ def ParseMsgIDMap(fs, msgidList):
 
     for _msgDef in msgidList:
         tmpMsgID = _msgDef.msgid
-        tmpModuleName = _msgDef.msgname.split(".")[0]
-        tmpMsgName = _msgDef.msgname.split(".")[1]
+        tmpModuleName = _msgDef.msgname.split(str.encode('.'))[0]
+        tmpMsgName = _msgDef.msgname.split(str.encode('.'))[1]
         # fs.writelines("\t[%s] = (require(\"Net.Protol.%s_pb\")).%s,"% (tmpMsgID, tmpModuleName, tmpMsgName));
         fs.writelines("\t[%s] = \"%s.%s\"," %
                       (tmpMsgID, tmpModuleName, tmpMsgName))
@@ -42,7 +42,7 @@ def ParseMsgIDDefine(fs, msgidList):
 
     for _msgDef in msgidList:
         fs.writelines("\t%s = %s, %s" % (_msgDef.msgname.upper().replace(
-            ".", "_"), _msgDef.msgid, _msgDef.comment))
+            str.encode('.'), str.encode('_')), _msgDef.msgid, _msgDef.comment))
 
     fs.writelines("}")
     fs.writelines("return config")
@@ -56,13 +56,13 @@ def parse_msgfile(msgid_conf):
     for line in msg_file.readlines():
         line = line.strip().rstrip()
 
-        if not len(line) or line.startswith("#"):
+        if not len(line) or line.startswith(str.encode('#')):
             continue
 
-        valide = line.split("#")[0]
+        valide = line.split(str.encode('#'))[0]
         valide = valide.strip().rstrip()
 
-        array_info = valide.split("=")
+        array_info = valide.split(str.encode('='))
         msgid = array_info[0].strip().rstrip()  # MSGID
 
         if int(msgid) < 1:  # server internal msg
@@ -98,8 +98,8 @@ class WrapFile:
 
 l = parse_msgfile(msgid_conf)
 
-f = WrapFile(open(targetMsgIDDefine, "w+"))
+f = WrapFile(open(targetMsgIDDefine, "w+", encoding='utf-8'))
 ParseMsgIDDefine(f, l)
 
-f = WrapFile(open(targetMsgIDMap, "w+"))
+f = WrapFile(open(targetMsgIDMap, "w+", encoding='utf-8'))
 ParseMsgIDMap(f, l)
