@@ -1,10 +1,11 @@
 #! python3
+#  暂时不用了
 import sys
 import os
 # 第一次先配置正确路径
-cppmsg_dir = "../ProtoToCS/ProtoGen/proto/cppmsg"
-luamsg_dir = "../ProtoToCS/ProtoGen/proto/luamsg"
-msgid_conf = "../ProtoToCS/ProtoGen/proto/msgid.conf"
+cppmsg_dir = "F:/MyFrame/ProtoToCS/ProtoGen/proto/cppmsg"
+luamsg_dir = "F:/MyFrame/ProtoToCS/ProtoGen/proto/luamsg"
+msgid_conf = "F:/MyFrame/ProtoToCS/ProtoGen/proto/msgid.conf"
 
 target_dir = "../../../../Assets/Scripts/core/socket/protocol/"
 curpath = os.path.dirname(os.path.abspath(sys.argv[0]))
@@ -194,9 +195,9 @@ class WrapFile:
 
 l = parse_msgfile(msgid_conf)
 
-targetMsgIDPath = "../Assets/Scripts/core/socket/ProtoMsg/MsgIDDefineDic.cs"
-targetCSPath = "../Assets/Scripts/core/socket/ProtoMsg/MsgIDDefine.cs"
-targetCSPath2 = "../Assets/Scripts/core/socket/ProtoMsg/MsgIDDef.cs"
+targetMsgIDPath = "F:/MyFrame/Assets/Scripts/core/socket/ProtoMsg/MsgIDDefineDic.cs"
+targetCSPath = "F:/MyFrame/Assets/Scripts/core/socket/ProtoMsg/MsgIDDefine.cs"
+targetCSPath2 = "F:/MyFrame/Assets/Scripts/core/socket/ProtoMsg/MsgIDDef.cs"
 # 注释掉：tod
 # f = WrapFile(open(targetCSPath, "w+", encoding='utf-8'))
 # ParseMsgIDDefine(f, l)

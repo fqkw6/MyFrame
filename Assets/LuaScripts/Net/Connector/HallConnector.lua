@@ -9,13 +9,19 @@
 local HallConnector = BaseClass("HallConnector", Singleton)
 local pb = require("pb")
 local LoginHandler = require("Net.Handlers.LoginHandler")
-
+---@return Messenger
+local HandlersCallBack = Messenger.New() --HandlersCallBack:AddListener(TestMessengerType1, call)
+--HandlersCallBack:Broadcast(TestMessengerType1, tal)
 local ConnStatus = {
     Init = 0,
     Connecting = 1,
     WaitLogin = 2,
     Done = 3
 }
+
+function HallConnector:AddListener(type, call)
+    HandlersCallBack:AddListener(type, call)
+end
 
 function HallConnector:__init()
     self.hallSocket = nil
@@ -91,9 +97,8 @@ function HallConnector:OnReceivePackage(receive_bytes)
     if (msg_bytes ~= nil) then
         msg = pb.decode("cs.CSMessage", msg_bytes)
         msgreally = pb.decode("cs.CSLoginInfo", msg.Data)
-        Logger.Log(msgreally.UserName)
     end
-
+    HandlersCallBack:Broadcast(msg.TypeId, msgreally)
     -- self.handlers[msg_id](msg_id, msg)
 end
 

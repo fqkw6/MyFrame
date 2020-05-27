@@ -46,16 +46,22 @@ local TestMessengerType1 = "TestMessengerType1"
 function UILoginView:ClickOnLoginBtn()
     local name = self.account_input:GetText()
     local password = self.password_input:GetText()
-    TestEventCenter:Broadcast(TestMessengerType1)
+    tal = {}
+    tal.Name = "laoli"
+    tal.Arg = 90
+    TestEventCenter:Broadcast(TestMessengerType1, tal)
     --UILoginCtrl:ConnectServer()
     Logger.LogError("denglu ")
     self.ctrl:LoginServer(name, password)
 end
 calkkk = function(arg)
-    -- Logger.LogError("ceeee")
-    -- Logger.LogError(arg.Name)
+    Logger.LogError("ceeee")
+    Logger.LogError(arg.Name)
 end
-
+calkmm = function(arg)
+    Logger.LogError("ceeee")
+    Logger.LogError(arg.UserName)
+end
 function UILoginView:OnCreate()
     base.OnCreate(self)
     -- 初始化各个组件
@@ -66,10 +72,8 @@ function UILoginView:OnCreate()
     self.password_input = self:AddComponent(UIInput, password_input_path)
     self.server_select_btn = self:AddComponent(UIButton, server_select_btn_path)
     self.login_btn = self:AddComponent(UIButton, login_btn_path)
-    tal = {}
-    tal.Name = "laoli"
-    tal.Arg = 90
-    TestEventCenter:AddListener(TestMessengerType1, calkkk, tal)
+    SingleGet.HallConnector():AddListener(10001, calkmm)
+    TestEventCenter:AddListener(TestMessengerType1, calkkk)
     --长按事件
     self.press_Img = self:AddComponent(UIPointerLongPress, long_press_bg)
     self.press_Img:SetOnClick(
