@@ -147,7 +147,8 @@ namespace Networks
             try
             {
                 // 组包、拆包
-                byte[] data = streamBuffer.GetBuffer();
+                byte[] data = streamBuffer.GetBuffer();//27
+
                 int start = 0;
                 streamBuffer.ResetStream();
                 while (true)
@@ -157,9 +158,9 @@ namespace Networks
                     {
                         break;
                     }
-                    // int msgLen = BitConverter.ToInt32(data, start);
-                    int msgLen = bufferCurLen - sizeof(int);
-
+                    //获取 data 中byte 的长度
+                    int msgLen = BitConverter.ToInt32(data, start);
+                    //int msgLen = bufferCurLen - sizeof(int);
                     if (bufferCurLen < msgLen + sizeof(int))
                     {
                         break;
@@ -231,4 +232,5 @@ namespace Networks
         };
     }
 #endif
+
 }

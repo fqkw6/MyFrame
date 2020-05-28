@@ -4,7 +4,7 @@
 --      Use, modification and distribution are subject to the "MIT License"
 --------------------------------------------------------------------------------
 local setmetatable = setmetatable
-
+---@class list
 local list = {}
 list.__index = list
 
@@ -35,7 +35,9 @@ function list:push(value)
 end
 
 function list:pushnode(node)
-	if not node.removed then return end
+	if not node.removed then
+		return
+	end
 
 	self._prev._next = node
 	node._next = self
@@ -70,13 +72,15 @@ function list:shift()
 end
 
 function list:remove(iter)
-	if iter.removed then return end
+	if iter.removed then
+		return
+	end
 
 	local _prev = iter._prev
 	local _next = iter._next
 	_next._prev = _prev
 	_prev._next = _next
-	
+
 	self.length = math.max(0, self.length - 1)
 	iter.removed = true
 end
@@ -89,7 +93,7 @@ function list:find(v, iter)
 			return iter
 		else
 			iter = iter._next
-		end		
+		end
 	until iter == self
 
 	return nil
@@ -131,11 +135,11 @@ function list:erase(v)
 	local iter = self:find(v)
 
 	if iter then
-		self:remove(iter)		
+		self:remove(iter)
 	end
 end
 
-function list:insert(v, iter)	
+function list:insert(v, iter)
 	if not iter then
 		return self:push(v)
 	end
@@ -173,8 +177,12 @@ function list:clone()
 	return t
 end
 
-ilist = function(_list) return list.next, _list, _list end
-rilist = function(_list) return list.prev, _list, _list end
+ilist = function(_list)
+	return list.next, _list, _list
+end
+rilist = function(_list)
+	return list.prev, _list, _list
+end
 
 setmetatable(list, {__call = list.new})
 return list

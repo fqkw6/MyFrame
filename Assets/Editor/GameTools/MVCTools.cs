@@ -31,8 +31,8 @@ public class MVCTools : EditorWindow
         GUILayout.Space(5);
         GUILayout.Label("UI名字  命名格式:UIXXX");
         newUIStr = GUILayout.TextArea(newUIStr, 100);
-        GUILayout.Label("文件夹名名字");
-        newFileStr = GUILayout.TextArea(newFileStr, 100);
+        // GUILayout.Label("文件夹名名字");
+        newFileStr = newUIStr;//GUILayout.TextArea(newFileStr, 100);
         GUILayout.Space(10);
         isCrtl = GUILayout.Toggle(isCrtl, "IsController 是否需要创建Controller");
         GUILayout.Space(10);
@@ -79,7 +79,7 @@ public class MVCTools : EditorWindow
             CreatWriteConfig();
             CreaWriteWindowsName();
             AssetDatabase.SaveAssets();
-
+            AssetDatabase.Refresh();
             EditorUtility.DisplayDialog("MVC Tool", newUIStr + "页面生成成功!!!", "确定");
         }
         //GUILayout.Space(5);
@@ -305,6 +305,7 @@ public class MVCTools : EditorWindow
                                             + "UIWindowNames.lua";
     private static void CreaWriteWindowsName()
     {
+        Debug.LogError(GetUIWindowsPath);
         if (File.Exists(GetUIWindowsPath))
         {
             string str = ReadUITemp(GetUIWindowsPath);
@@ -316,11 +317,12 @@ public class MVCTools : EditorWindow
             string CodeContent = "--" + newUIStr + "\r\n\t"
                    + newUIStr + " = " + "\"" + newUIStr + "\"," + "\r\n\t"
                    + "--AppendCode";
+            Debug.LogError(CodeContent);
             if (str.Contains(appendText))
             {
                 str = str.Replace(appendText, CodeContent);
             }
-
+            Debug.LogError(str);
             FileStream fs = File.Create(GetUIWindowsPath);
             StreamWriter sw = new StreamWriter(fs);
             //开始写入

@@ -22,7 +22,9 @@ local ConnStatus = {
 function HallConnector:AddListener(type, call)
     HandlersCallBack:AddListener(type, call)
 end
-
+function HallConnector:RemoveListener(type, call)
+    HandlersCallBack:RemoveListener(type, call)
+end
 function HallConnector:__init()
     self.hallSocket = nil
     self.handlers = {}
@@ -98,6 +100,7 @@ function HallConnector:OnReceivePackage(receive_bytes)
         msg = pb.decode("cs.CSMessage", msg_bytes)
         msgreally = pb.decode("cs.CSLoginInfo", msg.Data)
     end
+    Logger.Log(msg.TypeId)
     HandlersCallBack:Broadcast(msg.TypeId, msgreally)
     -- self.handlers[msg_id](msg_id, msg)
 end

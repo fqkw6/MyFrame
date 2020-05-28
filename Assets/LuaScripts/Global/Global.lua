@@ -86,6 +86,7 @@ UIWindow = require "Framework.UI.UIWindow"
 UIManager = require "Framework.UI.UIManager"
 UIMessageNames = require "Framework.UI.Message.UIMessageNames"
 UIWindowNames = require "UI.Config.UIWindowNames"
+---@return UIConfig
 UIConfig = require "UI.Config.UIConfig"
 UIBoardManager = require "UI.UIBoard.UIBoardManager"
 

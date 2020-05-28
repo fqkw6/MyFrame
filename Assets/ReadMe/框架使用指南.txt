@@ -44,3 +44,12 @@ LogLocation 打印辅助工具不好使时，就随便保存一行，重新运�
 3，hotfix 可能出现问题在手机上
 4,emmycode.lua 手机上找不到，gamemain 里注释掉相关内容
 5，真机测试可以通过
+6，ptyhon安装 pip ,pip xlrd,配置 ptyhon script 环境变量
+////
+1,导表配置  Tool>LuaConfig>xlsx genLua,,,  xlsx path= "F:/MyFrame/ConfigData/Excel2Lua"   out PutPath="F:/MyFrame/Assets/LuaScripts/Config/Data"
+2,导出proto gen lua   proto patg= F:/MyFrame/ProtoToLua   
+3,导出cs:  执行 F:\severMyFram\Proto to cs 
+4，注意事项F:\severMyFram\Proto to cs\proto的文件必须和F:\MyFrame\ProtoToLua\proto一致
+5  使用lua pro 参考 ProtobufTest
+6，pb.encode("cs.CSMessage", data2）序列化时加上 proto 导出的命名空间
+7，pb.decode("cs.CSMessage", pb_data) 反序列化也是如此

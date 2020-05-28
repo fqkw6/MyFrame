@@ -2,7 +2,13 @@
 -- added by wsh @ 2017-12-01
 -- UILogin控制层
 --]]
+---@class UILoginCtrl:UIBaseCtrl
 local UILoginCtrl = BaseClass("UILoginCtrl", UIBaseCtrl)
+---@return UIBaseCtrl
+local base = UIBaseCtrl
+local calkmm = function(arg)
+    Logger.LogError(arg.UserName)
+end
 
 local function OnConnect(self, sender, result, msg)
     if result < 0 then
@@ -65,8 +71,10 @@ end
 local function ChooseServer(self)
     SingleGet.UIManager():OpenWindow(UIWindowNames.UILoginServer)
 end
-
+local function OnCreate(self)
+    base.OnAddListener(10001, calkmm)
+end
 UILoginCtrl.LoginServer = LoginServer
 UILoginCtrl.ChooseServer = ChooseServer
-
+UILoginCtrl.OnCreate = OnCreate
 return UILoginCtrl

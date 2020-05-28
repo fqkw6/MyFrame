@@ -8,8 +8,9 @@
 -- 使用方式：
 -- self.xxx_anim = self:AddComponent(UIAnimation)--添加
 --]]
-
+---@class UIAnimation:UIBaseContainer
 local UIAnimation = BaseClass("UIAnimation", UIBaseContainer)
+---@return UIBaseContainer
 local base = UIBaseContainer
 
 -- 创建
@@ -21,7 +22,7 @@ local function OnCreate(self, relative_path)
 	-- 记录点击回调
 	self.__onopen = nil
 	self.__onclose = nil
-	
+
 	if IsNull(self.ui_animation) and IsNull(self.gameObject) then
 		self.gameObject = self.ui_animation.gameObject
 		self.transform = self.ui_animation.transform
@@ -51,18 +52,18 @@ end
 local function OnDestroy(self)
 	if self.__onopen ~= nil then
 		self.ui_animation.onOpen:RemoveListener(self.__onopen)
-    end
-    if self.__onclose ~= nil then
+	end
+	if self.__onclose ~= nil then
 		self.ui_animation.onClose:RemoveListener(self.__onclose)
-    end
-    
+	end
+
 	self.ui_animation = nil
 	self.onOpen = nil
 	self.onClose = nil
 	base.OnDestroy(self)
 end
 
-local function SetDisable(self,isDisable)
+local function SetDisable(self, isDisable)
 	self.ui_animation.interactable = not isDisable
 end
 

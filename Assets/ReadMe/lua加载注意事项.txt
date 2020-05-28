@@ -55,5 +55,7 @@
 
         不加首个参数 self  ResourcesManager:GetInstance():NewLoadAsync2 
 
+        6,重点，lua 是从上到下按顺序执行，所以有的调用方法要写在前面，
+
 
 

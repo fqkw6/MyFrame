@@ -190,7 +190,6 @@ namespace Networks
                         int readLen = mClientSocket.Receive(receiveStreamBuffer.GetBuffer(), bufferCurLen, bufferLeftLen, SocketFlags.None);
                         if (readLen == 0) throw new ObjectDisposedException("DisposeEX", "receive from server 0 bytes,closed it");
                         if (readLen < 0) throw new Exception("Unknow exception, readLen < 0" + readLen);
-                        UnityEngine.Debug.LogError(readLen);
                         bufferCurLen += readLen;
                         DoReceive(receiveStreamBuffer, ref bufferCurLen);
                         if (bufferCurLen == receiveStreamBuffer.size)

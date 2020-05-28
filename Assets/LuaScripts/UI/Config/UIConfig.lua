@@ -12,7 +12,7 @@ local UIModule = {
     UIBoard = require "UI.UIBoard.UIBoardConfig",
     UIProduce = require "UI.UIProduce.UIProduceConfig"
 }
-
+---@class UIConfig
 local UIConfig = {}
 for _, ui_module in pairs(UIModule) do
     for _, ui_config in pairs(ui_module) do

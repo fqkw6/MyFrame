@@ -51,15 +51,13 @@ function UILoginView:ClickOnLoginBtn()
     tal.Arg = 90
     TestEventCenter:Broadcast(TestMessengerType1, tal)
     --UILoginCtrl:ConnectServer()
-    Logger.LogError("denglu ")
+    Logger.Log("denglu ")
     self.ctrl:LoginServer(name, password)
 end
 calkkk = function(arg)
-    Logger.LogError("ceeee")
-    Logger.LogError(arg.Name)
+    Logger.Log(arg.Name)
 end
-calkmm = function(arg)
-    Logger.LogError("ceeee")
+local calkmm = function(arg)
     Logger.LogError(arg.UserName)
 end
 function UILoginView:OnCreate()
@@ -72,7 +70,6 @@ function UILoginView:OnCreate()
     self.password_input = self:AddComponent(UIInput, password_input_path)
     self.server_select_btn = self:AddComponent(UIButton, server_select_btn_path)
     self.login_btn = self:AddComponent(UIButton, login_btn_path)
-    SingleGet.HallConnector():AddListener(10001, calkmm)
     TestEventCenter:AddListener(TestMessengerType1, calkkk)
     --长按事件
     self.press_Img = self:AddComponent(UIPointerLongPress, long_press_bg)

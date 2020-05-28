@@ -19,6 +19,7 @@ local function __init(self, holder, var_arg, model, ctrl)
     assert(model ~= nil)
     assert(ctrl ~= nil)
     self.ctrl = ctrl
+
     -- 强制不能直接写Model层
     if Config.Debug then
         self.model =
