@@ -28,7 +28,7 @@ local function OnConnect(self, sender, result, msg)
     msg.Password = "1222233"
     Logger.Log("fasong")
     Logger.Log(msd_id)
-    SingleGet.HallConnector():SendMessage(msd_id, msg)
+    SingleGet.HallConnector():SendMessage(msd_id, "cs.CSLoginInfo", msg)
 end
 
 local function OnClose(self, sender, result, msg)

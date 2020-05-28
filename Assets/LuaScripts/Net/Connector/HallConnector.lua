@@ -114,13 +114,34 @@ function HallConnector:Connect(host_ip, host_port, on_connect, on_close)
 
     return self.hallSocket
 end
+----原来的写法
+-- function HallConnector:SendMessage(msg_id, msg)
+--     local send = CS.ByteBuffer()
+--     Logger.Log(msg.UserName)
 
-function HallConnector:SendMessage(msg_id, msg)
+--     if (msg) then
+--         local msg_bytes = pb.encode("cs.CSLoginInfo", msg)
+--         Logger.Log("send messge msg_bytes" .. msg_id .. "；byte count：" .. #msg_bytes)
+--         local heard = {}
+--         heard.TypeId = msg_id
+--         heard.Data = msg_bytes
+--         local msg_really = pb.encode("cs.CSMessage", heard)
+--         send:WriteBytes(msg_really)
+--         Logger.Log("send messge msg_really" .. msg_id .. "；byte count：" .. #msg_really)
+--     end
+
+--     local bytes = send:ToBytes()
+--     Logger.Log("send messge：" .. msg_id .. "；byte count：" .. #bytes)
+
+--     self.hallSocket:SendMessage(bytes)
+-- end
+
+function HallConnector:SendMessage(msg_id, msg_str, msg)
     local send = CS.ByteBuffer()
     Logger.Log(msg.UserName)
 
     if (msg) then
-        local msg_bytes = pb.encode("cs.CSLoginInfo", msg)
+        local msg_bytes = pb.encode(msg_str, msg)
         Logger.Log("send messge msg_bytes" .. msg_id .. "；byte count：" .. #msg_bytes)
         local heard = {}
         heard.TypeId = msg_id
