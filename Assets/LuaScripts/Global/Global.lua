@@ -15,7 +15,7 @@ require "Framework.Common.DataClass"
 require "Framework.Common.ConstClass"
 
 require "LuaDhl.Test01"
-
+pb = require("pb")
 -- 创建全局模块
 Config = require "Global.Config"
 SingleGet = require "Common.SingleGet"

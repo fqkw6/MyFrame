@@ -7,7 +7,11 @@ local UILoginCtrl = BaseClass("UILoginCtrl", UIBaseCtrl)
 ---@return UIBaseCtrl
 local base = UIBaseCtrl
 local calkmm = function(arg)
-    Logger.LogError(arg.UserName)
+    local msg = pb.decode("cs.CSLoginReq", arg)
+    Logger.LogError(msg.UserName)
+    local list = msg.IDList
+
+    Logger.LogError(list[1])
 end
 
 local function OnConnect(self, sender, result, msg)

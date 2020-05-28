@@ -35,7 +35,7 @@ namespace EditorExtend
                 //     , "Start eternity game");
 
                 ms_StartGameContent = new GUIContent("G", "Start server");
-                ms_StartServerContent = new GUIContent("S", "Start Game");
+                ms_StartServerContent = new GUIContent("P", "ProtoToGame");
             }
         }
 

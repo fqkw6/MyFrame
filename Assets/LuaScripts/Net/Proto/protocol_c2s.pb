@@ -1,5 +1,5 @@
 
-˜
+¨
 protocol_c2s.protocs"
 	req_login
 flag (")
@@ -8,11 +8,12 @@
 Data ("1
 CSLoginInfo
 UserName (	
-Password (	"0
+Password (	"@
 
 CSLoginReq
 UserName (	
-Password (	"!
+Password (	
+IDList ("!
 
 CSLoginRes
 result_code (*0

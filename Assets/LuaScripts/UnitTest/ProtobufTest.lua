@@ -9,7 +9,7 @@ local function Encoder()
         UserName = "lisi",
         Password = "mima123"
     }
-    bytes = assert(pb.encode("cs.CSLoginInfo", data))
+    bytes = assert(pb.encode("cs.CSLoginReq", data))
     local data2 = {
         TypeId = 101,
         Data = bytes
@@ -28,7 +28,7 @@ end
 function Decoder(pb_data)
     -- and decode the binary data back into lua table
     local data2 = assert(pb.decode("cs.CSMessage", pb_data))
-    local datae = assert(pb.decode("cs.CSLoginInfo", data2.Data))
+    local datae = assert(pb.decode("cs.CSLoginReq", data2.Data))
     ---解压
     Logger.Log(data2.TypeId)
     Logger.Log(datae.UserName)

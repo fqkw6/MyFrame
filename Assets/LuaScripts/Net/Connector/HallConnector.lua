@@ -7,7 +7,6 @@
 --]]
 ---@class HallConnector :Singleton
 local HallConnector = BaseClass("HallConnector", Singleton)
-local pb = require("pb")
 local LoginHandler = require("Net.Handlers.LoginHandler")
 ---@return Messenger
 local HandlersCallBack = Messenger.New() --HandlersCallBack:AddListener(TestMessengerType1, call)
@@ -95,10 +94,9 @@ function HallConnector:OnReceivePackage(receive_bytes)
     local msgreally = nil
     if (msg_bytes ~= nil) then
         msg = pb.decode("cs.CSMessage", msg_bytes)
-        msgreally = pb.decode("cs.CSLoginInfo", msg.Data)
+        Logger.Log(msg.TypeId)
+        HandlersCallBack:Broadcast(msg.TypeId, msg.Data)
     end
-    Logger.Log(msg.TypeId)
-    HandlersCallBack:Broadcast(msg.TypeId, msgreally)
     -- self.handlers[msg_id](msg_id, msg)
 end
 
