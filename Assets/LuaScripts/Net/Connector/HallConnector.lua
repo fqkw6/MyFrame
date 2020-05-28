@@ -37,10 +37,7 @@ end
 
 function HallConnector:LoadPB()
     local pbFiles = {
-        "Net/Proto/common.pb",
-        "Net/Proto/protocol_c2s.pb",
-        "Net/Proto/room.pb",
-        "Net/Proto/user.pb"
+        "Net/Proto/protocol_c2s.pb"
     }
 
     --编辑器下和移动端，加载位置不同
