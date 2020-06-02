@@ -263,7 +263,6 @@ public class AssetbundleUpdater : MonoBehaviour
             // 外部版本对比版本号更新
             needUpdateGame = BuildUtils.CheckIsNewVersion(clientResVersion, serverResVersion);
         }
-
 #if UNITY_CLIENT || LOGGER_ON
         System.Text.StringBuilder sb = new System.Text.StringBuilder();
         sb.AppendFormat("SERVER_LIST_URL = {0}\n", URLSetting.SERVER_LIST_URL);
@@ -562,7 +561,6 @@ public class AssetbundleUpdater : MonoBehaviour
             downloadManifestUrl += ("?v" + timeStamp);
         }
         yield return DownloadHostManifest(downloadManifestUrl, isInternal);
-
         needDownloadList = localManifest.CompareTo(hostManifest);
         yield break;
     }

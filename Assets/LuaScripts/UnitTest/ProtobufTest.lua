@@ -7,7 +7,8 @@ end
 local function Encoder()
     local data = {
         UserName = "lisi",
-        Password = "mima123"
+        Password = "mima123",
+        IDList = {2, 3}
     }
     bytes = assert(pb.encode("cs.CSLoginReq", data))
     local data2 = {
@@ -32,6 +33,7 @@ function Decoder(pb_data)
     ---解压
     Logger.Log(data2.TypeId)
     Logger.Log(datae.UserName)
+    Logger.Log(#datae.IDList)
 end
 
 local function Run()

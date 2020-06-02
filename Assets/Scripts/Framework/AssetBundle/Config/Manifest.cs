@@ -119,6 +119,7 @@ namespace AssetBundles
             string[] self_name_list = GetAllAssetBundleNames();
             foreach (string name in other_name_list)
             {
+                //   UnityEngine.Debug.LogError(name);
                 int idx = System.Array.FindIndex(self_name_list, element => element.Equals(name));
                 if (idx == -1)
                 {

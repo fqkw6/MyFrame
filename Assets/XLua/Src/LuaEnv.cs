@@ -70,7 +70,7 @@ namespace XLua
             }
 
 #if THREAD_SAFE || HOTFIX_ENABLE
-            lock(luaEnvLock)
+            lock (luaEnvLock)
             {
 #endif
                 LuaIndexes.LUA_REGISTRYINDEX = LuaAPI.xlua_get_registry_index();
@@ -330,7 +330,7 @@ namespace XLua
 
         static bool ObjectValidCheck(object obj)
         {
-            return (!(obj is UnityEngine.Object)) ||  ((obj as UnityEngine.Object) != null);
+            return (!(obj is UnityEngine.Object)) || ((obj as UnityEngine.Object) != null);
         }
 
         Func<object, bool> object_valid_checker = new Func<object, bool>(ObjectValidCheck);
@@ -411,7 +411,7 @@ namespace XLua
                 {
                     throw new InvalidOperationException("try to dispose a LuaEnv with C# callback!");
                 }
-                
+
                 ObjectTranslatorPool.Instance.Remove(L);
 
                 LuaAPI.lua_close(L);

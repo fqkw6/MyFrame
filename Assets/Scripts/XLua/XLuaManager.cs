@@ -173,10 +173,12 @@ public class XLuaManager : MonoSingleton<XLuaManager>
             m_path.Add(scriptPath);
             return GameUtility.SafeReadAllBytes(scriptPath);
         }
+
 #endif
+        string str = filepath;
         string scriptPathAdd = Path.Combine(Application.dataPath, luaScriptsFolder);
-        scriptPathAdd = Path.Combine(scriptPathAdd, filepath);
-        //   Logger.Log("Load lua script : " + scriptPathAdd);
+        scriptPathAdd = Path.Combine(scriptPathAdd, str);
+        //   Logger.LogError("Load lua script : " + filepath);
         m_path.Add(scriptPathAdd);
 
         scriptPath = string.Format("{0}/{1}.bytes", luaAssetbundleAssetName, filepath);

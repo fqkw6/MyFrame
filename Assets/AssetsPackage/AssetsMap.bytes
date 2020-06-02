@@ -135,7 +135,7 @@ lua.assetbundle,Lua/Net/Config/MsgIDMap.lua.bytes
 lua.assetbundle,Lua/Net/Connector/HallConnector.lua.bytes
 lua.assetbundle,Lua/Net/Handlers/LoginHandler.lua.bytes
 lua.assetbundle,Lua/Net/Proto/common.pb.bytes
-lua.assetbundle,Lua/Net/Proto/login.pb.bytes
+lua.assetbundle,Lua/Net/Proto/protocol_c2s.pb.bytes
 lua.assetbundle,Lua/Net/Proto/room.pb.bytes
 lua.assetbundle,Lua/Net/Proto/user.pb.bytes
 lua.assetbundle,Lua/Resource/Config/AtlasConfig.lua.bytes

@@ -11,7 +11,6 @@ local UILoginView = BaseClass("UILoginView", UIBaseView)
 ---@return UIBaseView
 local base = UIBaseView
 
-UILoginCtrl = require("Assets.LuaScripts.UI.UILogin.Controller.UILoginCtrl")
 -- 各个组件路径
 local server_text_path = "ContentRoot/SvrRoot/SvrSelectBtn/SvrText"
 local account_input_path = "ContentRoot/AccountRoot/AccountInput"
