@@ -2,7 +2,7 @@
 using System.Collections;
 using AssetBundles;
 using UnityEditor;
-
+using System;
 /// <summary>
 /// added by wsh @ 2018.01.03
 /// 功能：打包前的AB检测工作
@@ -45,21 +45,33 @@ public static class CheckAssetBundles
 
     public static void RunAllCheckers(bool checkChannel)
     {
-        var guids = AssetDatabase.FindAssets("t:AssetBundleDispatcherConfig", new string[] { AssetBundleInspectorUtils.DatabaseRoot });
-        var length = guids.Length;
-        var count = 0;
-        foreach (var guid in guids)
+        try
         {
-            count++;
-            var assetPath = AssetDatabase.GUIDToAssetPath(guid);
+            var guids = AssetDatabase.FindAssets("t:AssetBundleDispatcherConfig", new string[] { AssetBundleInspectorUtils.DatabaseRoot });
+            var length = guids.Length;
+            var count = 0;
+            foreach (var guid in guids)
+            {
+                count++;
+                var assetPath = AssetDatabase.GUIDToAssetPath(guid);
 
-            var config = AssetDatabase.LoadAssetAtPath<AssetBundleDispatcherConfig>(assetPath);
-            config.Load();
-            EditorUtility.DisplayProgressBar("Run checker :", config.PackagePath, (float)count / length);
-            AssetBundleDispatcher.Run(config, checkChannel);
+                var config = AssetDatabase.LoadAssetAtPath<AssetBundleDispatcherConfig>(assetPath);
+                config.Load();
+                EditorUtility.DisplayProgressBar("Run checker :", config.PackagePath, (float)count / length);
+                AssetBundleDispatcher.Run(config, checkChannel);
+            }
         }
-        AssetDatabase.Refresh();
-        EditorUtility.ClearProgressBar();
+        catch (Exception e)
+        {
+
+            Debug.LogError(e);
+        }
+        finally
+        {
+            AssetDatabase.Refresh();
+            EditorUtility.ClearProgressBar();
+        }
+      
     }
 
     public static void Run(bool checkChannel)
