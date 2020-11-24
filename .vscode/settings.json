@@ -52,5 +52,18 @@
     "ProjectSettings/": true,
     "temp/": true,
     "Temp/": true
-  }
-}
+    
+  },
+  "search.exclude": {
+    "**/node_modules": true,
+    "**/bower_components": true,
+    "build/": true,
+    "temp/": true,
+    "library/": true,
+    "**/*.anim": true
+},
+"editor.links": false,
+"editor.formatOnSave": true,
+"window.zoomLevel": 1,
+"prettier.semi": false,
+"prettier.useEditorConfig": false
