@@ -85,6 +85,7 @@ stack traceback:
         while (match.Success)
         {
             string pathLine = match.Groups[1].Value;
+            // UnityEngine. Debug.LogError(pathLine);
             if (!pathLine.Contains("LogSubsystem.cs"))//一直为true
             {
                 int spliteIndex = pathLine.LastIndexOf(':');
@@ -93,6 +94,7 @@ stack traceback:
                 string s = path.Replace("\t", "");
                 for (int i = 0; i < XLuaManager.m_path.Count; i++)
                 {
+                    // UnityEngine.Debug.LogError(XLuaManager.m_path[i] + "==s==" + s);
                     if (XLuaManager.m_path[i].Contains(s))//xlua 里所有lua 文件地址合集
                     {
                         path = XLuaManager.m_path[i];
@@ -100,15 +102,15 @@ stack traceback:
                     }
                 }
                 string args = string.Empty;
-                if (luaIDEType == LuaIDEType.IDEA)
-                {
-                    args = string.Format("{0}:{1}", path.Replace("\\", "/"), line);
-                }
-                else if (luaIDEType == LuaIDEType.VSCode)
+                // if (luaIDEType == LuaIDEType.IDEA)
+                // {
+                //     args = string.Format("{0}:{1}", path.Replace("\\", "/"), line);
+                // }
+                // else if (luaIDEType == LuaIDEType.VSCode)
                 {
                     args = string.Format("-g {0}:{1}", path.Replace("\\", "/"), line);
                 }
-
+               // UnityEngine.Debug.LogError(args);
                 Process process = new Process();
                 ProcessStartInfo startInfo = new ProcessStartInfo();
                 startInfo.FileName = idePath;
