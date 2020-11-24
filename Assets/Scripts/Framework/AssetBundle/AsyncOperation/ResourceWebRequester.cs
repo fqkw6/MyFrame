@@ -170,7 +170,7 @@ namespace AssetBundles
 
             if (www != null && !string.IsNullOrEmpty(www.error))
             {
-                Logger.LogError(www.error);
+                Logger.LogError(www.error + "\n" + url);
             }
         }
 
